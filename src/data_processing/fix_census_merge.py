@@ -65,18 +65,27 @@ def fix_census_merge():
         la_tracts = gdf[gdf['COUNTYFP'] == '037'].copy()
         print(f"   ✓ Filtered to {len(la_tracts)} LA County tracts")
 
-        # Calculate centroids
+        # Calculate centroids using proper projected CRS
         print("   Calculating centroids...")
-        la_tracts_wgs84 = la_tracts.to_crs(epsg=4326)
-        centroids = la_tracts_wgs84.geometry.centroid
-        la_tracts['centroid_lat'] = centroids.y
-        la_tracts['centroid_lon'] = centroids.x
 
-        # Calculate area in sq km
-        la_tracts_area = la_tracts.to_crs(epsg=3857)  # Web Mercator for area
-        la_tracts['area_sqkm'] = la_tracts_area.geometry.area / 1_000_000
+        # Use California State Plane Zone 5 (NAD83) - EPSG:2229 (feet) or EPSG:26945 (meters)
+        # This is the proper projection for LA County
+        la_tracts_projected = la_tracts.to_crs(epsg=2229)  # CA State Plane Zone 5 (feet)
 
-        print(f"   ✓ Centroids and areas calculated")
+        # Calculate centroids in projected coordinates (avoids warning)
+        centroids_projected = la_tracts_projected.geometry.centroid
+
+        # Convert centroids back to WGS84 for lat/lon
+        centroids_wgs84 = centroids_projected.to_crs(epsg=4326)
+        la_tracts['centroid_lat'] = centroids_wgs84.y
+        la_tracts['centroid_lon'] = centroids_wgs84.x
+
+        # Calculate area in sq km using equal-area projection
+        # Use California Albers (EPSG:3310) for accurate area calculation
+        la_tracts_albers = la_tracts.to_crs(epsg=3310)  # California Albers
+        la_tracts['area_sqkm'] = la_tracts_albers.geometry.area / 1_000_000  # m^2 to km^2
+
+        print(f"   ✓ Centroids and areas calculated (proper projections used)")
     else:
         print(f"   ⚠ Shapefile not found at {shapefile_path}")
         print("   Continuing with census data only...")
