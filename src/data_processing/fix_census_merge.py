@@ -7,15 +7,23 @@ empty demographic columns despite raw data being available.
 
 import pandas as pd
 import geopandas as gpd
+import logging
 from pathlib import Path
 from datetime import datetime
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 def fix_census_merge():
     """Fix the census data merge to populate demographic columns."""
 
-    print("="*70)
-    print("FIXING CENSUS DATA MERGE")
-    print("="*70)
+    logger.info("="*70)
+    logger.info("FIXING CENSUS DATA MERGE")
+    logger.info("="*70)
 
     # Paths
     project_root = Path(__file__).parent.parent.parent
@@ -24,20 +32,20 @@ def fix_census_merge():
     data_external = project_root / 'data' / 'external'
 
     # Load raw census data files
-    print("\n1. Loading raw census data...")
+    logger.info("\n1. Loading raw census data...")
 
     census_basic = pd.read_csv(data_raw / 'census_basic_demographics_20260204.csv')
-    print(f"   ✓ Basic demographics: {len(census_basic)} tracts")
-    print(f"     Columns: {list(census_basic.columns)}")
+    logger.info(f"   ✓ Basic demographics: {len(census_basic)} tracts")
+    logger.info(f"     Columns: {list(census_basic.columns)}")
 
     census_transport = pd.read_csv(data_raw / 'census_transportation_20260204.csv')
-    print(f"   ✓ Transportation: {len(census_transport)} tracts")
+    logger.info(f"   ✓ Transportation: {len(census_transport)} tracts")
 
     census_poverty = pd.read_csv(data_raw / 'census_poverty_20260204.csv')
-    print(f"   ✓ Poverty data: {len(census_poverty)} tracts")
+    logger.info(f"   ✓ Poverty data: {len(census_poverty)} tracts")
 
     # Standardize GEOID format in all census datasets
-    print("\n2. Standardizing GEOIDs...")
+    logger.info("\n2. Standardizing GEOIDs...")
 
     for df in [census_basic, census_transport, census_poverty]:
         if 'GEOID' in df.columns:
@@ -50,23 +58,23 @@ def fix_census_merge():
                           df['county'].astype(str).str.zfill(3) + \
                           df['tract'].astype(str).str.zfill(6)
 
-    print(f"   ✓ GEOIDs standardized to 11-digit strings")
-    print(f"   Sample GEOID: {census_basic['GEOID'].iloc[0]}")
+    logger.info(f"   ✓ GEOIDs standardized to 11-digit strings")
+    logger.info(f"   Sample GEOID: {census_basic['GEOID'].iloc[0]}")
 
     # Load shapefile for geographic data
-    print("\n3. Loading TIGER shapefile...")
+    logger.info("\n3. Loading TIGER shapefile...")
 
     shapefile_path = data_external / 'tl_2023_06_tract.shp'
     if shapefile_path.exists():
         gdf = gpd.read_file(shapefile_path)
-        print(f"   ✓ Loaded {len(gdf)} California census tracts")
+        logger.info(f"   ✓ Loaded {len(gdf)} California census tracts")
 
         # Filter to LA County (COUNTYFP = 037)
         la_tracts = gdf[gdf['COUNTYFP'] == '037'].copy()
-        print(f"   ✓ Filtered to {len(la_tracts)} LA County tracts")
+        logger.info(f"   ✓ Filtered to {len(la_tracts)} LA County tracts")
 
         # Calculate centroids using proper projected CRS
-        print("   Calculating centroids...")
+        logger.info("   Calculating centroids...")
 
         # Use California State Plane Zone 5 (NAD83) - EPSG:2229 (feet) or EPSG:26945 (meters)
         # This is the proper projection for LA County
@@ -85,14 +93,14 @@ def fix_census_merge():
         la_tracts_albers = la_tracts.to_crs(epsg=3310)  # California Albers
         la_tracts['area_sqkm'] = la_tracts_albers.geometry.area / 1_000_000  # m^2 to km^2
 
-        print(f"   ✓ Centroids and areas calculated (proper projections used)")
+        logger.info(f"   ✓ Centroids and areas calculated (proper projections used)")
     else:
-        print(f"   ⚠ Shapefile not found at {shapefile_path}")
-        print("   Continuing with census data only...")
+        logger.info(f"   ⚠ Shapefile not found at {shapefile_path}")
+        logger.info("   Continuing with census data only...")
         la_tracts = None
 
     # Merge census datasets
-    print("\n4. Merging census datasets...")
+    logger.info("\n4. Merging census datasets...")
 
     # Start with basic demographics
     census_merged = census_basic.copy()
@@ -119,7 +127,7 @@ def fix_census_merge():
             on='GEOID',
             how='left'
         )
-        print(f"   ✓ Merged transportation data")
+        logger.info(f"   ✓ Merged transportation data")
 
     # Merge poverty data
     if 'S1701_C03_001E' in census_poverty.columns:
@@ -139,22 +147,22 @@ def fix_census_merge():
             on='GEOID',
             how='left'
         )
-        print(f"   ✓ Merged poverty data")
+        logger.info(f"   ✓ Merged poverty data")
 
-    print(f"\n   Census data merged: {len(census_merged)} tracts")
+    logger.info(f"\n   Census data merged: {len(census_merged)} tracts")
 
     # Calculate derived metrics
-    print("\n5. Calculating derived metrics...")
+    logger.info("\n5. Calculating derived metrics...")
 
     if 'total_households' in census_merged.columns and 'households_no_vehicle' in census_merged.columns:
         census_merged['pct_no_vehicle'] = (
             census_merged['households_no_vehicle'] / census_merged['total_households'] * 100
         )
-        print("   ✓ Calculated % households without vehicle")
+        logger.info("   ✓ Calculated % households without vehicle")
 
     # Merge with geographic data if available
     if la_tracts is not None:
-        print("\n6. Merging with geographic data...")
+        logger.info("\n6. Merging with geographic data...")
 
         # Ensure GEOID is string in both
         census_merged['GEOID'] = census_merged['GEOID'].astype(str)
@@ -167,32 +175,32 @@ def fix_census_merge():
             how='left'
         )
 
-        print(f"   ✓ Merged geographic + demographic data: {len(final_data)} tracts")
+        logger.info(f"   ✓ Merged geographic + demographic data: {len(final_data)} tracts")
 
         # Calculate population density
         if 'total_population' in final_data.columns and 'area_sqkm' in final_data.columns:
             final_data['pop_density_per_sqkm'] = (
                 final_data['total_population'] / final_data['area_sqkm']
             )
-            print("   ✓ Calculated population density")
+            logger.info("   ✓ Calculated population density")
 
         # Convert GeoDataFrame to regular DataFrame for CSV output
         final_data_csv = final_data.drop(columns=['geometry'])
     else:
         final_data_csv = census_merged
-        print("\n6. Skipping geographic merge (shapefile not loaded)")
+        logger.info("\n6. Skipping geographic merge (shapefile not loaded)")
 
     # Save fixed data
-    print("\n7. Saving fixed census data...")
+    logger.info("\n7. Saving fixed census data...")
 
     timestamp = datetime.now().strftime('%Y%m%d')
     output_file = data_processed / f'census_tracts_data_{timestamp}.csv'
     final_data_csv.to_csv(output_file, index=False)
 
-    print(f"   ✓ Saved to: {output_file}")
+    logger.info(f"   ✓ Saved to: {output_file}")
 
     # Verify the fix
-    print("\n8. Verifying fix...")
+    logger.info("\n8. Verifying fix...")
 
     verification = pd.read_csv(output_file)
 
@@ -200,34 +208,34 @@ def fix_census_merge():
     for col in critical_columns:
         if col in verification.columns:
             non_null = verification[col].notna().sum()
-            print(f"   {col}: {non_null}/{len(verification)} non-null values")
+            logger.info(f"   {col}: {non_null}/{len(verification)} non-null values")
         else:
-            print(f"   ⚠ {col}: MISSING")
+            logger.info(f"   ⚠ {col}: MISSING")
 
     # Summary statistics
     if 'total_population' in verification.columns:
-        print(f"\n9. Summary Statistics:")
-        print(f"   Total LA County population: {verification['total_population'].sum():,.0f}")
-        print(f"   Average tract population: {verification['total_population'].mean():,.0f}")
-        print(f"   Median household income (median): ${verification['median_income'].median():,.0f}")
+        logger.info(f"\n9. Summary Statistics:")
+        logger.info(f"   Total LA County population: {verification['total_population'].sum():,.0f}")
+        logger.info(f"   Average tract population: {verification['total_population'].mean():,.0f}")
+        logger.info(f"   Median household income (median): ${verification['median_income'].median():,.0f}")
 
         if 'centroid_lat' in verification.columns:
-            print(f"   Centroids calculated: {verification['centroid_lat'].notna().sum()} tracts")
+            logger.info(f"   Centroids calculated: {verification['centroid_lat'].notna().sum()} tracts")
 
         if 'pop_density_per_sqkm' in verification.columns:
-            print(f"   Population density calculated: {verification['pop_density_per_sqkm'].notna().sum()} tracts")
+            logger.info(f"   Population density calculated: {verification['pop_density_per_sqkm'].notna().sum()} tracts")
 
-    print("\n" + "="*70)
-    print("✓ CENSUS DATA MERGE FIXED!")
-    print("="*70)
+    logger.info("\n" + "="*70)
+    logger.info("✓ CENSUS DATA MERGE FIXED!")
+    logger.info("="*70)
 
     return output_file
 
 
 if __name__ == "__main__":
     output_file = fix_census_merge()
-    print(f"\nFixed census data saved to:\n{output_file}")
-    print("\nNext steps:")
-    print("1. Review the output file to verify data quality")
-    print("2. Run the analysis notebook: notebooks/FINAL_ANALYSIS_AND_RESULTS.ipynb")
-    print("3. Generate all visualizations and outputs")
+    logger.info(f"\nFixed census data saved to:\n{output_file}")
+    logger.info("\nNext steps:")
+    logger.info("1. Review the output file to verify data quality")
+    logger.info("2. Run the analysis notebook: notebooks/FINAL_ANALYSIS_AND_RESULTS.ipynb")
+    logger.info("3. Generate all visualizations and outputs")
