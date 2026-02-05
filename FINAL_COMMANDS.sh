@@ -1,0 +1,80 @@
+#!/bin/bash
+
+# LA Healthcare Access Mapping - Final Deployment Commands
+# This script opens all necessary pages and provides commands to run
+
+echo "🚀 Opening all deployment pages in your browser..."
+echo ""
+
+# Open GitHub repo creation
+echo "1️⃣  Opening GitHub (create repository)..."
+open "https://github.com/new?name=la-healthcare-access-mapping&description=Healthcare+access+analysis+across+LA+County&visibility=public"
+sleep 3
+
+# Open Railway
+echo "2️⃣  Opening Railway (deploy backend)..."
+open "https://railway.app/new"
+sleep 3
+
+# Open Vercel
+echo "3️⃣  Opening Vercel (deploy frontend)..."
+open "https://vercel.com/new"
+sleep 2
+
+echo ""
+echo "✅ All deployment pages opened!"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "📋 FOLLOW THESE STEPS:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "STEP 1: GitHub (in the browser tab that just opened)"
+echo "  1. Click 'Create repository' (don't check any boxes)"
+echo "  2. After creation, come back here and run:"
+echo ""
+echo "     cd /Users/joelnewton/Desktop/2026-Code/Projects/la-healthcare-access-mapping"
+echo "     git remote add origin https://github.com/YOUR_USERNAME/la-healthcare-access-mapping.git"
+echo "     git push -u origin main"
+echo ""
+echo "  Replace YOUR_USERNAME with your actual GitHub username!"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "STEP 2: Railway (in the second browser tab)"
+echo "  1. Click 'Deploy from GitHub repo'"
+echo "  2. Select 'la-healthcare-access-mapping'"
+echo "  3. Click 'Deploy'"
+echo "  4. Go to Settings → Set 'Root Directory' to: backend"
+echo "  5. Go to Settings → Domains → Click 'Generate Domain'"
+echo "  6. COPY THE URL (you'll need it for Step 3!)"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "STEP 3: Vercel (in the third browser tab)"
+echo "  1. Click 'Import Git Repository'"
+echo "  2. Find and import 'la-healthcare-access-mapping'"
+echo "  3. Set 'Root Directory' to: frontend"
+echo "  4. Add Environment Variable:"
+echo "     • Name: NEXT_PUBLIC_API_URL"
+echo "     • Value: (paste Railway URL from Step 2)"
+echo "  5. Click 'Deploy'"
+echo "  6. Wait 2-3 minutes for build"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "STEP 4: Connect Backend & Frontend"
+echo "  1. Go back to Railway → Your project → Variables"
+echo "  2. Add variable:"
+echo "     • Name: ALLOWED_ORIGINS"
+echo "     • Value: https://your-vercel-url.vercel.app,https://*.vercel.app"
+echo "  3. Replace 'your-vercel-url' with your actual Vercel domain"
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+echo "🎉 That's it! Your dashboard will be live!"
+echo ""
+echo "📖 For detailed instructions, see:"
+echo "   • ONE_CLICK_DEPLOY.md"
+echo "   • DEPLOYMENT_STEPS.md"
+echo "   • READY_TO_DEPLOY.md"
+echo ""
