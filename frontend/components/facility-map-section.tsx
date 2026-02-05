@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { MapPin, Users, TrendingUp, ExternalLink } from 'lucide-react'
 import { NeonBadge } from './ui/neon-badge'
+import { LazyIframe } from './ui/lazy-iframe'
 
 interface Facility {
   geoid?: string
@@ -43,7 +44,7 @@ export function FacilityMapSection({ facilities }: FacilityMapSectionProps) {
           <div className="relative group/map">
             <div className="absolute -inset-1 bg-gradient-to-r from-slate-200 to-slate-300 rounded-xl blur opacity-30 group-hover/map:opacity-50 transition-opacity"></div>
             <div className="relative bg-slate-50/80 backdrop-blur-sm rounded-xl overflow-hidden border border-white/40 shadow-sm">
-              <iframe
+              <LazyIframe
                 src={`${API_URL}/api/maps/facility-locations`}
                 className="w-full h-96"
                 title="Facility Locations Map"

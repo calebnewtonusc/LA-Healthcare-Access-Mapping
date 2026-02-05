@@ -2,6 +2,7 @@ import { KeyMetrics } from '@/components/key-metrics'
 import { RecommendationsList } from '@/components/recommendations-list'
 import { FacilityMapSection } from '@/components/facility-map-section'
 import { AnimatedNumber } from '@/components/ui/animated-number'
+import { LazyIframe } from '@/components/ui/lazy-iframe'
 import { DollarSign, TrendingUp, Percent, MapPin, Flame, ExternalLink } from 'lucide-react'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
@@ -177,7 +178,7 @@ export default async function DashboardPage() {
             <div className="relative group/map">
               <div className="absolute -inset-1 bg-gradient-to-r from-slate-200 to-slate-300 rounded-xl blur opacity-30 group-hover/map:opacity-50 transition-opacity"></div>
               <div className="relative bg-slate-50/80 backdrop-blur-sm rounded-xl overflow-hidden border border-white/40 shadow-sm">
-                <iframe
+                <LazyIframe
                   src={`${API_URL}/api/maps/access-desert`}
                   className="w-full h-[500px]"
                   title="Healthcare Access Desert Heatmap"
