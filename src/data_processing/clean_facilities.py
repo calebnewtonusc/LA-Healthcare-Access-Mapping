@@ -7,14 +7,24 @@ removes duplicates, geocodes addresses, and standardizes formats.
 
 import pandas as pd
 import numpy as np
+import logging
 from pathlib import Path
+from typing import Optional, Union, List
 import json
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 
 class FacilityDataCleaner:
     """Clean and standardize facility data from multiple sources."""
 
-    def __init__(self, input_dir='data/raw', output_dir='data/processed'):
+    def __init__(self, input_dir: Union[str, Path] = 'data/raw',
+                 output_dir: Union[str, Path] = 'data/processed'):
         """
         Initialize the data cleaner.
 
@@ -26,7 +36,7 @@ class FacilityDataCleaner:
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-    def load_facility_data(self, filename):
+    def load_facility_data(self, filename: str) -> Optional[pd.DataFrame]:
         """
         Load raw facility data from JSON or CSV.
 
@@ -34,12 +44,12 @@ class FacilityDataCleaner:
             filename: Name of the data file
 
         Returns:
-            DataFrame with raw facility data
+            DataFrame with raw facility data, or None if loading fails
         """
         filepath = self.input_dir / filename
 
         if not filepath.exists():
-            print(f"⚠ File not found: {filepath}")
+            logger.warning(f"File not found: {filepath}")
             return None
 
         try:
@@ -50,17 +60,17 @@ class FacilityDataCleaner:
             elif filename.endswith('.csv'):
                 df = pd.read_csv(filepath)
             else:
-                print(f"⚠ Unsupported file format: {filename}")
+                logger.error(f"Unsupported file format: {filename}")
                 return None
 
-            print(f"✓ Loaded {len(df)} facilities from {filename}")
+            logger.info(f"Loaded {len(df)} facilities from {filename}")
             return df
 
         except Exception as e:
-            print(f"Error loading {filename}: {e}")
+            logger.error(f"Error loading {filename}: {e}")
             return None
 
-    def standardize_columns(self, df, source='lacounty'):
+    def standardize_columns(self, df: pd.DataFrame, source: str = 'lacounty') -> pd.DataFrame:
         """
         Standardize column names across data sources.
 
@@ -88,26 +98,38 @@ class FacilityDataCleaner:
                 'vicinity': 'address',
                 'geometry.location.lat': 'lat',
                 'geometry.location.lng': 'lon',
+            },
+            'ca_dhhs': {
+                'FACNAME': 'name',
+                'FACTYPE': 'type',
+                'ADDRESS': 'address',
+                'CITY': 'city',
+                'ZIP': 'zipcode',
+                'LAT': 'lat',
+                'LON': 'lon',
             }
         }
 
         if source in column_mappings:
             # Handle nested columns for Google data
             if source == 'google' and 'geometry' in df.columns:
-                df['lat'] = df['geometry'].apply(lambda x: x.get('location', {}).get('lat'))
-                df['lon'] = df['geometry'].apply(lambda x: x.get('location', {}).get('lng'))
+                df['lat'] = df['geometry'].apply(lambda x: x.get('location', {}).get('lat') if isinstance(x, dict) else None)
+                df['lon'] = df['geometry'].apply(lambda x: x.get('location', {}).get('lng') if isinstance(x, dict) else None)
 
             df = df.rename(columns=column_mappings[source])
+            logger.info(f"Standardized columns for {source} data")
+        else:
+            logger.warning(f"No column mapping defined for source: {source}")
 
         return df
 
-    def remove_duplicates(self, df, threshold=0.0001):
+    def remove_duplicates(self, df: pd.DataFrame, threshold: float = 0.0001) -> pd.DataFrame:
         """
-        Remove duplicate facilities based on location.
+        Remove duplicate facilities based on location and name.
 
         Args:
             df: DataFrame with facility data
-            threshold: Distance threshold for duplicates (degrees)
+            threshold: Distance threshold for coordinate duplicates (degrees)
 
         Returns:
             DataFrame with duplicates removed
@@ -117,15 +139,33 @@ class FacilityDataCleaner:
         # Remove exact coordinate duplicates
         df = df.drop_duplicates(subset=['lat', 'lon'], keep='first')
 
-        # TODO: Add fuzzy matching for near-duplicates
-        # Could use geopy distance calculation for more sophisticated deduplication
+        # Remove near-duplicates using coordinate proximity
+        # For facilities within threshold distance, keep the one with more complete data
+        if 'name' in df.columns:
+            # Group by approximate location (rounded coordinates)
+            df['lat_round'] = df['lat'].round(4)
+            df['lon_round'] = df['lon'].round(4)
+
+            # For each location group, remove duplicates with similar names
+            deduplicated = []
+            for (lat_r, lon_r), group in df.groupby(['lat_round', 'lon_round']):
+                if len(group) > 1:
+                    # Keep the facility with the most complete information
+                    group['completeness'] = group.notna().sum(axis=1)
+                    best = group.nlargest(1, 'completeness')
+                    deduplicated.append(best)
+                else:
+                    deduplicated.append(group)
+
+            df = pd.concat(deduplicated, ignore_index=True)
+            df = df.drop(columns=['lat_round', 'lon_round', 'completeness'])
 
         removed = initial_count - len(df)
-        print(f"✓ Removed {removed} duplicate facilities")
+        logger.info(f"Removed {removed} duplicate facilities ({removed/initial_count*100:.1f}%)")
 
         return df
 
-    def validate_coordinates(self, df):
+    def validate_coordinates(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Validate and filter facilities within LA County bounds.
 
@@ -149,16 +189,18 @@ class FacilityDataCleaner:
             (df['lat'] >= la_bounds['lat_min']) &
             (df['lat'] <= la_bounds['lat_max']) &
             (df['lon'] >= la_bounds['lon_min']) &
-            (df['lon'] <= la_bounds['lon_max'])
+            (df['lon'] <= la_bounds['lon_max']) &
+            (df['lat'].notna()) &
+            (df['lon'].notna())
         )
 
         invalid_count = (~mask).sum()
         if invalid_count > 0:
-            print(f"⚠ Filtered {invalid_count} facilities outside LA County bounds")
+            logger.warning(f"Filtered {invalid_count} facilities outside LA County bounds or with invalid coordinates")
 
-        return df[mask]
+        return df[mask].copy()
 
-    def categorize_facilities(self, df):
+    def categorize_facilities(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Categorize facilities into standardized types.
 
@@ -169,13 +211,13 @@ class FacilityDataCleaner:
             DataFrame with standardized facility categories
         """
         # Define facility type mappings
-        urgent_care_keywords = ['urgent care', 'urgent', 'walk-in']
-        hospital_keywords = ['hospital', 'medical center', 'emergency']
-        clinic_keywords = ['clinic', 'health center', 'community health']
+        urgent_care_keywords = ['urgent care', 'urgent', 'walk-in', 'walk in']
+        hospital_keywords = ['hospital', 'medical center', 'emergency', 'trauma']
+        clinic_keywords = ['clinic', 'health center', 'community health', 'primary care']
 
         def categorize(facility_type):
             if pd.isna(facility_type):
-                return 'unknown'
+                return 'other'
 
             facility_type = str(facility_type).lower()
 
@@ -188,14 +230,17 @@ class FacilityDataCleaner:
             else:
                 return 'other'
 
-        df['category'] = df['type'].apply(categorize)
+        if 'type' in df.columns:
+            df['category'] = df['type'].apply(categorize)
+        else:
+            df['category'] = 'other'
 
-        print("\nFacility categories:")
-        print(df['category'].value_counts())
+        category_counts = df['category'].value_counts()
+        logger.info(f"Facility categories:\n{category_counts.to_string()}")
 
         return df
 
-    def clean_dataset(self, df, source='lacounty'):
+    def clean_dataset(self, df: pd.DataFrame, source: str = 'lacounty') -> Optional[pd.DataFrame]:
         """
         Run full cleaning pipeline on facility dataset.
 
@@ -204,41 +249,53 @@ class FacilityDataCleaner:
             source: Data source identifier
 
         Returns:
-            Cleaned DataFrame
+            Cleaned DataFrame, or None if cleaning fails
         """
-        print(f"\nCleaning {source} data...")
+        try:
+            logger.info(f"\nCleaning {source} data...")
+            logger.info(f"Initial record count: {len(df)}")
 
-        # Standardize columns
-        df = self.standardize_columns(df, source)
+            # Standardize columns
+            df = self.standardize_columns(df, source)
 
-        # Ensure required columns exist
-        required_cols = ['name', 'lat', 'lon']
-        missing_cols = [col for col in required_cols if col not in df.columns]
-        if missing_cols:
-            print(f"⚠ Missing required columns: {missing_cols}")
-            return None
+            # Ensure required columns exist
+            required_cols = ['lat', 'lon']
+            missing_cols = [col for col in required_cols if col not in df.columns]
+            if missing_cols:
+                logger.error(f"Missing required columns: {missing_cols}")
+                return None
 
-        # Remove rows with missing coordinates
-        df = df.dropna(subset=['lat', 'lon'])
+            # Remove rows with missing coordinates
+            initial_count = len(df)
+            df = df.dropna(subset=['lat', 'lon'])
+            dropped = initial_count - len(df)
+            if dropped > 0:
+                logger.info(f"Dropped {dropped} records with missing coordinates")
 
-        # Validate coordinates
-        df = self.validate_coordinates(df)
+            # Validate coordinates
+            df = self.validate_coordinates(df)
 
-        # Remove duplicates
-        df = self.remove_duplicates(df)
+            # Remove duplicates
+            df = self.remove_duplicates(df)
 
-        # Categorize facilities
-        if 'type' in df.columns:
+            # Categorize facilities
             df = self.categorize_facilities(df)
 
-        # Add data source column
-        df['source'] = source
+            # Add data source column
+            df['source'] = source
 
-        print(f"✓ Cleaned dataset: {len(df)} facilities")
+            # Add metadata
+            df['cleaned_date'] = pd.Timestamp.now().strftime('%Y-%m-%d')
 
-        return df
+            logger.info(f"Cleaned dataset: {len(df)} facilities")
 
-    def merge_sources(self, dataframes):
+            return df
+
+        except Exception as e:
+            logger.error(f"Error cleaning dataset: {e}")
+            return None
+
+    def merge_sources(self, dataframes: List[pd.DataFrame]) -> Optional[pd.DataFrame]:
         """
         Merge facility data from multiple sources.
 
@@ -246,32 +303,56 @@ class FacilityDataCleaner:
             dataframes: List of cleaned DataFrames
 
         Returns:
-            Merged DataFrame
+            Merged DataFrame, or None if merge fails
         """
         if not dataframes:
-            print("⚠ No dataframes to merge")
+            logger.warning("No dataframes to merge")
             return None
 
-        merged = pd.concat(dataframes, ignore_index=True)
+        try:
+            merged = pd.concat(dataframes, ignore_index=True)
+            logger.info(f"Merged {len(dataframes)} datasets: {len(merged)} total records")
 
-        # Remove cross-source duplicates
-        merged = self.remove_duplicates(merged)
+            # Remove cross-source duplicates
+            merged = self.remove_duplicates(merged)
 
-        print(f"\n✓ Merged dataset: {len(merged)} facilities from {len(dataframes)} sources")
+            logger.info(f"Final merged dataset: {len(merged)} facilities from {len(dataframes)} sources")
 
-        return merged
+            return merged
 
-    def save_cleaned_data(self, df, filename='facilities_cleaned.csv'):
+        except Exception as e:
+            logger.error(f"Error merging datasets: {e}")
+            return None
+
+    def save_cleaned_data(self, df: pd.DataFrame, filename: str = 'facilities_cleaned.csv') -> bool:
         """
         Save cleaned facility data.
 
         Args:
             df: Cleaned DataFrame
             filename: Output filename
+
+        Returns:
+            True if save successful, False otherwise
         """
-        output_path = self.output_dir / filename
-        df.to_csv(output_path, index=False)
-        print(f"✓ Saved cleaned data to {output_path}")
+        try:
+            output_path = self.output_dir / filename
+            df.to_csv(output_path, index=False)
+            logger.info(f"Saved cleaned data to {output_path}")
+
+            # Log summary statistics
+            logger.info("\n=== Cleaning Summary ===")
+            logger.info(f"Total facilities: {len(df)}")
+            if 'category' in df.columns:
+                logger.info(f"Categories:\n{df['category'].value_counts().to_string()}")
+            if 'source' in df.columns:
+                logger.info(f"Sources:\n{df['source'].value_counts().to_string()}")
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Error saving cleaned data: {e}")
+            return False
 
 
 def main():
@@ -279,27 +360,49 @@ def main():
 
     cleaner = FacilityDataCleaner()
 
-    # Example: Load and clean LA County data
-    # Update filename to match your collected data
-    lacounty_raw = cleaner.load_facility_data('lacounty_facilities_20240204.json')
+    # List of potential data sources to process
+    data_sources = [
+        ('health_facility_locations.csv', 'ca_dhhs'),
+        ('lacounty_facilities.csv', 'lacounty'),
+        ('google_places_facilities.json', 'google'),
+    ]
 
-    if lacounty_raw is not None:
-        lacounty_clean = cleaner.clean_dataset(lacounty_raw, source='lacounty')
+    cleaned_datasets = []
 
-        if lacounty_clean is not None:
-            cleaner.save_cleaned_data(lacounty_clean)
+    # Process each data source
+    for filename, source in data_sources:
+        logger.info(f"\n{'='*60}")
+        logger.info(f"Processing {filename}...")
+        logger.info(f"{'='*60}")
 
-    # TODO: Add other data sources when available
-    # google_raw = cleaner.load_facility_data('google_places_facilities_20240204.json')
-    # google_clean = cleaner.clean_dataset(google_raw, source='google')
+        raw_data = cleaner.load_facility_data(filename)
 
-    # Merge all sources
-    # all_clean = [df for df in [lacounty_clean, google_clean] if df is not None]
-    # merged = cleaner.merge_sources(all_clean)
-    # cleaner.save_cleaned_data(merged, 'facilities_merged.csv')
+        if raw_data is not None:
+            cleaned = cleaner.clean_dataset(raw_data, source)
 
-    print("\n✓ Data cleaning complete!")
+            if cleaned is not None:
+                cleaned_datasets.append(cleaned)
+                # Save individual cleaned dataset
+                cleaner.save_cleaned_data(cleaned, f'facilities_{source}_cleaned.csv')
+        else:
+            logger.info(f"Skipping {filename} (file not found)")
+
+    # Merge all cleaned datasets
+    if len(cleaned_datasets) > 0:
+        logger.info(f"\n{'='*60}")
+        logger.info("Merging all cleaned datasets...")
+        logger.info(f"{'='*60}")
+
+        merged = cleaner.merge_sources(cleaned_datasets)
+        if merged is not None:
+            cleaner.save_cleaned_data(merged, 'facilities_cleaned.csv')
+
+        logger.info("\n=== Data cleaning complete! ===")
+        return 0
+    else:
+        logger.warning("No data sources were successfully processed")
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    exit(main())
