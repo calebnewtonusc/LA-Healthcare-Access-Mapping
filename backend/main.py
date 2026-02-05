@@ -99,6 +99,11 @@ async def get_recommendations():
             raise HTTPException(status_code=404, detail="Recommendations file not found")
 
         df = pd.read_csv(csv_path)
+
+        # Rename columns for better frontend compatibility
+        if 'Implementation_Timeframe' in df.columns:
+            df = df.rename(columns={'Implementation_Timeframe': 'Timeline'})
+
         recommendations = df.to_dict(orient="records")
 
         return JSONResponse(content={
