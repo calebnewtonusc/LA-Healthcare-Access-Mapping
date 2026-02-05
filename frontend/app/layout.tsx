@@ -15,21 +15,45 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <header className="bg-blue-600 text-white p-4 shadow-lg">
-          <div className="container mx-auto">
-            <h1 className="text-2xl font-bold">LA Healthcare Access Dashboard</h1>
-            <p className="text-sm text-blue-100">Policy Recommendations & Analysis</p>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${inter.className} bg-bg-primary text-text-primary`}>
+        {/* Glassmorphism Header */}
+        <header className="sticky top-0 z-50 bg-white/5 backdrop-blur-lg border-b border-white/10 shadow-glass">
+          <div className="container mx-auto px-4 py-4">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent">
+              LA Healthcare Access Dashboard
+            </h1>
+            <p className="text-sm text-text-secondary mt-1">
+              Policy Recommendations & Analysis
+            </p>
           </div>
         </header>
-        <main className="min-h-screen">
-          {children}
+
+        {/* Main content with gradient overlay */}
+        <main className="min-h-screen relative">
+          {/* Ambient gradient background */}
+          <div className="fixed inset-0 pointer-events-none opacity-30">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-neon-cyan/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-3xl" />
+          </div>
+
+          <div className="relative z-10">
+            {children}
+          </div>
         </main>
-        <footer className="bg-gray-800 text-white p-6 mt-12">
-          <div className="container mx-auto text-center">
-            <p className="text-sm">LA Healthcare Access Mapping Project v1.1.0</p>
-            <p className="text-xs text-gray-400 mt-2">Open source healthcare access analysis for Los Angeles County</p>
+
+        {/* Glassmorphism Footer */}
+        <footer className="relative mt-12 bg-white/5 backdrop-blur-lg border-t border-white/10 shadow-glass">
+          {/* Gradient line at top */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-neon-cyan to-transparent" />
+
+          <div className="container mx-auto px-4 py-6 text-center">
+            <p className="text-sm font-semibold bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent">
+              LA Healthcare Access Mapping Project v1.1.0
+            </p>
+            <p className="text-xs text-text-muted mt-2">
+              Open source healthcare access analysis for Los Angeles County
+            </p>
           </div>
         </footer>
       </body>
