@@ -171,8 +171,7 @@ async def get_facility_map():
 
         return FileResponse(
             path=html_path,
-            media_type="text/html",
-            filename="facility_locations_map.html"
+            media_type="text/html"
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error serving map: {str(e)}")
@@ -188,8 +187,7 @@ async def get_access_desert_map():
 
         return FileResponse(
             path=html_path,
-            media_type="text/html",
-            filename="access_desert_heatmap.html"
+            media_type="text/html"
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error serving map: {str(e)}")
