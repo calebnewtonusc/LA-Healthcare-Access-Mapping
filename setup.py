@@ -27,8 +27,8 @@ if requirements_path.exists():
 
 setup(
     name='la-healthcare-access-mapping',
-    version='1.0.0',
-    description='Mapping healthcare access gaps across Los Angeles County',
+    version='1.1.0',
+    description='Mapping healthcare access gaps across Los Angeles County with comprehensive policy impact tools',
     long_description=long_description,
     long_description_content_type='text/markdown',
     author='LA Healthcare Access Mapping Team',
@@ -62,6 +62,8 @@ setup(
             'la-healthcare-collect-facilities=data_collection.fetch_facilities:main',
             'la-healthcare-collect-census=data_collection.fetch_census_data:main',
             'la-healthcare-merge-census=data_processing.fix_census_merge:main',
+            'la-healthcare-policy-recommendations=impact.policy_recommendations:main',
+            'la-healthcare-generate-impact-package=impact.generate_all_outputs:main',
         ],
     },
     classifiers=[
