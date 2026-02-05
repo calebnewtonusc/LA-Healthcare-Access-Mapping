@@ -3,26 +3,25 @@
 @tailwind utilities;
 
 :root {
-  /* Dark mode background layers */
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #141420;
-  --bg-tertiary: #1a1a2e;
+  /* Light mode background layers */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #e9ecef;
 
-  /* Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  /* Professional color palette */
+  --primary-blue: #2563eb;
+  --primary-purple: #7c3aed;
+  --primary-green: #059669;
+  --primary-red: #dc2626;
 
-  /* Neon accents */
-  --neon-cyan: #00f5ff;
-  --neon-purple: #b537f2;
-  --neon-pink: #ff2d95;
-  --neon-green: #39ff14;
+  /* Text colors */
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
 
-  /* Text */
-  --text-primary: #ffffff;
-  --text-secondary: #a0aec0;
-  --text-muted: #64748b;
+  /* Border colors */
+  --border-light: #e5e7eb;
+  --border-medium: #d1d5db;
 }
 
 body {
@@ -43,62 +42,27 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--neon-cyan);
+  background: var(--primary-blue);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--neon-purple);
+  background: var(--primary-purple);
 }
 
-/* Glassmorphism utility classes */
+/* Card utility classes */
 @layer components {
-  .glass-card {
-    @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-glass;
+  .card {
+    @apply bg-white border border-gray-200 rounded-lg shadow-sm;
   }
 
-  .glass-card-hover {
-    @apply glass-card hover:bg-white/10 hover:border-neon-cyan/50 transition-all duration-300;
-  }
-
-  .neon-glow-cyan {
-    text-shadow: 0 0 10px rgba(0, 245, 255, 0.8),
-                 0 0 20px rgba(0, 245, 255, 0.6),
-                 0 0 30px rgba(0, 245, 255, 0.4);
-  }
-
-  .neon-glow-purple {
-    text-shadow: 0 0 10px rgba(181, 55, 242, 0.8),
-                 0 0 20px rgba(181, 55, 242, 0.6),
-                 0 0 30px rgba(181, 55, 242, 0.4);
-  }
-
-  .gradient-border {
-    position: relative;
-  }
-
-  .gradient-border::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-purple) 100%);
-    border-radius: inherit;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .gradient-border:hover::before {
-    opacity: 1;
+  .card-hover {
+    @apply card hover:shadow-md hover:border-blue-300 transition-all duration-200;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
-  }
-
-  .animate-float-delayed {
-    animation: float 3s ease-in-out 0.5s infinite;
   }
 }

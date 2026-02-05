@@ -9,23 +9,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Dark mode backgrounds
-        'bg-primary': '#0a0a0f',
-        'bg-secondary': '#141420',
-        'bg-tertiary': '#1a1a2e',
+        // Light mode backgrounds
+        'bg-primary': '#ffffff',
+        'bg-secondary': '#f8f9fa',
+        'bg-tertiary': '#e9ecef',
 
-        // Neon accents
-        'neon-cyan': '#00f5ff',
-        'neon-purple': '#b537f2',
-        'neon-pink': '#ff2d95',
-        'neon-green': '#39ff14',
+        // Professional color palette
+        'neon-cyan': '#2563eb',     // Professional blue
+        'neon-purple': '#7c3aed',   // Muted purple
+        'neon-pink': '#db2777',     // Muted pink
+        'neon-green': '#059669',    // Professional green
 
-        // Text colors
-        'text-primary': '#ffffff',
-        'text-secondary': '#a0aec0',
-        'text-muted': '#64748b',
+        // Text colors for light mode
+        'text-primary': '#111827',
+        'text-secondary': '#4b5563',
+        'text-muted': '#9ca3af',
 
-        // Legacy primary (keeping for compatibility)
         primary: {
           50: '#eff6ff',
           100: '#dbeafe',
@@ -40,41 +39,20 @@ const config: Config = {
         },
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(135deg, #00f5ff 0%, #b537f2 100%)',
-        'gradient-card': 'linear-gradient(135deg, rgba(0,245,255,0.1) 0%, rgba(181,55,242,0.1) 100%)',
-        'gradient-glow': 'radial-gradient(circle at center, rgba(0,245,255,0.3), transparent 70%)',
+        'gradient-primary': 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)',
+        'gradient-card': 'linear-gradient(135deg, rgba(37,99,235,0.05) 0%, rgba(124,58,237,0.05) 100%)',
       },
       boxShadow: {
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-        'neon-cyan': '0 0 10px rgba(0,245,255,0.5), 0 0 20px rgba(0,245,255,0.3)',
-        'neon-purple': '0 0 10px rgba(181,55,242,0.5), 0 0 20px rgba(181,55,242,0.3)',
-        'neon-pink': '0 0 10px rgba(255,45,149,0.5), 0 0 20px rgba(255,45,149,0.3)',
-      },
-      backdropBlur: {
-        'glass': '16px',
+        'glass': '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+        'card': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
       },
       animation: {
-        'float': 'float 3s ease-in-out infinite',
-        'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
-        'gradient-shift': 'gradient-shift 3s ease infinite',
+        'fade-in': 'fade-in 0.5s ease-in-out',
       },
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-        'glow-pulse': {
-          '0%, 100%': {
-            boxShadow: '0 0 5px rgb(0 245 255), 0 0 10px rgb(0 245 255)'
-          },
-          '50%': {
-            boxShadow: '0 0 10px rgb(0 245 255), 0 0 20px rgb(0 245 255), 0 0 30px rgb(0 245 255)'
-          },
-        },
-        'gradient-shift': {
-          '0%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
-          '100%': { backgroundPosition: '0% 50%' },
+        'fade-in': {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
     },

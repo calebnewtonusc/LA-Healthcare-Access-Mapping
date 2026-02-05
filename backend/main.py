@@ -285,16 +285,32 @@ async def get_statistics():
         cb_path = OUTPUTS_DIR / "COST_BENEFIT_ANALYSIS.txt"
         roi = "540%"  # Default
         net_benefit = "$3.5B"  # Default
+        total_investment = "$645M"  # Default
 
         if cb_path.exists():
             with open(cb_path, 'r') as f:
                 content = f.read()
                 for line in content.split('\n'):
-                    if '10-year ROI:' in line:
-                        roi = line.split(':')[1].strip()
-                    elif '10-year net benefit:' in line:
-                        net_benefit = line.split('$')[1].split()[0].strip()
-                        net_benefit = f"${net_benefit}"
+                    if '10-year ROI:' in line or '• 10-year ROI:' in line:
+                        roi = line.split(':')[-1].strip()
+                    elif '10-year net benefit:' in line or '• 10-year net benefit:' in line:
+                        if '$' in line:
+                            net_benefit = '$' + line.split('$')[1].strip().split()[0].replace(',', '')
+                            # Convert to billions if over 1B
+                            val = float(net_benefit.replace('$', '').replace(',', ''))
+                            if val >= 1000000000:
+                                net_benefit = f"${val / 1000000000:.1f}B"
+                            elif val >= 1000000:
+                                net_benefit = f"${val / 1000000:.0f}M"
+                    elif '10-year total investment:' in line or '• 10-year total investment:' in line:
+                        if '$' in line:
+                            total_investment = '$' + line.split('$')[1].strip().split()[0].replace(',', '')
+                            # Convert to millions if needed
+                            val = float(total_investment.replace('$', '').replace(',', ''))
+                            if val >= 1000000000:
+                                total_investment = f"${val / 1000000000:.1f}B"
+                            elif val >= 1000000:
+                                total_investment = f"${val / 1000000:.0f}M"
 
         return JSONResponse(content={
             "population_affected": int(total_affected),
@@ -302,7 +318,8 @@ async def get_statistics():
             "num_recommendations": num_recommendations,
             "num_facilities": num_facilities,
             "roi": roi,
-            "net_benefit": net_benefit
+            "net_benefit": net_benefit,
+            "total_investment": total_investment
         })
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error calculating statistics: {str(e)}")

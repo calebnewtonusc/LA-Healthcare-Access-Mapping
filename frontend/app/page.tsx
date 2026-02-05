@@ -57,19 +57,19 @@ export default async function DashboardPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Academic Disclaimer Banner */}
-      <div className="mb-6 bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4 backdrop-blur">
-        <p className="text-sm text-yellow-200 text-center">
+      <div className="mb-6 bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+        <p className="text-sm text-yellow-800 text-center">
           <span className="font-bold">Academic Research Project</span> • For educational purposes •
           Analysis based on public datasets • Not official LA County policy •
-          <a href="/about" className="underline hover:text-yellow-100 ml-1">View methodology & sources</a>
+          <a href="/about" className="underline hover:text-yellow-900 ml-1">View methodology & sources</a>
         </p>
       </div>
 
       <div className="mb-8 text-center">
-        <h2 className="text-4xl font-bold bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-pink bg-clip-text text-transparent mb-3">
+        <h2 className="text-4xl font-bold text-gray-900 mb-3">
           Healthcare Access Analysis Dashboard
         </h2>
-        <p className="text-text-secondary text-lg">
+        <p className="text-gray-600 text-lg">
           Comprehensive analysis of healthcare access gaps and policy recommendations for Los Angeles County
         </p>
       </div>
@@ -89,76 +89,73 @@ export default async function DashboardPage() {
       </div>
 
       {/* Cost-Benefit Overview */}
-      <div className="mt-10 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-glass p-8">
-        <h3 className="text-2xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent mb-6 text-center">
+      <div className="mt-10 bg-white border border-gray-200 rounded-lg shadow-sm p-8">
+        <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
           Financial Analysis
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-all group">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center hover:shadow-md transition-all group">
             <div className="flex justify-center mb-3">
-              <div className="bg-gradient-to-br from-neon-cyan to-blue-500 p-3 rounded-full group-hover:scale-110 transition-transform">
-                <DollarSign className="w-6 h-6 text-white" />
+              <div className="bg-blue-100 p-3 rounded-full">
+                <DollarSign className="w-6 h-6 text-blue-600" />
               </div>
             </div>
-            <div className="text-4xl font-bold bg-gradient-to-r from-neon-cyan to-blue-400 bg-clip-text text-transparent mb-2">
+            <div className="text-4xl font-bold text-blue-600 mb-2">
               {stats?.total_investment || 'N/A'}*
             </div>
-            <div className="text-sm text-text-muted">
+            <div className="text-sm text-gray-600">
               10-Year Investment (Est.)
             </div>
           </div>
-          <div className="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-all group">
+          <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center hover:shadow-md transition-all group">
             <div className="flex justify-center mb-3">
-              <div className="bg-gradient-to-br from-neon-green to-green-600 p-3 rounded-full group-hover:scale-110 transition-transform">
-                <TrendingUp className="w-6 h-6 text-white" />
+              <div className="bg-green-100 p-3 rounded-full">
+                <TrendingUp className="w-6 h-6 text-green-600" />
               </div>
             </div>
-            <div className="text-4xl font-bold bg-gradient-to-r from-neon-green to-green-400 bg-clip-text text-transparent mb-2">
+            <div className="text-4xl font-bold text-green-600 mb-2">
               {stats?.net_benefit || 'N/A'}*
             </div>
-            <div className="text-sm text-text-muted">
+            <div className="text-sm text-gray-600">
               Net Benefit (Est.)
             </div>
           </div>
-          <div className="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-all group">
+          <div className="bg-purple-50 border border-purple-200 rounded-lg p-6 text-center hover:shadow-md transition-all group">
             <div className="flex justify-center mb-3">
-              <div className="bg-gradient-to-br from-neon-purple to-purple-600 p-3 rounded-full group-hover:scale-110 transition-transform">
-                <Percent className="w-6 h-6 text-white" />
+              <div className="bg-purple-100 p-3 rounded-full">
+                <Percent className="w-6 h-6 text-purple-600" />
               </div>
             </div>
-            <div className="text-4xl font-bold bg-gradient-to-r from-neon-purple to-purple-400 bg-clip-text text-transparent mb-2">
+            <div className="text-4xl font-bold text-purple-600 mb-2">
               {stats?.roi || 'N/A'}*
             </div>
-            <div className="text-sm text-text-muted">
+            <div className="text-sm text-gray-600">
               Return on Investment (Est.)
             </div>
           </div>
         </div>
         <div className="mt-8 text-center">
-          <p className="text-xs text-text-muted max-w-2xl mx-auto">
+          <p className="text-xs text-gray-600 max-w-2xl mx-auto">
             * Financial estimates based on industry averages and public health cost-benefit models.
-            Actual costs and benefits may vary. <a href="/about" className="text-neon-cyan hover:underline">View full methodology</a>
+            Actual costs and benefits may vary. <a href="/about" className="text-blue-600 hover:underline">View full methodology</a>
           </p>
         </div>
       </div>
 
       {/* Healthcare Access Heatmap */}
-      <div className="mt-10 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-glass p-6">
+      <div className="mt-10 bg-white border border-gray-200 rounded-lg shadow-sm p-6">
         <div className="flex items-center gap-3 mb-4">
-          <Flame className="w-6 h-6 text-neon-purple" />
-          <h3 className="text-2xl font-bold bg-gradient-to-r from-neon-purple to-neon-pink bg-clip-text text-transparent">
+          <Flame className="w-6 h-6 text-purple-600" />
+          <h3 className="text-2xl font-bold text-gray-900">
             Healthcare Access Heatmap
           </h3>
         </div>
-        <p className="text-sm text-text-secondary mb-4">
+        <p className="text-sm text-gray-600 mb-4">
           Visualization of healthcare access gaps across LA County. Darker areas indicate census tracts with limited access to healthcare facilities.
         </p>
         <div className="relative">
-          {/* Neon border glow */}
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-neon-purple to-neon-pink rounded-2xl blur opacity-75" />
-
           {/* Map iframe */}
-          <div className="relative bg-bg-secondary rounded-2xl overflow-hidden border border-white/10">
+          <div className="bg-gray-50 rounded-lg overflow-hidden border border-gray-300">
             <iframe
               src={`${API_URL}/api/maps/access-desert`}
               className="w-full h-[500px]"

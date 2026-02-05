@@ -19,11 +19,11 @@ interface RecommendationsListProps {
   recommendations: Recommendation[] | null
 }
 
-const priorityGlow: Record<string, string> = {
-  'Critical': 'bg-gradient-to-r from-red-500 to-red-600 shadow-[0_0_10px_rgba(239,68,68,0.5)]',
-  'High': 'bg-gradient-to-r from-orange-500 to-orange-600 shadow-[0_0_10px_rgba(249,115,22,0.5)]',
-  'Medium': 'bg-gradient-to-r from-yellow-500 to-yellow-600 shadow-[0_0_10px_rgba(234,179,8,0.5)]',
-  'Low': 'bg-gradient-to-r from-green-500 to-green-600 shadow-[0_0_10px_rgba(34,197,94,0.5)]',
+const priorityColors: Record<string, string> = {
+  'Critical': 'border-l-4 border-l-red-500 bg-red-50',
+  'High': 'border-l-4 border-l-orange-500 bg-orange-50',
+  'Medium': 'border-l-4 border-l-yellow-500 bg-yellow-50',
+  'Low': 'border-l-4 border-l-green-500 bg-green-50',
 }
 
 const categoryIcons: Record<string, any> = {
@@ -38,11 +38,11 @@ export function RecommendationsList({ recommendations }: RecommendationsListProp
 
   if (!recommendations || recommendations.length === 0) {
     return (
-      <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-glass p-6">
-        <h3 className="text-2xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent mb-4">
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">
           Policy Recommendations
         </h3>
-        <p className="text-text-secondary">Loading recommendations...</p>
+        <p className="text-gray-600">Loading recommendations...</p>
       </div>
     )
   }
@@ -52,8 +52,8 @@ export function RecommendationsList({ recommendations }: RecommendationsListProp
   }
 
   return (
-    <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-glass p-6">
-      <h3 className="text-2xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent mb-6">
+    <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+      <h3 className="text-2xl font-bold text-gray-900 mb-6">
         Policy Recommendations
       </h3>
 
@@ -70,98 +70,116 @@ export function RecommendationsList({ recommendations }: RecommendationsListProp
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="relative group"
+              className={`${priorityColors[rec.Priority || 'Medium']} border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer`}
+              onClick={() => toggleExpand(index)}
             >
-              {/* Priority indicator bar */}
-              <div className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-lg ${priorityGlow[rec.Priority || 'Medium']}`} />
-
-              {/* Glass card */}
-              <div className="bg-white/5 backdrop-blur border border-white/10 rounded-lg pl-5 pr-4 py-4 hover:bg-white/10 transition-all duration-300 cursor-pointer"
-                   onClick={() => toggleExpand(index)}>
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-3 flex-1">
-                    <div className="bg-gradient-to-br from-neon-cyan to-neon-purple p-2 rounded-lg">
-                      <CategoryIcon className="w-5 h-5 text-white" />
-                    </div>
-                    <h4 className="font-bold text-lg text-white flex-1">
-                      {rec.Title}
-                    </h4>
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex items-center gap-3 flex-1">
+                  <div className="bg-blue-100 p-2 rounded-lg">
+                    <CategoryIcon className="w-5 h-5 text-blue-600" />
                   </div>
-                  <div className="flex items-center gap-2">
-                    <NeonBadge variant={priorityVariant}>
-                      {rec.Priority}
-                    </NeonBadge>
-                    <motion.div
-                      animate={{ rotate: isExpanded ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <ChevronDown className="w-5 h-5 text-text-secondary" />
-                    </motion.div>
-                  </div>
+                  <h4 className="font-bold text-lg text-gray-900 flex-1">
+                    {rec.Title}
+                  </h4>
                 </div>
+                <div className="flex items-center gap-2">
+                  <NeonBadge variant={priorityVariant}>
+                    {rec.Priority}
+                  </NeonBadge>
+                  <motion.div
+                    animate={{ rotate: isExpanded ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown className="w-5 h-5 text-gray-500" />
+                  </motion.div>
+                </div>
+              </div>
 
-                <AnimatePresence>
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pt-3 border-t border-white/10 mt-2">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                          <div className="flex items-start gap-2">
-                            <div className="bg-neon-cyan/10 p-2 rounded-lg">
-                              <Target className="w-4 h-4 text-neon-cyan" />
-                            </div>
-                            <div>
-                              <span className="text-xs text-text-muted">Category</span>
-                              <p className="font-semibold text-white">{rec.Category}</p>
-                            </div>
+              <AnimatePresence>
+                {isExpanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pt-3 border-t border-gray-200 mt-2">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div className="flex items-start gap-2">
+                          <div className="bg-blue-50 p-2 rounded-lg">
+                            <Target className="w-4 h-4 text-blue-600" />
                           </div>
-                          <div className="flex items-start gap-2">
-                            <div className="bg-neon-purple/10 p-2 rounded-lg">
-                              <Users className="w-4 h-4 text-neon-purple" />
-                            </div>
-                            <div>
-                              <span className="text-xs text-text-muted">Affected Population</span>
-                              <p className="font-semibold text-white">
-                                {rec.Affected_Population?.toLocaleString() || 'N/A'}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <div className="bg-neon-pink/10 p-2 rounded-lg">
-                              <DollarSign className="w-4 h-4 text-neon-pink" />
-                            </div>
-                            <div>
-                              <span className="text-xs text-text-muted">Estimated Cost</span>
-                              <p className="font-semibold text-white">{rec.Estimated_Cost}</p>
-                            </div>
-                          </div>
-                          <div className="flex items-start gap-2">
-                            <div className="bg-neon-green/10 p-2 rounded-lg">
-                              <Clock className="w-4 h-4 text-neon-green" />
-                            </div>
-                            <div>
-                              <span className="text-xs text-text-muted">Timeline</span>
-                              <p className="font-semibold text-white">{rec.Timeline}</p>
-                            </div>
+                          <div>
+                            <span className="text-xs text-gray-600">Category</span>
+                            <p className="font-semibold text-gray-900">{rec.Category}</p>
                           </div>
                         </div>
-
-                        {rec.Expected_Impact && (
-                          <div className="bg-white/5 border border-white/10 rounded-lg p-3">
-                            <span className="text-xs text-text-muted font-semibold">Expected Impact</span>
-                            <p className="text-sm text-text-secondary mt-1">{rec.Expected_Impact}</p>
+                        <div className="flex items-start gap-2">
+                          <div className="bg-purple-50 p-2 rounded-lg">
+                            <Users className="w-4 h-4 text-purple-600" />
                           </div>
-                        )}
+                          <div>
+                            <span className="text-xs text-gray-600">Affected Population</span>
+                            <p className="font-semibold text-gray-900">
+                              {rec.Affected_Population?.toLocaleString() || 'N/A'}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <div className="bg-pink-50 p-2 rounded-lg">
+                            <DollarSign className="w-4 h-4 text-pink-600" />
+                          </div>
+                          <div>
+                            <span className="text-xs text-gray-600">Estimated Cost</span>
+                            <p className="font-semibold text-gray-900">{rec.Estimated_Cost}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <div className="bg-green-50 p-2 rounded-lg">
+                            <Clock className="w-4 h-4 text-green-600" />
+                          </div>
+                          <div>
+                            <span className="text-xs text-gray-600">Timeline</span>
+                            <p className="font-semibold text-gray-900">{rec.Timeline}</p>
+                          </div>
+                        </div>
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+
+                      {rec.Expected_Impact && (
+                        <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-3">
+                          <span className="text-xs text-gray-600 font-semibold">Expected Impact</span>
+                          <p className="text-sm text-gray-700 mt-1">{rec.Expected_Impact}</p>
+                        </div>
+                      )}
+
+                      {/* Calculation Methodology */}
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                        <span className="text-xs text-blue-700 font-semibold flex items-center gap-1">
+                          📊 How These Numbers Were Calculated
+                        </span>
+                        <p className="text-xs text-gray-700 mt-2 leading-relaxed">
+                          <strong className="text-gray-900">Affected Population:</strong> Sum of total population from all census tracts identified with {rec.Category === 'Infrastructure' ? 'distance >10km from nearest facility' : rec.Category === 'Transportation' ? '>10% households without vehicle access' : rec.Category === 'Equity' ? 'median income <25th percentile AND access score <50' : 'access score <40'}.
+                          <br/><br/>
+                          <strong className="text-gray-900">Cost Estimate:</strong> {
+                            rec.Category === 'Infrastructure' ? 'Based on $10.25M per facility (construction: $6.75M, land: $2M, equipment: $1.5M) from industry standards.' :
+                            rec.Category === 'Service Expansion' && rec.Title?.includes('Mobile') ? 'Based on $250K per mobile clinic × 5 clinics = $1.25M one-time + $400K/year operating costs.' :
+                            rec.Category === 'Transportation' ? 'Based on $25 per subsidized trip × 4 trips/year × 10% eligible population using service.' :
+                            rec.Category === 'Service Expansion' && rec.Title?.includes('Telehealth') ? 'Based on $15K per kiosk × 20 kiosks = $300K setup + $250K/year platform costs.' :
+                            'Estimated from comparable program costs and operational requirements.'
+                          }
+                          <br/><br/>
+                          <strong className="text-gray-900">Timeline:</strong> Based on typical implementation phases: Immediate (0-6 months), Short-term (6-18 months), Medium-term (1.5-3 years), Long-term (3+ years).
+                          <br/><br/>
+                          <a href="/about" className="text-blue-600 hover:text-blue-700 underline text-xs">
+                            View full methodology & data sources →
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           )
         })}
@@ -169,3 +187,4 @@ export function RecommendationsList({ recommendations }: RecommendationsListProp
     </div>
   )
 }
+

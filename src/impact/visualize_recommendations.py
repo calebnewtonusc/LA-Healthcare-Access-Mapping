@@ -131,20 +131,21 @@ class RecommendationVisualizer:
                         dashArray='5, 5'
                     ).add_to(m)
 
-            # Add legend
+            # Add compact legend (half size)
             legend_html = '''
             <div style="position: fixed;
-                        bottom: 50px; right: 50px; width: 280px; height: auto;
-                        background-color: white; z-index:9999; font-size:14px;
-                        border:2px solid grey; border-radius: 5px; padding: 10px">
-                <h4 style="margin-top:0;">Map Legend</h4>
-                <p><i class="fa fa-hospital-o" style="color:green; font-size:18px;"></i>
-                   Recommended Facility Location</p>
-                <p><span style="color:green; font-size:20px;">○</span> 5km Service Radius (dashed)</p>
-                <p><span style="color:red; font-size:16px;">●</span> Access Desert Area (>10km from care)</p>
-                <hr>
-                <p style="font-size:12px; margin:0;">
-                   <strong>Click markers</strong> for detailed information
+                        bottom: 15px; right: 15px; width: 100px; height: auto;
+                        background-color: rgba(255, 255, 255, 0.95); z-index:9999; font-size:8px;
+                        border:1px solid #999; border-radius: 4px; padding: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.3);">
+                <h4 style="margin:0 0 4px 0; font-size:9px; font-weight:bold;">Legend</h4>
+                <p style="margin:2px 0; line-height:1.2;">
+                   <i class="fa fa-hospital-o" style="color:green; font-size:10px;"></i> Recommended
+                </p>
+                <p style="margin:2px 0; line-height:1.2;">
+                   <span style="color:green; font-size:12px;">○</span> 5km Radius
+                </p>
+                <p style="margin:2px 0; line-height:1.2;">
+                   <span style="color:red; font-size:9px;">●</span> Desert (>10km)
                 </p>
             </div>
             '''
