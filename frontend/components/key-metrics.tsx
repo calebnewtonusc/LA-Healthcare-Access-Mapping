@@ -1,5 +1,9 @@
 'use client'
 
+import { motion } from 'framer-motion'
+import { Users, Building2, FileText, MapPin } from 'lucide-react'
+import { AnimatedNumber } from './ui/animated-number'
+
 interface KeyMetricsProps {
   stats: {
     population_affected?: number
@@ -15,47 +19,66 @@ export function KeyMetrics({ stats }: KeyMetricsProps) {
   const metrics = [
     {
       label: 'Population Affected',
-      value: stats?.population_affected?.toLocaleString() || '3,007,726',
-      icon: '👥',
-      color: 'bg-blue-100 text-blue-800'
+      value: stats?.population_affected || 3007726,
+      icon: Users,
+      gradientFrom: 'from-neon-cyan',
+      gradientTo: 'to-blue-500',
+      delay: 0
     },
     {
       label: 'Population Served',
-      value: stats?.population_served_by_facilities?.toLocaleString() || '320,530',
-      icon: '🏥',
-      color: 'bg-green-100 text-green-800'
+      value: stats?.population_served_by_facilities || 320530,
+      icon: Building2,
+      gradientFrom: 'from-neon-green',
+      gradientTo: 'to-green-600',
+      delay: 0.1
     },
     {
       label: 'Policy Recommendations',
-      value: stats?.num_recommendations?.toString() || '5',
-      icon: '📋',
-      color: 'bg-purple-100 text-purple-800'
+      value: stats?.num_recommendations || 5,
+      icon: FileText,
+      gradientFrom: 'from-neon-purple',
+      gradientTo: 'to-purple-600',
+      delay: 0.2
     },
     {
       label: 'Recommended Facilities',
-      value: stats?.num_facilities?.toString() || '10',
-      icon: '📍',
-      color: 'bg-orange-100 text-orange-800'
+      value: stats?.num_facilities || 10,
+      icon: MapPin,
+      gradientFrom: 'from-neon-pink',
+      gradientTo: 'to-pink-600',
+      delay: 0.3
     },
   ]
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {metrics.map((metric, index) => (
-        <div
+        <motion.div
           key={index}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: metric.delay }}
+          className="relative group"
         >
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-gray-600 mb-1">{metric.label}</p>
-              <p className="text-3xl font-bold text-gray-800">{metric.value}</p>
-            </div>
-            <div className={`text-4xl p-3 rounded-full ${metric.color}`}>
-              {metric.icon}
+          {/* Gradient border glow on hover */}
+          <div className="absolute inset-0 bg-gradient-to-r from-neon-cyan to-neon-purple rounded-2xl blur-sm opacity-0 group-hover:opacity-75 transition-opacity duration-300" />
+
+          {/* Glass card content */}
+          <div className="relative bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6 shadow-glass hover:bg-white/10 transition-all duration-300">
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <p className="text-sm text-text-secondary mb-2">{metric.label}</p>
+                <p className={`text-4xl font-bold bg-gradient-to-r ${metric.gradientFrom} ${metric.gradientTo} bg-clip-text text-transparent`}>
+                  <AnimatedNumber value={metric.value} />
+                </p>
+              </div>
+              <div className={`bg-gradient-to-br ${metric.gradientFrom} ${metric.gradientTo} p-3 rounded-full animate-float`}>
+                <metric.icon className="w-8 h-8 text-white" />
+              </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   )
