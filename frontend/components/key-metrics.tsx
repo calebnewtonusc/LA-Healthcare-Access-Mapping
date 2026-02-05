@@ -19,7 +19,7 @@ export function KeyMetrics({ stats }: KeyMetricsProps) {
   const metrics = [
     {
       label: 'Population Affected',
-      value: stats?.population_affected || 3007726,
+      value: stats?.population_affected,
       icon: Users,
       gradientFrom: 'from-neon-cyan',
       gradientTo: 'to-blue-500',
@@ -27,7 +27,7 @@ export function KeyMetrics({ stats }: KeyMetricsProps) {
     },
     {
       label: 'Population Served',
-      value: stats?.population_served_by_facilities || 320530,
+      value: stats?.population_served_by_facilities,
       icon: Building2,
       gradientFrom: 'from-neon-green',
       gradientTo: 'to-green-600',
@@ -35,7 +35,7 @@ export function KeyMetrics({ stats }: KeyMetricsProps) {
     },
     {
       label: 'Policy Recommendations',
-      value: stats?.num_recommendations || 5,
+      value: stats?.num_recommendations,
       icon: FileText,
       gradientFrom: 'from-neon-purple',
       gradientTo: 'to-purple-600',
@@ -43,7 +43,7 @@ export function KeyMetrics({ stats }: KeyMetricsProps) {
     },
     {
       label: 'Recommended Facilities',
-      value: stats?.num_facilities || 10,
+      value: stats?.num_facilities,
       icon: MapPin,
       gradientFrom: 'from-neon-pink',
       gradientTo: 'to-pink-600',
@@ -69,9 +69,15 @@ export function KeyMetrics({ stats }: KeyMetricsProps) {
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <p className="text-sm text-text-secondary mb-2">{metric.label}</p>
-                <p className={`text-4xl font-bold bg-gradient-to-r ${metric.gradientFrom} ${metric.gradientTo} bg-clip-text text-transparent`}>
-                  <AnimatedNumber value={metric.value} />
-                </p>
+                {metric.value !== undefined ? (
+                  <p className={`text-4xl font-bold bg-gradient-to-r ${metric.gradientFrom} ${metric.gradientTo} bg-clip-text text-transparent`}>
+                    <AnimatedNumber value={metric.value} />
+                  </p>
+                ) : (
+                  <p className="text-2xl font-semibold text-text-muted">
+                    Data Unavailable
+                  </p>
+                )}
               </div>
               <div className={`bg-gradient-to-br ${metric.gradientFrom} ${metric.gradientTo} p-3 rounded-full animate-float`}>
                 <metric.icon className="w-8 h-8 text-white" />
