@@ -1,0 +1,135 @@
+================================================================================
+COST-BENEFIT ANALYSIS
+Healthcare Access Policy Recommendations
+================================================================================
+
+
+1. NEW HEALTHCARE FACILITIES
+--------------------------------------------------------------------------------
+Recommended Locations: 10
+Total Population to be Served: 320,530 people
+
+ONE-TIME COSTS (per facility):
+  • Land Acquisition: $2,000,000
+  • Construction (15,000 sq ft @ $450/sq ft): $6,750,000
+  • Medical Equipment: $1,500,000
+  TOTAL ONE-TIME (per facility): $10,250,000
+  TOTAL FOR 10 FACILITIES: $102,500,000
+
+ANNUAL OPERATING COSTS (per facility): $3,000,000
+  • Staffing (doctors, nurses, admin): $2,000,000
+  • Supplies and maintenance: $600,000
+  • Utilities and overhead: $400,000
+  TOTAL ANNUAL FOR 10 FACILITIES: $30,000,000
+
+ESTIMATED ANNUAL SAVINGS (per facility):
+  • ER Diversion Savings: $11,202,524
+  • Chronic Disease Management: $7,468,349
+  TOTAL ANNUAL SAVINGS: $18,670,872
+  TOTAL FOR 10 FACILITIES: $186,708,725/year
+
+RETURN ON INVESTMENT:
+  • Break-even timeframe: 0.7 years
+  • 10-year benefit-cost ratio: 4.64:1
+  • Cost per person served (10-year): $1,256
+
+
+2. MOBILE HEALTH CLINICS
+--------------------------------------------------------------------------------
+Population to be Served: 4,805 people
+Number of Mobile Clinics: 5
+
+ONE-TIME COSTS:
+  • 5 equipped medical vans @ $250,000: $1,250,000
+
+ANNUAL OPERATING COSTS: $2,000,000
+  • Staffing (per clinic): $250,000
+  • Fuel and maintenance: $50,000
+  • Medical supplies: $100,000
+
+ESTIMATED ANNUAL SAVINGS: $1,525,588
+
+RETURN ON INVESTMENT:
+  • Break-even timeframe: 999.0 years
+  • 5-year benefit-cost ratio: 0.76:1
+  • Cost per person served (5-year): $2,341
+
+
+3. HEALTHCARE TRANSPORTATION SERVICES
+--------------------------------------------------------------------------------
+Population Eligible: 2,916,631 people
+Expected Active Users (10%): 291,663
+
+ONE-TIME COSTS: $50,000
+  • Program setup and administration
+
+ANNUAL OPERATING COSTS: $21,874,733
+  • Subsidized trips (1,166,652 trips @ $18.75 subsidy)
+
+ESTIMATED ANNUAL SAVINGS: $224,580,587
+  • Kept appointments and ER diversion
+
+RETURN ON INVESTMENT:
+  • Break-even timeframe: 0.0 years
+  • 5-year benefit-cost ratio: 10.26:1
+  • Cost per active user (5-year): $375
+
+
+4. TELEHEALTH EXPANSION
+--------------------------------------------------------------------------------
+Population to be Served: 4,023 people
+Number of Telehealth Kiosks: 20
+
+ONE-TIME COSTS: $300,000
+  • 20 kiosks @ $15,000
+
+ANNUAL OPERATING COSTS: $250,000
+  • Platform licensing and technical support
+
+ESTIMATED ANNUAL SAVINGS: $160,920
+  • Patient time and travel savings
+  • Provider efficiency gains
+
+RETURN ON INVESTMENT:
+  • Break-even timeframe: 999.0 years
+  • 5-year benefit-cost ratio: 0.64:1
+  • Cost per user (5-year): $1,926
+
+
+================================================================================
+SUMMARY OF ALL RECOMMENDATIONS
+================================================================================
+
+TOTAL INVESTMENT REQUIRED:
+  • One-time costs: $104,100,000
+  • Annual operating costs: $54,124,732
+  • 10-year total investment: $645,347,325
+
+TOTAL ESTIMATED BENEFITS:
+  • Annual savings: $412,975,820
+  • 10-year total savings: $4,129,758,195
+
+OVERALL ROI:
+  • 10-year net benefit: $3,484,410,870
+  • 10-year ROI: 539.9%
+
+
+PRIORITY RANKING BY COST-EFFECTIVENESS:
+--------------------------------------------------------------------------------
+1. Transportation
+   → Benefit-cost ratio: 10.26:1
+   → Break-even: 0.0 years
+2. New Healthcare Facilities
+   → Benefit-cost ratio: 4.64:1
+   → Break-even: 0.7 years
+3. Mobile Clinics
+   → Benefit-cost ratio: 0.76:1
+   → Break-even: 999.0 years
+4. Telehealth
+   → Benefit-cost ratio: 0.64:1
+   → Break-even: 999.0 years
+
+================================================================================
+Note: Cost estimates based on 2026 industry standards for LA County.
+Actual costs may vary based on location, scope, and implementation details.
+================================================================================

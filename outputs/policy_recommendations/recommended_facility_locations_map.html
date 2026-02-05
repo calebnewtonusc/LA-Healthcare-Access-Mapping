@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ec0646c4686a8875a7008c0d6a4126e5 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div style="position: fixed;
+                        bottom: 50px; right: 50px; width: 280px; height: auto;
+                        background-color: white; z-index:9999; font-size:14px;
+                        border:2px solid grey; border-radius: 5px; padding: 10px">
+                <h4 style="margin-top:0;">Map Legend</h4>
+                <p><i class="fa fa-hospital-o" style="color:green; font-size:18px;"></i>
+                   Recommended Facility Location</p>
+                <p><span style="color:green; font-size:20px;">○</span> 5km Service Radius (dashed)</p>
+                <p><span style="color:red; font-size:16px;">●</span> Access Desert Area (>10km from care)</p>
+                <hr>
+                <p style="font-size:12px; margin:0;">
+                   <strong>Click markers</strong> for detailed information
+                </p>
+            </div>
+            
+    
+            <div class="folium-map" id="map_ec0646c4686a8875a7008c0d6a4126e5" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ec0646c4686a8875a7008c0d6a4126e5 = L.map(
+                "map_ec0646c4686a8875a7008c0d6a4126e5",
+                {
+                    center: [34.0522, -118.2437],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 9,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_7df42f2214eb1d8683c0172da0ae1a9a = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_7df42f2214eb1d8683c0172da0ae1a9a.addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var circle_792e6eb286f95ad64e555e508478d002 = L.circle(
+                [34.063424977129046, -118.85830985937108],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_77880a8ec29e268e15b29dab851a62c3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c110404794e76f5b2247acf1d17ad514 = $(`<div id="html_c110404794e76f5b2247acf1d17ad514" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 8004.06; Los Angeles County; California<br>Distance: 17.9km</div>`)[0];
+                popup_77880a8ec29e268e15b29dab851a62c3.setContent(html_c110404794e76f5b2247acf1d17ad514);
+            
+        
+
+        circle_792e6eb286f95ad64e555e508478d002.bindPopup(popup_77880a8ec29e268e15b29dab851a62c3)
+        ;
+
+        
+    
+    
+            circle_792e6eb286f95ad64e555e508478d002.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_8c54e215b54ace4047d7ded294af6d4b = L.circle(
+                [34.30260215216975, -117.97631340149437],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_2443ec8f83ccbb971932ebab1aa6bcdb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fc687cfa8bfb37e4a9d468ba1852bea8 = $(`<div id="html_fc687cfa8bfb37e4a9d468ba1852bea8" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9304; Los Angeles County; California<br>Distance: 17.1km</div>`)[0];
+                popup_2443ec8f83ccbb971932ebab1aa6bcdb.setContent(html_fc687cfa8bfb37e4a9d468ba1852bea8);
+            
+        
+
+        circle_8c54e215b54ace4047d7ded294af6d4b.bindPopup(popup_2443ec8f83ccbb971932ebab1aa6bcdb)
+        ;
+
+        
+    
+    
+            circle_8c54e215b54ace4047d7ded294af6d4b.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_57474a5f0db6b6c17724d83f2701151e = L.circle(
+                [33.164965165901776, -118.4690493270301],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_d6837832407ed5fdb198db71137abf42 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f9c018d5b70062078d422786f6eb00ae = $(`<div id="html_f9c018d5b70062078d422786f6eb00ae" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 5991; Los Angeles County; California<br>Distance: 66.0km</div>`)[0];
+                popup_d6837832407ed5fdb198db71137abf42.setContent(html_f9c018d5b70062078d422786f6eb00ae);
+            
+        
+
+        circle_57474a5f0db6b6c17724d83f2701151e.bindPopup(popup_d6837832407ed5fdb198db71137abf42)
+        ;
+
+        
+    
+    
+            circle_57474a5f0db6b6c17724d83f2701151e.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_7e7a57ab953706ba2a8291b191bb70ac = L.circle(
+                [34.160151286841376, -118.7813936386573],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_c70582d8495da788ee4cbcea29b62f3e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a37dd51d85e38e86bde80619544b5c42 = $(`<div id="html_a37dd51d85e38e86bde80619544b5c42" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 8003.38; Los Angeles County; California<br>Distance: 13.0km</div>`)[0];
+                popup_c70582d8495da788ee4cbcea29b62f3e.setContent(html_a37dd51d85e38e86bde80619544b5c42);
+            
+        
+
+        circle_7e7a57ab953706ba2a8291b191bb70ac.bindPopup(popup_c70582d8495da788ee4cbcea29b62f3e)
+        ;
+
+        
+    
+    
+            circle_7e7a57ab953706ba2a8291b191bb70ac.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_f815667f5e05e22e4681632110a97211 = L.circle(
+                [34.716156271199154, -117.98172917697578],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_573c16b4046fe58c75b6fbf671b43a79 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_50dfb4f60af623c39f4bebc39a2cd1df = $(`<div id="html_50dfb4f60af623c39f4bebc39a2cd1df" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9013; Los Angeles County; California<br>Distance: 11.6km</div>`)[0];
+                popup_573c16b4046fe58c75b6fbf671b43a79.setContent(html_50dfb4f60af623c39f4bebc39a2cd1df);
+            
+        
+
+        circle_f815667f5e05e22e4681632110a97211.bindPopup(popup_573c16b4046fe58c75b6fbf671b43a79)
+        ;
+
+        
+    
+    
+            circle_f815667f5e05e22e4681632110a97211.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_8b3453771be0ccd9e1d41f9456a6ac0c = L.circle(
+                [34.144180852483366, -118.81815065068862],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_999d59114c4e5d492b2aa965605f1f23 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1d6553f985ac77a753785b3d2c8db75e = $(`<div id="html_1d6553f985ac77a753785b3d2c8db75e" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 8003.25; Los Angeles County; California<br>Distance: 15.2km</div>`)[0];
+                popup_999d59114c4e5d492b2aa965605f1f23.setContent(html_1d6553f985ac77a753785b3d2c8db75e);
+            
+        
+
+        circle_8b3453771be0ccd9e1d41f9456a6ac0c.bindPopup(popup_999d59114c4e5d492b2aa965605f1f23)
+        ;
+
+        
+    
+    
+            circle_8b3453771be0ccd9e1d41f9456a6ac0c.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_e018cf8856d4b93a11feffd9240c5863 = L.circle(
+                [34.01669758138289, -118.79064819842002],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_182d9e30b22e577fc6df497a7bd5bc3a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e34f0afe3612eb5c0f62b711b3b419df = $(`<div id="html_e34f0afe3612eb5c0f62b711b3b419df" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 8004.12; Los Angeles County; California<br>Distance: 12.4km</div>`)[0];
+                popup_182d9e30b22e577fc6df497a7bd5bc3a.setContent(html_e34f0afe3612eb5c0f62b711b3b419df);
+            
+        
+
+        circle_e018cf8856d4b93a11feffd9240c5863.bindPopup(popup_182d9e30b22e577fc6df497a7bd5bc3a)
+        ;
+
+        
+    
+    
+            circle_e018cf8856d4b93a11feffd9240c5863.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_7c2641e63e91a270246f4fc75cfb8c6c = L.circle(
+                [34.0284666876961, -118.82245542721654],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_b2c11383d852a25ccb7ca5891e3ecdfb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_eb3a916aa4e410df860a49253504cb1d = $(`<div id="html_eb3a916aa4e410df860a49253504cb1d" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 8004.11; Los Angeles County; California<br>Distance: 15.0km</div>`)[0];
+                popup_b2c11383d852a25ccb7ca5891e3ecdfb.setContent(html_eb3a916aa4e410df860a49253504cb1d);
+            
+        
+
+        circle_7c2641e63e91a270246f4fc75cfb8c6c.bindPopup(popup_b2c11383d852a25ccb7ca5891e3ecdfb)
+        ;
+
+        
+    
+    
+            circle_7c2641e63e91a270246f4fc75cfb8c6c.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_59d5059199d758fb1bd1f8676085ed6f = L.circle(
+                [34.484854512726194, -117.80514158791055],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_72e8ed39c1225a31715cfd59569f2a74 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_48e966c7e20bca481cba4261652c72ad = $(`<div id="html_48e966c7e20bca481cba4261652c72ad" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9110.01; Los Angeles County; California<br>Distance: 28.3km</div>`)[0];
+                popup_72e8ed39c1225a31715cfd59569f2a74.setContent(html_48e966c7e20bca481cba4261652c72ad);
+            
+        
+
+        circle_59d5059199d758fb1bd1f8676085ed6f.bindPopup(popup_72e8ed39c1225a31715cfd59569f2a74)
+        ;
+
+        
+    
+    
+            circle_59d5059199d758fb1bd1f8676085ed6f.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_5b8710a91fb07802f54e36e7b5d0cc1e = L.circle(
+                [34.513355585914475, -118.30832472246202],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_361f1f0bc3a5ec17cf45acd999c30059 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c81f0b83b84f4604cb77aa62aa7ff63d = $(`<div id="html_c81f0b83b84f4604cb77aa62aa7ff63d" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9108.14; Los Angeles County; California<br>Distance: 12.3km</div>`)[0];
+                popup_361f1f0bc3a5ec17cf45acd999c30059.setContent(html_c81f0b83b84f4604cb77aa62aa7ff63d);
+            
+        
+
+        circle_5b8710a91fb07802f54e36e7b5d0cc1e.bindPopup(popup_361f1f0bc3a5ec17cf45acd999c30059)
+        ;
+
+        
+    
+    
+            circle_5b8710a91fb07802f54e36e7b5d0cc1e.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_ec34c2834f86a129c11490a53f6ac57f = L.circle(
+                [34.55221202301991, -118.41164855800533],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_123c89c7e59d09661b623054501a3bf3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0cf097e25bf08b390aaca6ba278e6531 = $(`<div id="html_0cf097e25bf08b390aaca6ba278e6531" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9200.50; Los Angeles County; California<br>Distance: 11.6km</div>`)[0];
+                popup_123c89c7e59d09661b623054501a3bf3.setContent(html_0cf097e25bf08b390aaca6ba278e6531);
+            
+        
+
+        circle_ec34c2834f86a129c11490a53f6ac57f.bindPopup(popup_123c89c7e59d09661b623054501a3bf3)
+        ;
+
+        
+    
+    
+            circle_ec34c2834f86a129c11490a53f6ac57f.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_bb178222568f9e9bec5815911d63021a = L.circle(
+                [34.1090577107466, -118.79520278473976],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_020bc44799b0047b74e275c40ebad51d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0a2f6e00333f95b6623a8bb4b1b96593 = $(`<div id="html_0a2f6e00333f95b6623a8bb4b1b96593" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 8003.35; Los Angeles County; California<br>Distance: 11.3km</div>`)[0];
+                popup_020bc44799b0047b74e275c40ebad51d.setContent(html_0a2f6e00333f95b6623a8bb4b1b96593);
+            
+        
+
+        circle_bb178222568f9e9bec5815911d63021a.bindPopup(popup_020bc44799b0047b74e275c40ebad51d)
+        ;
+
+        
+    
+    
+            circle_bb178222568f9e9bec5815911d63021a.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_c72eb1f7261b88fb3342096d13bbc32c = L.circle(
+                [34.15083620285679, -118.7801901713072],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_6aedf2b666ebef570e9805315f677a03 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_196d0834c1b1ff8c66fcda00531a1e9b = $(`<div id="html_196d0834c1b1ff8c66fcda00531a1e9b" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 8003.24; Los Angeles County; California<br>Distance: 12.2km</div>`)[0];
+                popup_6aedf2b666ebef570e9805315f677a03.setContent(html_196d0834c1b1ff8c66fcda00531a1e9b);
+            
+        
+
+        circle_c72eb1f7261b88fb3342096d13bbc32c.bindPopup(popup_6aedf2b666ebef570e9805315f677a03)
+        ;
+
+        
+    
+    
+            circle_c72eb1f7261b88fb3342096d13bbc32c.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_771b951437195b9239a9374e88ad8299 = L.circle(
+                [34.15911981689954, -118.7439879827755],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_a6a0abf945dde2bb8af6fff6a1b996c4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1e2bfa6f0a2cb56856abeeb04d9e503c = $(`<div id="html_1e2bfa6f0a2cb56856abeeb04d9e503c" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 8003.34; Los Angeles County; California<br>Distance: 10.3km</div>`)[0];
+                popup_a6a0abf945dde2bb8af6fff6a1b996c4.setContent(html_1e2bfa6f0a2cb56856abeeb04d9e503c);
+            
+        
+
+        circle_771b951437195b9239a9374e88ad8299.bindPopup(popup_a6a0abf945dde2bb8af6fff6a1b996c4)
+        ;
+
+        
+    
+    
+            circle_771b951437195b9239a9374e88ad8299.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_364aeb9f37a3bf068d4e2306bbc29ef2 = L.circle(
+                [34.55745232555926, -118.7230298430916],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_84ade80da14756850333140bcfe8e942 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b62548a685bce06d613406cc85f9dea8 = $(`<div id="html_b62548a685bce06d613406cc85f9dea8" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9201.04; Los Angeles County; California<br>Distance: 12.7km</div>`)[0];
+                popup_84ade80da14756850333140bcfe8e942.setContent(html_b62548a685bce06d613406cc85f9dea8);
+            
+        
+
+        circle_364aeb9f37a3bf068d4e2306bbc29ef2.bindPopup(popup_84ade80da14756850333140bcfe8e942)
+        ;
+
+        
+    
+    
+            circle_364aeb9f37a3bf068d4e2306bbc29ef2.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_d765911437137f8ea5008f268c22a168 = L.circle(
+                [34.79579504422398, -117.95449944913052],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_857e3f88ff1b4ae1b48fe587fa2a3ec4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f81a6d03e2c7ec94f1da9598c0577a0f = $(`<div id="html_f81a6d03e2c7ec94f1da9598c0577a0f" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9800.03; Los Angeles County; California<br>Distance: 18.1km</div>`)[0];
+                popup_857e3f88ff1b4ae1b48fe587fa2a3ec4.setContent(html_f81a6d03e2c7ec94f1da9598c0577a0f);
+            
+        
+
+        circle_d765911437137f8ea5008f268c22a168.bindPopup(popup_857e3f88ff1b4ae1b48fe587fa2a3ec4)
+        ;
+
+        
+    
+    
+            circle_d765911437137f8ea5008f268c22a168.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_9ffb566865fcb981c6cb4ff253b10952 = L.circle(
+                [34.67445717074819, -118.38695441514926],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_b5f138135b429d1915cc7c12a3b13345 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_93f688f7e8627251a54def95155b09a9 = $(`<div id="html_93f688f7e8627251a54def95155b09a9" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9012.10; Los Angeles County; California<br>Distance: 14.2km</div>`)[0];
+                popup_b5f138135b429d1915cc7c12a3b13345.setContent(html_93f688f7e8627251a54def95155b09a9);
+            
+        
+
+        circle_9ffb566865fcb981c6cb4ff253b10952.bindPopup(popup_b5f138135b429d1915cc7c12a3b13345)
+        ;
+
+        
+    
+    
+            circle_9ffb566865fcb981c6cb4ff253b10952.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_9e3efa0ec4ebad7180f61b7c4016454b = L.circle(
+                [34.76040112554884, -118.58076313000196],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_f877a33de38f0039a14b858cad51956b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1e91d5baa2a942d293ed7c4897ffae2b = $(`<div id="html_1e91d5baa2a942d293ed7c4897ffae2b" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9012.09; Los Angeles County; California<br>Distance: 29.5km</div>`)[0];
+                popup_f877a33de38f0039a14b858cad51956b.setContent(html_1e91d5baa2a942d293ed7c4897ffae2b);
+            
+        
+
+        circle_9e3efa0ec4ebad7180f61b7c4016454b.bindPopup(popup_f877a33de38f0039a14b858cad51956b)
+        ;
+
+        
+    
+    
+            circle_9e3efa0ec4ebad7180f61b7c4016454b.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_82f93706963dd7b1dcc1885591c52f2d = L.circle(
+                [34.63263492668888, -118.59749981548582],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_b1a14d747a5c8486aaaf06891f9f1d45 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_24a121a2a8ade89f1a0a66ee0e3c1a1c = $(`<div id="html_24a121a2a8ade89f1a0a66ee0e3c1a1c" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9201.02; Los Angeles County; California<br>Distance: 15.2km</div>`)[0];
+                popup_b1a14d747a5c8486aaaf06891f9f1d45.setContent(html_24a121a2a8ade89f1a0a66ee0e3c1a1c);
+            
+        
+
+        circle_82f93706963dd7b1dcc1885591c52f2d.bindPopup(popup_b1a14d747a5c8486aaaf06891f9f1d45)
+        ;
+
+        
+    
+    
+            circle_82f93706963dd7b1dcc1885591c52f2d.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_9a37aa9015842b6064c2a621069bcddc = L.circle(
+                [34.68932894740914, -117.75502725295958],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_07fb09decd344601f66a4b78f44c3d47 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fe4eeaf5da96d03797b5effa4dd3edad = $(`<div id="html_fe4eeaf5da96d03797b5effa4dd3edad" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9001.02; Los Angeles County; California<br>Distance: 34.8km</div>`)[0];
+                popup_07fb09decd344601f66a4b78f44c3d47.setContent(html_fe4eeaf5da96d03797b5effa4dd3edad);
+            
+        
+
+        circle_9a37aa9015842b6064c2a621069bcddc.bindPopup(popup_07fb09decd344601f66a4b78f44c3d47)
+        ;
+
+        
+    
+    
+            circle_9a37aa9015842b6064c2a621069bcddc.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_c78917edc641befc14e25c284dcbb659 = L.circle(
+                [34.53400922165572, -117.90736986049755],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_d31d9b40e72756000084fb10b8dc9927 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3f90df21a5f39317c90b6f255dea9e2b = $(`<div id="html_3f90df21a5f39317c90b6f255dea9e2b" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9100.02; Los Angeles County; California<br>Distance: 15.8km</div>`)[0];
+                popup_d31d9b40e72756000084fb10b8dc9927.setContent(html_3f90df21a5f39317c90b6f255dea9e2b);
+            
+        
+
+        circle_c78917edc641befc14e25c284dcbb659.bindPopup(popup_d31d9b40e72756000084fb10b8dc9927)
+        ;
+
+        
+    
+    
+            circle_c78917edc641befc14e25c284dcbb659.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_0f1a57ee90928bd814d3f5b13ae3d500 = L.circle(
+                [34.63047546734827, -117.8433075791357],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_a7c37c6608045fb2149281ca04681095 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0de725818179e939b0fb6968d9363d29 = $(`<div id="html_0de725818179e939b0fb6968d9363d29" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9001.03; Los Angeles County; California<br>Distance: 23.3km</div>`)[0];
+                popup_a7c37c6608045fb2149281ca04681095.setContent(html_0de725818179e939b0fb6968d9363d29);
+            
+        
+
+        circle_0f1a57ee90928bd814d3f5b13ae3d500.bindPopup(popup_a7c37c6608045fb2149281ca04681095)
+        ;
+
+        
+    
+    
+            circle_0f1a57ee90928bd814d3f5b13ae3d500.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_ff469e6278103fddbe310326d18efde6 = L.circle(
+                [34.587212814756995, -117.84482910690168],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_7a90f5774898aef15ff259168138247e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1db04e561617232c01ed937630c8e253 = $(`<div id="html_1db04e561617232c01ed937630c8e253" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9001.04; Los Angeles County; California<br>Distance: 22.3km</div>`)[0];
+                popup_7a90f5774898aef15ff259168138247e.setContent(html_1db04e561617232c01ed937630c8e253);
+            
+        
+
+        circle_ff469e6278103fddbe310326d18efde6.bindPopup(popup_7a90f5774898aef15ff259168138247e)
+        ;
+
+        
+    
+    
+            circle_ff469e6278103fddbe310326d18efde6.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_76bc263b3d0ba9b7649a9212a0726c51 = L.circle(
+                [33.99916365003138, -118.79218986024468],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_67c1c038457f578d379829d7b68494a6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_31abfbfb62799edd7fa39fab4ed038e9 = $(`<div id="html_31abfbfb62799edd7fa39fab4ed038e9" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 9901; Los Angeles County; California<br>Distance: 13.7km</div>`)[0];
+                popup_67c1c038457f578d379829d7b68494a6.setContent(html_31abfbfb62799edd7fa39fab4ed038e9);
+            
+        
+
+        circle_76bc263b3d0ba9b7649a9212a0726c51.bindPopup(popup_67c1c038457f578d379829d7b68494a6)
+        ;
+
+        
+    
+    
+            circle_76bc263b3d0ba9b7649a9212a0726c51.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_ab98992034bed72b35601a563d382902 = L.circle(
+                [33.342822866641505, -118.32875036484634],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 500, "stroke": true, "weight": 3}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+        var popup_a03c6cdbd8d2ff7867df8fd4ff9ab674 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_51d3ca9c9c6e999c07bd1dc1d21b7a64 = $(`<div id="html_51d3ca9c9c6e999c07bd1dc1d21b7a64" style="width: 100.0%; height: 100.0%;">Access Desert<br>Census Tract 5990; Los Angeles County; California<br>Distance: 43.9km</div>`)[0];
+                popup_a03c6cdbd8d2ff7867df8fd4ff9ab674.setContent(html_51d3ca9c9c6e999c07bd1dc1d21b7a64);
+            
+        
+
+        circle_ab98992034bed72b35601a563d382902.bindPopup(popup_a03c6cdbd8d2ff7867df8fd4ff9ab674)
+        ;
+
+        
+    
+    
+            circle_ab98992034bed72b35601a563d382902.bindTooltip(
+                `<div>
+                     Access Desert Area
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_259c468380d972dba47f194c9fcae737 = L.marker(
+                [34.63047546734827, -117.8433075791357],
+                {
+}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var icon_dd9baa13da08650ecca2a7d2f97f9244 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "hospital-o",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e9b8d955519b9559e9f0d34b228c3800 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_28e2e2d381d81bd101a7dbae5f6e8549 = $(`<div id="html_28e2e2d381d81bd101a7dbae5f6e8549" style="width: 100.0%; height: 100.0%;">                     <div style="font-family: Arial; width: 300px;">                         <h4 style="color: #2E7D32; margin-bottom: 10px;">                             🏥 Recommended Facility Location #1                         </h4>                         <p><strong>Area:</strong> Census Tract 9001.03; Los Angeles County; California</p>                         <p><strong>Current Distance:</strong> 23.3 km from nearest facility</p>                         <p><strong>Population Served:</strong> 6,514 residents</p>                         <p><strong>Estimated Impact:</strong> 17,293 people within 5km</p>                         <p><strong>Median Income:</strong> $59,434</p>                         <p><strong>Priority Reason:</strong> Extreme distance to care; Low-income community; High poverty rate</p>                         <p style="background-color: #E8F5E9; padding: 5px; margin-top: 10px; border-left: 3px solid #2E7D32;">                             <strong>Recommendation:</strong> High priority site for new healthcare facility                         </p>                     </div>                     </div>`)[0];
+                popup_e9b8d955519b9559e9f0d34b228c3800.setContent(html_28e2e2d381d81bd101a7dbae5f6e8549);
+            
+        
+
+        marker_259c468380d972dba47f194c9fcae737.bindPopup(popup_e9b8d955519b9559e9f0d34b228c3800)
+        ;
+
+        
+    
+    
+            marker_259c468380d972dba47f194c9fcae737.bindTooltip(
+                `<div>
+                     Priority #1: Census Tract 9001.03; Los Angeles County; California
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_259c468380d972dba47f194c9fcae737.setIcon(icon_dd9baa13da08650ecca2a7d2f97f9244);
+            
+    
+            var circle_e7bf65e1bced10e5b22ecf2bde8f23d6 = L.circle(
+                [34.63047546734827, -117.8433075791357],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": "5, 5", "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5000, "stroke": true, "weight": 2}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var marker_1f7899e2b576d5ed79daaaefb1385d31 = L.marker(
+                [33.342822866641505, -118.32875036484634],
+                {
+}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var icon_de9908e490a5facf1c269586ea9d5abd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "hospital-o",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bad7f6bee6334bc2224d8c6f7493db47 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_d946797f94bde3968b02e9a35392b57e = $(`<div id="html_d946797f94bde3968b02e9a35392b57e" style="width: 100.0%; height: 100.0%;">                     <div style="font-family: Arial; width: 300px;">                         <h4 style="color: #2E7D32; margin-bottom: 10px;">                             🏥 Recommended Facility Location #2                         </h4>                         <p><strong>Area:</strong> Census Tract 5990; Los Angeles County; California</p>                         <p><strong>Current Distance:</strong> 43.9 km from nearest facility</p>                         <p><strong>Population Served:</strong> 3,369 residents</p>                         <p><strong>Estimated Impact:</strong> 47,900 people within 5km</p>                         <p><strong>Median Income:</strong> $88,845</p>                         <p><strong>Priority Reason:</strong> Extreme distance to care; Transportation barriers</p>                         <p style="background-color: #E8F5E9; padding: 5px; margin-top: 10px; border-left: 3px solid #2E7D32;">                             <strong>Recommendation:</strong> High priority site for new healthcare facility                         </p>                     </div>                     </div>`)[0];
+                popup_bad7f6bee6334bc2224d8c6f7493db47.setContent(html_d946797f94bde3968b02e9a35392b57e);
+            
+        
+
+        marker_1f7899e2b576d5ed79daaaefb1385d31.bindPopup(popup_bad7f6bee6334bc2224d8c6f7493db47)
+        ;
+
+        
+    
+    
+            marker_1f7899e2b576d5ed79daaaefb1385d31.bindTooltip(
+                `<div>
+                     Priority #2: Census Tract 5990; Los Angeles County; California
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1f7899e2b576d5ed79daaaefb1385d31.setIcon(icon_de9908e490a5facf1c269586ea9d5abd);
+            
+    
+            var circle_61afa31b30088d3b7064669ded7ff2cb = L.circle(
+                [33.342822866641505, -118.32875036484634],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": "5, 5", "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5000, "stroke": true, "weight": 2}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var marker_36c938a7b0292f853698895a1097e1d1 = L.marker(
+                [34.587212814756995, -117.84482910690168],
+                {
+}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var icon_be6ee0f40b086bf311166ddf7c9b0c6e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "hospital-o",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9f1956227bd59c7b28d4a3a0f47125e8 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_0e9a6ca6d7fcb48044f75b548eace675 = $(`<div id="html_0e9a6ca6d7fcb48044f75b548eace675" style="width: 100.0%; height: 100.0%;">                     <div style="font-family: Arial; width: 300px;">                         <h4 style="color: #2E7D32; margin-bottom: 10px;">                             🏥 Recommended Facility Location #3                         </h4>                         <p><strong>Area:</strong> Census Tract 9001.04; Los Angeles County; California</p>                         <p><strong>Current Distance:</strong> 22.3 km from nearest facility</p>                         <p><strong>Population Served:</strong> 6,593 residents</p>                         <p><strong>Estimated Impact:</strong> 8,217 people within 5km</p>                         <p><strong>Median Income:</strong> $57,970</p>                         <p><strong>Priority Reason:</strong> Extreme distance to care; Low-income community</p>                         <p style="background-color: #E8F5E9; padding: 5px; margin-top: 10px; border-left: 3px solid #2E7D32;">                             <strong>Recommendation:</strong> High priority site for new healthcare facility                         </p>                     </div>                     </div>`)[0];
+                popup_9f1956227bd59c7b28d4a3a0f47125e8.setContent(html_0e9a6ca6d7fcb48044f75b548eace675);
+            
+        
+
+        marker_36c938a7b0292f853698895a1097e1d1.bindPopup(popup_9f1956227bd59c7b28d4a3a0f47125e8)
+        ;
+
+        
+    
+    
+            marker_36c938a7b0292f853698895a1097e1d1.bindTooltip(
+                `<div>
+                     Priority #3: Census Tract 9001.04; Los Angeles County; California
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_36c938a7b0292f853698895a1097e1d1.setIcon(icon_be6ee0f40b086bf311166ddf7c9b0c6e);
+            
+    
+            var circle_225fcc56c9730209af26572e229777fa = L.circle(
+                [34.587212814756995, -117.84482910690168],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": "5, 5", "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5000, "stroke": true, "weight": 2}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var marker_ec2add50f7b0a7efa613df51f3e52a86 = L.marker(
+                [34.53400922165572, -117.90736986049755],
+                {
+}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var icon_2709da82dbaddaeef3801ed6ec34b562 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "hospital-o",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4f7508f7720afbf1eae298456fbb4817 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_5bf724c00f6dba54b68d722d6d730ed4 = $(`<div id="html_5bf724c00f6dba54b68d722d6d730ed4" style="width: 100.0%; height: 100.0%;">                     <div style="font-family: Arial; width: 300px;">                         <h4 style="color: #2E7D32; margin-bottom: 10px;">                             🏥 Recommended Facility Location #4                         </h4>                         <p><strong>Area:</strong> Census Tract 9100.02; Los Angeles County; California</p>                         <p><strong>Current Distance:</strong> 15.8 km from nearest facility</p>                         <p><strong>Population Served:</strong> 7,240 residents</p>                         <p><strong>Estimated Impact:</strong> 5,303 people within 5km</p>                         <p><strong>Median Income:</strong> $60,417</p>                         <p><strong>Priority Reason:</strong> Extreme distance to care; Low-income community; High poverty rate</p>                         <p style="background-color: #E8F5E9; padding: 5px; margin-top: 10px; border-left: 3px solid #2E7D32;">                             <strong>Recommendation:</strong> High priority site for new healthcare facility                         </p>                     </div>                     </div>`)[0];
+                popup_4f7508f7720afbf1eae298456fbb4817.setContent(html_5bf724c00f6dba54b68d722d6d730ed4);
+            
+        
+
+        marker_ec2add50f7b0a7efa613df51f3e52a86.bindPopup(popup_4f7508f7720afbf1eae298456fbb4817)
+        ;
+
+        
+    
+    
+            marker_ec2add50f7b0a7efa613df51f3e52a86.bindTooltip(
+                `<div>
+                     Priority #4: Census Tract 9100.02; Los Angeles County; California
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ec2add50f7b0a7efa613df51f3e52a86.setIcon(icon_2709da82dbaddaeef3801ed6ec34b562);
+            
+    
+            var circle_3582534cbc6711548bc3840de5a77cff = L.circle(
+                [34.53400922165572, -117.90736986049755],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": "5, 5", "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5000, "stroke": true, "weight": 2}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var marker_3bdcc6cebbfdca6a434fed15895385f8 = L.marker(
+                [34.484854512726194, -117.80514158791055],
+                {
+}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var icon_2df6a5a18847a31ab91072871e81684f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "hospital-o",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_dbd6973c45f0bcaed7606509729d62ca = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_7c4b16a4a2f607ff1f9feba23bc496e6 = $(`<div id="html_7c4b16a4a2f607ff1f9feba23bc496e6" style="width: 100.0%; height: 100.0%;">                     <div style="font-family: Arial; width: 300px;">                         <h4 style="color: #2E7D32; margin-bottom: 10px;">                             🏥 Recommended Facility Location #5                         </h4>                         <p><strong>Area:</strong> Census Tract 9110.01; Los Angeles County; California</p>                         <p><strong>Current Distance:</strong> 28.3 km from nearest facility</p>                         <p><strong>Population Served:</strong> 3,658 residents</p>                         <p><strong>Estimated Impact:</strong> 520 people within 5km</p>                         <p><strong>Median Income:</strong> $79,111</p>                         <p><strong>Priority Reason:</strong> Extreme distance to care; Low-income community; High poverty rate</p>                         <p style="background-color: #E8F5E9; padding: 5px; margin-top: 10px; border-left: 3px solid #2E7D32;">                             <strong>Recommendation:</strong> High priority site for new healthcare facility                         </p>                     </div>                     </div>`)[0];
+                popup_dbd6973c45f0bcaed7606509729d62ca.setContent(html_7c4b16a4a2f607ff1f9feba23bc496e6);
+            
+        
+
+        marker_3bdcc6cebbfdca6a434fed15895385f8.bindPopup(popup_dbd6973c45f0bcaed7606509729d62ca)
+        ;
+
+        
+    
+    
+            marker_3bdcc6cebbfdca6a434fed15895385f8.bindTooltip(
+                `<div>
+                     Priority #5: Census Tract 9110.01; Los Angeles County; California
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3bdcc6cebbfdca6a434fed15895385f8.setIcon(icon_2df6a5a18847a31ab91072871e81684f);
+            
+    
+            var circle_328863fd0a57a99e29286775ad1bcfca = L.circle(
+                [34.484854512726194, -117.80514158791055],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": "5, 5", "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5000, "stroke": true, "weight": 2}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var marker_ece761c26cde52620a5f1cbc591b38a0 = L.marker(
+                [34.160151286841376, -118.7813936386573],
+                {
+}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var icon_aecf5fcb74d9f36880dbb1cfdc8df787 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "hospital-o",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2da0ab893e0771f47baf552890361bac = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_b6dcf4f668f6954a2743a7e7680f9f7e = $(`<div id="html_b6dcf4f668f6954a2743a7e7680f9f7e" style="width: 100.0%; height: 100.0%;">                     <div style="font-family: Arial; width: 300px;">                         <h4 style="color: #2E7D32; margin-bottom: 10px;">                             🏥 Recommended Facility Location #6                         </h4>                         <p><strong>Area:</strong> Census Tract 8003.38; Los Angeles County; California</p>                         <p><strong>Current Distance:</strong> 13.0 km from nearest facility</p>                         <p><strong>Population Served:</strong> 6,471 residents</p>                         <p><strong>Estimated Impact:</strong> 54,602 people within 5km</p>                         <p><strong>Median Income:</strong> $198,889</p>                         <p><strong>Priority Reason:</strong> Extreme distance to care</p>                         <p style="background-color: #E8F5E9; padding: 5px; margin-top: 10px; border-left: 3px solid #2E7D32;">                             <strong>Recommendation:</strong> High priority site for new healthcare facility                         </p>                     </div>                     </div>`)[0];
+                popup_2da0ab893e0771f47baf552890361bac.setContent(html_b6dcf4f668f6954a2743a7e7680f9f7e);
+            
+        
+
+        marker_ece761c26cde52620a5f1cbc591b38a0.bindPopup(popup_2da0ab893e0771f47baf552890361bac)
+        ;
+
+        
+    
+    
+            marker_ece761c26cde52620a5f1cbc591b38a0.bindTooltip(
+                `<div>
+                     Priority #6: Census Tract 8003.38; Los Angeles County; California
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ece761c26cde52620a5f1cbc591b38a0.setIcon(icon_aecf5fcb74d9f36880dbb1cfdc8df787);
+            
+    
+            var circle_d1e29acd43801ef6244f52a511a88922 = L.circle(
+                [34.160151286841376, -118.7813936386573],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": "5, 5", "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5000, "stroke": true, "weight": 2}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var marker_78193f8b7cd7a8d94e33cb8d234d7b22 = L.marker(
+                [34.15083620285679, -118.7801901713072],
+                {
+}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var icon_7128a9d4c3bf2c016f1739f77b94d283 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "hospital-o",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b5c752f358681d4ed514385901bc7b89 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_564256564a61de5efeaca6940c5d4d7a = $(`<div id="html_564256564a61de5efeaca6940c5d4d7a" style="width: 100.0%; height: 100.0%;">                     <div style="font-family: Arial; width: 300px;">                         <h4 style="color: #2E7D32; margin-bottom: 10px;">                             🏥 Recommended Facility Location #7                         </h4>                         <p><strong>Area:</strong> Census Tract 8003.24; Los Angeles County; California</p>                         <p><strong>Current Distance:</strong> 12.2 km from nearest facility</p>                         <p><strong>Population Served:</strong> 6,585 residents</p>                         <p><strong>Estimated Impact:</strong> 98,484 people within 5km</p>                         <p><strong>Median Income:</strong> $154,288</p>                         <p><strong>Priority Reason:</strong> Extreme distance to care</p>                         <p style="background-color: #E8F5E9; padding: 5px; margin-top: 10px; border-left: 3px solid #2E7D32;">                             <strong>Recommendation:</strong> High priority site for new healthcare facility                         </p>                     </div>                     </div>`)[0];
+                popup_b5c752f358681d4ed514385901bc7b89.setContent(html_564256564a61de5efeaca6940c5d4d7a);
+            
+        
+
+        marker_78193f8b7cd7a8d94e33cb8d234d7b22.bindPopup(popup_b5c752f358681d4ed514385901bc7b89)
+        ;
+
+        
+    
+    
+            marker_78193f8b7cd7a8d94e33cb8d234d7b22.bindTooltip(
+                `<div>
+                     Priority #7: Census Tract 8003.24; Los Angeles County; California
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_78193f8b7cd7a8d94e33cb8d234d7b22.setIcon(icon_7128a9d4c3bf2c016f1739f77b94d283);
+            
+    
+            var circle_4ec02c660a11f88869a195fc3852aca1 = L.circle(
+                [34.15083620285679, -118.7801901713072],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": "5, 5", "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5000, "stroke": true, "weight": 2}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var marker_e52593f02ff7b99f28286c3206ee22cf = L.marker(
+                [34.63263492668888, -118.59749981548582],
+                {
+}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var icon_b9cb9c04657c63de78424503a47b083e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "hospital-o",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4ceb7ce5cf3e0c49d1a2bf80d188fbf7 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_5ae6c87a25cd5c42afeee43dd05cec97 = $(`<div id="html_5ae6c87a25cd5c42afeee43dd05cec97" style="width: 100.0%; height: 100.0%;">                     <div style="font-family: Arial; width: 300px;">                         <h4 style="color: #2E7D32; margin-bottom: 10px;">                             🏥 Recommended Facility Location #8                         </h4>                         <p><strong>Area:</strong> Census Tract 9201.02; Los Angeles County; California</p>                         <p><strong>Current Distance:</strong> 15.2 km from nearest facility</p>                         <p><strong>Population Served:</strong> 4,899 residents</p>                         <p><strong>Estimated Impact:</strong> 417 people within 5km</p>                         <p><strong>Median Income:</strong> $95,000</p>                         <p><strong>Priority Reason:</strong> Extreme distance to care</p>                         <p style="background-color: #E8F5E9; padding: 5px; margin-top: 10px; border-left: 3px solid #2E7D32;">                             <strong>Recommendation:</strong> High priority site for new healthcare facility                         </p>                     </div>                     </div>`)[0];
+                popup_4ceb7ce5cf3e0c49d1a2bf80d188fbf7.setContent(html_5ae6c87a25cd5c42afeee43dd05cec97);
+            
+        
+
+        marker_e52593f02ff7b99f28286c3206ee22cf.bindPopup(popup_4ceb7ce5cf3e0c49d1a2bf80d188fbf7)
+        ;
+
+        
+    
+    
+            marker_e52593f02ff7b99f28286c3206ee22cf.bindTooltip(
+                `<div>
+                     Priority #8: Census Tract 9201.02; Los Angeles County; California
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e52593f02ff7b99f28286c3206ee22cf.setIcon(icon_b9cb9c04657c63de78424503a47b083e);
+            
+    
+            var circle_aabd007a9f5c03b7e658f9b1302ba6cb = L.circle(
+                [34.63263492668888, -118.59749981548582],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": "5, 5", "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5000, "stroke": true, "weight": 2}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var marker_289faada8ed7f280314ab24a62b0f6ca = L.marker(
+                [34.60995149896701, -117.9789259222995],
+                {
+}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var icon_6d7ac1d30d0377982fca194460153329 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "hospital-o",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cd324e2dd1a5c1b4ede573e5b07f128e = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_361ec2796e099318e507decbbc3e6039 = $(`<div id="html_361ec2796e099318e507decbbc3e6039" style="width: 100.0%; height: 100.0%;">                     <div style="font-family: Arial; width: 300px;">                         <h4 style="color: #2E7D32; margin-bottom: 10px;">                             🏥 Recommended Facility Location #9                         </h4>                         <p><strong>Area:</strong> Census Tract 9111; Los Angeles County; California</p>                         <p><strong>Current Distance:</strong> 8.5 km from nearest facility</p>                         <p><strong>Population Served:</strong> 7,316 residents</p>                         <p><strong>Estimated Impact:</strong> 2,391 people within 5km</p>                         <p><strong>Median Income:</strong> $65,135</p>                         <p><strong>Priority Reason:</strong> Limited access; Low-income community; High poverty rate</p>                         <p style="background-color: #E8F5E9; padding: 5px; margin-top: 10px; border-left: 3px solid #2E7D32;">                             <strong>Recommendation:</strong> High priority site for new healthcare facility                         </p>                     </div>                     </div>`)[0];
+                popup_cd324e2dd1a5c1b4ede573e5b07f128e.setContent(html_361ec2796e099318e507decbbc3e6039);
+            
+        
+
+        marker_289faada8ed7f280314ab24a62b0f6ca.bindPopup(popup_cd324e2dd1a5c1b4ede573e5b07f128e)
+        ;
+
+        
+    
+    
+            marker_289faada8ed7f280314ab24a62b0f6ca.bindTooltip(
+                `<div>
+                     Priority #9: Census Tract 9111; Los Angeles County; California
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_289faada8ed7f280314ab24a62b0f6ca.setIcon(icon_6d7ac1d30d0377982fca194460153329);
+            
+    
+            var circle_f7f1334bdce893f7277cb3929e71fa7b = L.circle(
+                [34.60995149896701, -117.9789259222995],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": "5, 5", "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5000, "stroke": true, "weight": 2}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var marker_df5b43f5f15a2d0f5d0e7099400c24a8 = L.marker(
+                [34.144180852483366, -118.81815065068862],
+                {
+}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var icon_fbd0953d0d6ec8116cb8b7e61782532c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "hospital-o",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fe5b56c2b0f33e072d04c6e99404cd69 = L.popup({
+  "maxWidth": 350,
+});
+
+        
+            
+                var html_239d7f5566d67fb02ae808f9b21227e2 = $(`<div id="html_239d7f5566d67fb02ae808f9b21227e2" style="width: 100.0%; height: 100.0%;">                     <div style="font-family: Arial; width: 300px;">                         <h4 style="color: #2E7D32; margin-bottom: 10px;">                             🏥 Recommended Facility Location #10                         </h4>                         <p><strong>Area:</strong> Census Tract 8003.25; Los Angeles County; California</p>                         <p><strong>Current Distance:</strong> 15.2 km from nearest facility</p>                         <p><strong>Population Served:</strong> 3,677 residents</p>                         <p><strong>Estimated Impact:</strong> 85,403 people within 5km</p>                         <p><strong>Median Income:</strong> $165,743</p>                         <p><strong>Priority Reason:</strong> Extreme distance to care</p>                         <p style="background-color: #E8F5E9; padding: 5px; margin-top: 10px; border-left: 3px solid #2E7D32;">                             <strong>Recommendation:</strong> High priority site for new healthcare facility                         </p>                     </div>                     </div>`)[0];
+                popup_fe5b56c2b0f33e072d04c6e99404cd69.setContent(html_239d7f5566d67fb02ae808f9b21227e2);
+            
+        
+
+        marker_df5b43f5f15a2d0f5d0e7099400c24a8.bindPopup(popup_fe5b56c2b0f33e072d04c6e99404cd69)
+        ;
+
+        
+    
+    
+            marker_df5b43f5f15a2d0f5d0e7099400c24a8.bindTooltip(
+                `<div>
+                     Priority #10: Census Tract 8003.25; Los Angeles County; California
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_df5b43f5f15a2d0f5d0e7099400c24a8.setIcon(icon_fbd0953d0d6ec8116cb8b7e61782532c);
+            
+    
+            var circle_5e6ed1c966cc744d3dfaeb7d5e2f4ba6 = L.circle(
+                [34.144180852483366, -118.81815065068862],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": "5, 5", "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.1, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5000, "stroke": true, "weight": 2}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+        
+    
+            var layer_control_9b6ed4f0fc3fb94d76e84927c9c54abf_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_7df42f2214eb1d8683c0172da0ae1a9a,
+                },
+                overlays :  {
+                },
+            };
+            let layer_control_9b6ed4f0fc3fb94d76e84927c9c54abf = L.control.layers(
+                layer_control_9b6ed4f0fc3fb94d76e84927c9c54abf_layers.base_layers,
+                layer_control_9b6ed4f0fc3fb94d76e84927c9c54abf_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_ec0646c4686a8875a7008c0d6a4126e5);
+
+        
+</script>
+</html>

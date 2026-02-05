@@ -1,0 +1,68 @@
+name: Update Healthcare Analysis
+
+on:
+  schedule:
+    # Run monthly on the 1st at 2am UTC
+    - cron: '0 2 1 * *'
+  workflow_dispatch:  # Allow manual trigger from GitHub UI
+
+jobs:
+  update-analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Fetch latest facility data
+        run: |
+          python -m data_collection.collect_facilities
+        continue-on-error: true
+
+      - name: Fetch latest census data
+        run: |
+          python -m data_collection.collect_census_data
+        continue-on-error: true
+
+      - name: Merge census tracts
+        run: |
+          python -m data_collection.merge_census_tracts
+        continue-on-error: true
+
+      - name: Run complete analysis
+        run: |
+          python -m impact.generate_all_outputs
+
+      - name: Commit updated outputs
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add outputs/
+          git diff-index --quiet HEAD || git commit -m "chore: update analysis outputs (automated - $(date +%Y-%m-%d))"
+
+      - name: Push changes
+        run: |
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create deployment dispatch event
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.repos.createDispatchEvent({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              event_type: 'vercel-deploy'
+            })

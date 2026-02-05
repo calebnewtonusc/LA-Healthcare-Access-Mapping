@@ -1,0 +1,11 @@
+geoid,tract_name,latitude,longitude,population_served,current_distance_km,median_income,priority_reason,estimated_impact
+6037900103,Census Tract 9001.03; Los Angeles County; California,34.63047546734827,-117.8433075791357,6514,23.330941182820816,59434,Extreme distance to care; Low-income community; High poverty rate,17293
+6037599000,Census Tract 5990; Los Angeles County; California,33.342822866641505,-118.32875036484634,3369,43.8647021142728,88845,Extreme distance to care; Transportation barriers,47900
+6037900104,Census Tract 9001.04; Los Angeles County; California,34.587212814756995,-117.84482910690168,6593,22.28600196666159,57970,Extreme distance to care; Low-income community,8217
+6037910002,Census Tract 9100.02; Los Angeles County; California,34.53400922165572,-117.90736986049755,7240,15.82095270270668,60417,Extreme distance to care; Low-income community; High poverty rate,5303
+6037911001,Census Tract 9110.01; Los Angeles County; California,34.484854512726194,-117.80514158791055,3658,28.2930021854954,79111,Extreme distance to care; Low-income community; High poverty rate,520
+6037800338,Census Tract 8003.38; Los Angeles County; California,34.160151286841376,-118.7813936386573,6471,12.961235697036832,198889,Extreme distance to care,54602
+6037800324,Census Tract 8003.24; Los Angeles County; California,34.15083620285679,-118.7801901713072,6585,12.163221350574702,154288,Extreme distance to care,98484
+6037920102,Census Tract 9201.02; Los Angeles County; California,34.63263492668888,-118.59749981548582,4899,15.192518470912104,95000,Extreme distance to care,417
+6037911100,Census Tract 9111; Los Angeles County; California,34.60995149896701,-117.9789259222995,7316,8.499252859961286,65135,Limited access; Low-income community; High poverty rate,2391
+6037800325,Census Tract 8003.25; Los Angeles County; California,34.144180852483366,-118.81815065068862,3677,15.224103531710822,165743,Extreme distance to care,85403
