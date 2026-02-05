@@ -1,0 +1,50 @@
+# Development Dependencies
+# Install with: pip install -r requirements-dev.txt
+
+# Include production dependencies
+-r requirements.txt
+
+# Testing
+pytest>=9.0.0
+pytest-cov>=7.0.0
+pytest-mock>=3.12.0
+pytest-xdist>=3.5.0  # Parallel test execution
+
+# Code Quality
+black>=24.0.0  # Code formatting
+flake8>=7.0.0  # Linting
+mypy>=1.8.0  # Type checking
+isort>=5.13.0  # Import sorting
+pylint>=3.0.0  # Additional linting
+
+# Documentation
+sphinx>=7.2.0  # Documentation generator
+sphinx-rtd-theme>=2.0.0  # ReadTheDocs theme
+nbsphinx>=0.9.3  # Jupyter notebook support in Sphinx
+
+# Jupyter Development
+ipykernel>=6.29.0  # Jupyter kernel
+jupyter>=1.0.0  # Jupyter notebook
+jupyterlab>=4.0.0  # JupyterLab interface
+nbconvert>=7.14.0  # Notebook conversion
+
+# Development Tools
+pre-commit>=3.6.0  # Git hooks
+python-dotenv>=1.0.0  # Environment variable management
+ipdb>=0.13.0  # Debugger
+tox>=4.11.0  # Test automation
+
+# Performance Profiling
+memory-profiler>=0.61.0
+line-profiler>=4.1.0
+
+# Code Coverage
+coverage[toml]>=7.4.0
+
+# Type Stubs (for mypy)
+types-requests>=2.31.0
+pandas-stubs>=2.1.4.0
+
+# Additional Development Utilities
+watchdog>=4.0.0  # File system monitoring
+rope>=1.11.0  # Refactoring library
