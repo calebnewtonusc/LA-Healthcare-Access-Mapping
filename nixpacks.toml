@@ -3,12 +3,15 @@ nixPkgs = ["python311"]
 
 [phases.install]
 cmds = [
-  "cd backend",
-  "pip install -r requirements.txt"
+  "pip install -r backend/requirements.txt"
 ]
 
 [phases.build]
-cmds = ["echo 'Build complete'"]
+cmds = [
+  "echo 'Build complete'",
+  "ls -la",
+  "ls -la outputs/policy_recommendations/ || echo 'No outputs yet'"
+]
 
 [start]
 cmd = "cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT"
