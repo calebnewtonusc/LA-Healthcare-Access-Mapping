@@ -1,0 +1,86 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# Environment variables
+.env
+.venv
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (keep structure, not large datasets)
+data/raw/*.csv
+data/raw/*.json
+data/raw/*.geojson
+data/processed/*.csv
+data/processed/*.json
+data/processed/*.geojson
+data/external/*.csv
+data/external/*.json
+data/external/*.geojson
+
+# Keep example files
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/external/.gitkeep
+
+# Outputs
+outputs/maps/*.png
+outputs/maps/*.pdf
+outputs/maps/*.html
+outputs/reports/*.pdf
+outputs/reports/*.html
+outputs/figures/*.png
+outputs/figures/*.pdf
+
+# Keep output structure
+!outputs/maps/.gitkeep
+!outputs/reports/.gitkeep
+!outputs/figures/.gitkeep
+
+# API Keys
+config/secrets.py
+*.key
+credentials.json
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Documentation
+docs/_build/
