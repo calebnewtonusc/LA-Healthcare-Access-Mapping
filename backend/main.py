@@ -21,13 +21,10 @@ app = FastAPI(
 )
 
 # CORS configuration for Vercel frontend
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:3001").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://*.vercel.app",
-        "http://localhost:3000",
-        "http://localhost:3001",
-    ],
+    allow_origins=ALLOWED_ORIGINS + ["https://*.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -68,10 +65,29 @@ async def root():
     }
 
 
+@app.on_event("startup")
+async def startup_event():
+    """Log startup information for debugging"""
+    print("=" * 60)
+    print("LA Healthcare Access API - Starting")
+    print(f"Working directory: {os.getcwd()}")
+    print(f"BASE_DIR: {BASE_DIR}")
+    print(f"OUTPUTS_DIR: {OUTPUTS_DIR}")
+    print(f"Outputs directory exists: {OUTPUTS_DIR.exists()}")
+    if OUTPUTS_DIR.exists():
+        print(f"Files in outputs: {list(OUTPUTS_DIR.iterdir())}")
+    print("=" * 60)
+
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint for monitoring"""
-    return {"status": "healthy", "service": "la-healthcare-api"}
+    return {
+        "status": "healthy",
+        "service": "la-healthcare-api",
+        "outputs_available": OUTPUTS_DIR.exists(),
+        "working_dir": os.getcwd()
+    }
 
 
 @app.get("/api/recommendations")
