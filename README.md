@@ -7,20 +7,25 @@ Mapping healthcare access gaps across Los Angeles County to identify underserved
 [![Tests Passing](https://img.shields.io/badge/tests-44%20passing-brightgreen.svg)](tests/)
 [![Code Quality: A+](https://img.shields.io/badge/quality-A%2B-success.svg)](FINISHED_PRODUCT_SUMMARY.md)
 [![Live Demo](https://img.shields.io/badge/demo-live-success.svg)](#-live-demo)
+[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/calebnewtonusc/la-healthcare-access-mapping&root-directory=frontend)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/calebnewtonusc/la-healthcare-access-mapping)
 
 ---
 
 ## 🌐 Live Demo
 
-🚀 **[View Live Dashboard](https://your-project.vercel.app)** - Interactive web application with real-time data visualization
+🚀 **[View Live Dashboard](https://frontend-eta-one-bcbtvb58hh.vercel.app)** - Interactive web application with real-time data visualization
 
-The project is now deployed as a public web application featuring:
-- 📊 **Interactive Dashboard** - Real-time metrics and visualizations
-- 🗺️ **Dynamic Maps** - Explore facility locations and access deserts
-- 📈 **Policy Recommendations** - Browse evidence-based interventions
+The project is deployed as a public web application featuring:
+- 📊 **Interactive Dashboard** - Clean, professional light theme with detailed metrics
+- 🗺️ **Dynamic Maps** - Explore facility locations and access deserts (compact legend)
+- 📈 **Policy Recommendations** - Browse evidence-based interventions with calculation details
+- 📚 **Complete Methodology** - All formulas, data sources, and calculations documented
 - 🔄 **Auto-Updating** - Data refreshes monthly via GitHub Actions
 
-**Tech Stack**: Next.js frontend (Vercel) + FastAPI backend (Railway)
+**Tech Stack**: Next.js 16 (Vercel) + FastAPI (Render/Railway) + Python 3.13
+
+**Quick Deploy**: Click the deploy buttons above to launch your own instance!
 
 ---
 
