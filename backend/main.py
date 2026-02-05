@@ -305,12 +305,12 @@ async def get_statistics():
                     elif '10-year total investment:' in line or '• 10-year total investment:' in line:
                         if '$' in line:
                             total_investment = '$' + line.split('$')[1].strip().split()[0].replace(',', '')
-                            # Convert to millions if needed
+                            # Convert to millions/billions with 1 decimal precision
                             val = float(total_investment.replace('$', '').replace(',', ''))
                             if val >= 1000000000:
                                 total_investment = f"${val / 1000000000:.1f}B"
                             elif val >= 1000000:
-                                total_investment = f"${val / 1000000:.0f}M"
+                                total_investment = f"${val / 1000000:.1f}M"
 
         return JSONResponse(content={
             "population_affected": int(total_affected),
