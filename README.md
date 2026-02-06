@@ -3,7 +3,7 @@
 [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
 [![Tests Passing](https://img.shields.io/badge/tests-44%20passing-brightgreen.svg)](tests/)
-[![Code Quality](https://img.shields.io/badge/quality-A%2B-success.svg)](FINISHED_PRODUCT_SUMMARY.md)
+[![Code Quality](https://img.shields.io/badge/quality-A%2B-success.svg)](docs/)
 [![Live Demo](https://img.shields.io/badge/demo-live-success.svg)](https://la-healthcare-access-mapping.vercel.app/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
@@ -342,8 +342,6 @@ curl https://la-healthcare-access-mapping-production.up.railway.app/api/stats
 | [Final Report](docs/FINAL_PROJECT_REPORT.md) | 53-page comprehensive analysis |
 | [Presentation](docs/PRESENTATION_SLIDES.md) | 25-slide deck |
 | [Deployment Guide](DEPLOYMENT.md) | Step-by-step deployment |
-| [Quality Assessment](FINISHED_PRODUCT_SUMMARY.md) | A+ grade evaluation |
-| [Real-World Impact](REAL_WORLD_IMPACT_ACHIEVED.md) | Impact analysis |
 
 ---
 
