@@ -59,6 +59,9 @@ export default function RootLayout({
               <p className="text-xs text-slate-700 mt-2">
                 Open source healthcare access analysis for Los Angeles County
               </p>
+              <p className="text-xs text-slate-600 mt-3">
+                Built by <a href="https://calebnewton.me" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 font-medium transition-colors">Caleb Newton</a>
+              </p>
             </div>
           </div>
         </footer>
