@@ -89,13 +89,20 @@ export default function RootLayout({
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <div>
-                <Link href="/" className="hover:opacity-80 transition-opacity">
-                  <h1 className="text-2xl font-bold text-slate-900">
-                    LA Healthcare Access Dashboard
-                  </h1>
-                  <p className="text-sm text-slate-700 mt-1">
-                    Policy Recommendations & Analysis
-                  </p>
+                <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                  <img
+                    src="/logo.png"
+                    alt="LA Healthcare Access Logo"
+                    className="w-12 h-12 object-contain"
+                  />
+                  <div>
+                    <h1 className="text-2xl font-bold text-slate-900">
+                      LA Healthcare Access Dashboard
+                    </h1>
+                    <p className="text-sm text-slate-700 mt-1">
+                      Policy Recommendations & Analysis
+                    </p>
+                  </div>
                 </Link>
               </div>
               <div className="flex items-center gap-4">

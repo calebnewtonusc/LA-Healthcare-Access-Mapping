@@ -1,11 +1,15 @@
-# LA Healthcare Access Mapping
+<div align="center">
+  <img src="frontend/public/logo.png" alt="LA Healthcare Access Logo" width="120" height="120">
 
-[![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
-[![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
-[![Tests Passing](https://img.shields.io/badge/tests-44%20passing-brightgreen.svg)](tests/)
-[![Code Quality](https://img.shields.io/badge/quality-A%2B-success.svg)](docs/)
-[![Live Demo](https://img.shields.io/badge/demo-live-success.svg)](https://la-healthcare-access-mapping.vercel.app/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+  # LA Healthcare Access Mapping
+
+  [![Python 3.13](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/downloads/)
+  [![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
+  [![Tests Passing](https://img.shields.io/badge/tests-44%20passing-brightgreen.svg)](tests/)
+  [![Code Quality](https://img.shields.io/badge/quality-A%2B-success.svg)](docs/)
+  [![Live Demo](https://img.shields.io/badge/demo-live-success.svg)](https://la-healthcare-access-mapping.vercel.app/)
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+</div>
 
 **Production-ready data science platform analyzing healthcare access gaps across Los Angeles County to identify underserved communities and inform evidence-based policy decisions.**
 
@@ -15,15 +19,16 @@ Engineered geospatial analysis pipeline serving **9.9 million residents** across
 
 **🌐 [View Live Dashboard](https://la-healthcare-access-mapping.vercel.app/)** - Interactive web application with real-time data visualization
 
-The project is deployed as a production web application featuring:
-- **📊 Interactive Dashboard** - Professional glassmorphic design with comprehensive metrics and visual storytelling
-- **🗺️ Dynamic Maps** - Explore 4,512 facility locations and access desert heatmaps with custom legends
-- **💡 Policy Recommendations** - 5 evidence-based interventions with full methodology and impact visualizations
-- **📈 Financial Analysis** - $645M investment opportunity, 539% ROI projection with comparative analytics
-- **📚 Comprehensive Resources** - 20+ official government tools, HPSA/MUA finders, and facility locators
-- **🎨 Premium UX** - Mobile navigation, breadcrumbs, back-to-top, smooth animations with Framer Motion
+The project is deployed as a production web application with **6 comprehensive sections**:
+- **🏠 Home** - Executive summary with key findings hero, quick stats, and navigation hub
+- **📊 Analysis** - Complete data visualizations including regional breakdowns, impact comparisons, priority matrices, and interactive maps
+- **💡 Recommendations** - All policy content with financial analysis, implementation timelines, and ROI breakdowns
+- **🔬 Methodology** - Technical documentation covering algorithms, KD-tree implementation, and CRS transformations
+- **📚 Data & API** - Complete data dictionary with 7 live RESTful API endpoints and integration guides
+- **🌐 Resources** - 20+ curated external tools, HPSA/MUA finders, and facility locators
+- **🎨 Premium UX** - Glassmorphic design, mobile navigation, breadcrumbs, back-to-top, Framer Motion animations
 - **🔄 Auto-Updating** - Monthly data refresh via GitHub Actions automation
-- **⚡ Performance Optimized** - Lazy loading, server-side caching, 93% faster page generation
+- **⚡ Performance** - Lazy loading, server-side caching, comprehensive SEO (Open Graph, JSON-LD)
 
 **Tech Stack**: Next.js 16 (Vercel) + FastAPI (Railway) + Python 3.13 + GeoPandas + Framer Motion
 
@@ -61,12 +66,13 @@ The project is deployed as a production web application featuring:
 
 ### View the Dashboard (Recommended)
 
-Visit the **[Live Dashboard](https://la-healthcare-access-mapping.vercel.app/)** to explore:
-- Interactive facility location maps
-- Healthcare access heatmaps
-- Policy recommendations with methodology
-- Financial cost-benefit analysis
-- Real-time access metrics
+Visit the **[Live Dashboard](https://la-healthcare-access-mapping.vercel.app/)** to explore 6 comprehensive sections:
+1. **Home** - Executive summary with key findings and navigation hub
+2. **Analysis** - Regional breakdowns, impact comparisons, priority matrices, interactive maps
+3. **Recommendations** - Complete policy content with financial analysis and implementation timelines
+4. **Methodology** - Technical documentation with algorithms and CRS transformations
+5. **Data & API** - 7 RESTful endpoints with full integration guides
+6. **Resources** - 20+ curated external tools and facility locators
 
 ### Run Locally
 
@@ -124,18 +130,22 @@ pytest tests/ -v
 - **Multiple Metrics**: Distance-based, density-based, and composite access scores
 
 ### 🗺️ Interactive Visualizations
+- **Recharts Analytics**: Regional breakdown bar charts, priority scatter matrices, implementation timelines, impact comparisons
 - **Folium Maps**: Interactive facility locations with custom legends and fullscreen controls
 - **Heatmaps**: Access desert visualization across census tracts with neon styling
-- **Data Storytelling**: Visual pipeline diagrams, comparison charts, impact metrics
-- **Multi-Page Navigation**: Dashboard, Methodology, and Resources pages with breadcrumb trails
+- **Data Storytelling**: Visual pipeline diagrams, comparison charts, ROI breakdowns
+- **6-Section Architecture**: Home, Analysis, Recommendations, Methodology, Data & API, Resources with breadcrumb navigation
 - **Performance**: Lazy loading, optimized rendering, responsive mobile-first design
 
 ### 🎨 Premium User Experience
+- **Professional Branding**: Custom logo in header, favicons, and Apple touch icons
 - **Glassmorphic Design**: Frosted glass cards with backdrop blur throughout the interface
 - **Mobile Navigation**: Animated slide-out menu with smooth transitions and backdrop effects
 - **Smart Navigation**: Auto-generating breadcrumbs and back-to-top button with scroll detection
 - **Smooth Animations**: Framer Motion for page transitions, hover effects, and component reveals
+- **Comprehensive SEO**: Open Graph tags, Twitter Cards, JSON-LD structured data for rich search results
 - **Responsive Layout**: Mobile-first design with adaptive grids and touch-optimized controls
+- **Error Handling**: Custom 404 page, skeleton loading states, graceful degradation
 - **Accessibility**: ARIA labels, semantic HTML, keyboard navigation support
 
 ### 💡 Policy Recommendations
@@ -159,11 +169,16 @@ pytest tests/ -v
 ```
 la-healthcare-access-mapping/
 ├── frontend/                   # Next.js 16 web application
-│   ├── app/                    # App Router pages
-│   │   ├── page.tsx           # Main dashboard
-│   │   ├── about/             # Methodology & sources
-│   │   ├── resources/         # External tools directory
-│   │   └── layout.tsx         # Site-wide layout
+│   ├── app/                    # App Router pages (6-section architecture)
+│   │   ├── page.tsx           # Home: Executive summary + navigation hub
+│   │   ├── analysis/          # Analysis: ALL data visualizations + charts
+│   │   ├── recommendations/   # Recommendations: Policy content + ROI
+│   │   ├── methodology/       # Methodology: Technical docs + algorithms
+│   │   ├── data/              # Data & API: Data dictionary + 7 API endpoints
+│   │   ├── resources/         # Resources: 20+ external tools directory
+│   │   ├── layout.tsx         # Site-wide layout with logo + navigation
+│   │   ├── not-found.tsx      # Custom 404 page
+│   │   └── loading.tsx        # Skeleton loading states
 │   ├── components/             # React components
 │   │   ├── key-metrics.tsx
 │   │   ├── recommendations-list.tsx
@@ -171,7 +186,18 @@ la-healthcare-access-mapping/
 │   │   ├── mobile-nav.tsx     # Mobile navigation menu
 │   │   ├── back-to-top.tsx    # Scroll-to-top button
 │   │   ├── breadcrumbs.tsx    # Navigation breadcrumbs
+│   │   ├── structured-data.tsx # SEO JSON-LD structured data
+│   │   ├── charts/            # Recharts visualizations
+│   │   │   ├── regional-breakdown.tsx
+│   │   │   ├── priority-matrix.tsx
+│   │   │   ├── impact-comparison.tsx
+│   │   │   └── implementation-timeline.tsx
 │   │   └── ui/                # Reusable UI components
+│   ├── public/                # Static assets
+│   │   ├── logo.png           # Project logo
+│   │   ├── favicon.ico        # Site favicon
+│   │   ├── apple-touch-icon.png
+│   │   └── og-image.png       # Open Graph image
 │   └── package.json
 ├── backend/                    # FastAPI server
 │   ├── main.py                # API endpoints
