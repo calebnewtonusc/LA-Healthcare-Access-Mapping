@@ -10,32 +10,34 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Simple, professional color palette
+        // Minimal professional color palette
         // Light mode backgrounds
         'bg-primary': '#ffffff',
-        'bg-secondary': '#f8f9fa',
+        'bg-secondary': '#f9fafb',
+        'bg-tertiary': '#f3f4f6',
 
-        // Dark mode backgrounds
-        'dark-bg-primary': '#0f172a',  // Slate-900
-        'dark-bg-secondary': '#1e293b',  // Slate-800
+        // Dark mode backgrounds - simple gray scale
+        'dark-bg-primary': '#111827',  // Gray-900
+        'dark-bg-secondary': '#1f2937',  // Gray-800
+        'dark-bg-tertiary': '#374151',  // Gray-700
 
-        // Single accent color - professional blue
-        'accent': '#3b82f6',  // Blue-500
-        'accent-hover': '#2563eb',  // Blue-600
+        // Single accent color - minimal blue
+        'accent': '#2563eb',  // Blue-600
+        'accent-hover': '#1d4ed8',  // Blue-700
 
         // Text colors
         'text-primary': '#111827',
         'text-secondary': '#6b7280',
         'text-muted': '#9ca3af',
-        'dark-text-primary': '#f1f5f9',
-        'dark-text-secondary': '#cbd5e1',
-        'dark-text-muted': '#94a3b8',
+        'dark-text-primary': '#f9fafb',
+        'dark-text-secondary': '#d1d5db',
+        'dark-text-muted': '#9ca3af',
 
-        // Legacy support for existing neon color references (map to blue)
-        'neon-cyan': '#3b82f6',
-        'neon-purple': '#3b82f6',
-        'neon-pink': '#3b82f6',
-        'neon-green': '#3b82f6',
+        // Legacy neon colors - all map to gray/blue for consistency
+        'neon-cyan': '#2563eb',
+        'neon-purple': '#2563eb',
+        'neon-pink': '#2563eb',
+        'neon-green': '#10b981',
       },
     },
   },

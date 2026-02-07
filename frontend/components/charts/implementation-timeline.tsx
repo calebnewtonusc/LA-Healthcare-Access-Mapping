@@ -62,10 +62,7 @@ const dataTable = {
 
 export function ImplementationTimeline() {
   const chartContent = (
-    <div className="relative group">
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-neon-cyan/10 dark:to-neon-purple/10 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
-
-      <div className="relative bg-white/80 dark:bg-dark-bg-tertiary/70 backdrop-blur-md border border-white/60 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-lg dark:shadow-neon-cyan/10 transition-colors duration-300">
+    <div className="bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded-lg p-6 shadow-sm">
         <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Implementation Timeline</h3>
         <p className="text-sm text-slate-600 dark:text-dark-text-secondary mb-6">Phased 5-Year Deployment Strategy</p>
 
@@ -81,7 +78,7 @@ export function ImplementationTimeline() {
                   <div className="absolute left-5 top-14 bottom-0 w-0.5 bg-gradient-to-b from-slate-300 dark:from-slate-600 to-transparent"></div>
                 )}
 
-                <div className="bg-white/70 dark:bg-dark-bg-secondary/70 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-xl p-5 hover:shadow-md dark:hover:shadow-neon-cyan/20 transition-all duration-300">
+                <div className="bg-white dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                   {/* Phase Header */}
                   <div className="flex items-start gap-4 mb-4">
                     <div className={`bg-${statusColor}-100 p-2 rounded-full shrink-0`}>
@@ -101,24 +98,24 @@ export function ImplementationTimeline() {
                   </div>
 
                   {/* Phase Items */}
-                  <div className="space-y-2 mb-4 ml-14">
+                  <div className="space-y-2 mb-3 ml-14">
                     {phase.items.map((item, itemIdx) => (
-                      <div key={itemIdx} className="flex items-center justify-between py-2 px-3 bg-slate-50 dark:bg-dark-bg-primary rounded-lg">
+                      <div key={itemIdx} className="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-dark-bg-secondary rounded">
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-slate-900 dark:text-dark-text-primary">{item.name}</p>
+                          <p className="text-sm text-gray-900 dark:text-dark-text-primary">{item.name}</p>
                         </div>
-                        <div className="flex items-center gap-4 text-xs">
-                          <span className="text-blue-600 dark:text-neon-cyan font-semibold">{item.cost}</span>
-                          <span className="text-green-600 dark:text-neon-green font-semibold">{item.impact}</span>
+                        <div className="flex items-center gap-3 text-xs text-gray-600 dark:text-dark-text-secondary">
+                          <span>{item.cost}</span>
+                          <span>{item.impact}</span>
                         </div>
                       </div>
                     ))}
                   </div>
 
                   {/* Phase Summary */}
-                  <div className="ml-14 bg-gradient-to-r from-blue-50 to-green-50 dark:from-neon-cyan/10 dark:to-neon-green/10 border border-slate-200 dark:border-neon-cyan/30 rounded-lg p-3 transition-colors duration-300">
-                    <p className="text-sm text-slate-700 dark:text-dark-text-secondary">
-                      <span className="font-semibold dark:text-dark-text-primary">Total Impact:</span> {phase.totalImpact} will benefit from Phase {idx + 1} interventions
+                  <div className="ml-14 bg-gray-50 dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded p-2">
+                    <p className="text-sm text-gray-700 dark:text-dark-text-secondary">
+                      <span className="font-semibold text-gray-900 dark:text-dark-text-primary">Total Impact:</span> {phase.totalImpact} will benefit from Phase {idx + 1} interventions
                     </p>
                   </div>
                 </div>
@@ -128,22 +125,21 @@ export function ImplementationTimeline() {
         </div>
 
         {/* Timeline Summary */}
-        <div className="mt-6 grid grid-cols-3 gap-4 bg-slate-50 dark:bg-dark-bg-secondary border border-slate-200 dark:border-slate-700 rounded-xl p-4 transition-colors duration-300">
+        <div className="mt-4 grid grid-cols-3 gap-3 bg-gray-50 dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded p-3">
           <div className="text-center">
-            <p className="text-2xl font-bold text-blue-600 dark:text-neon-cyan">$645M</p>
-            <p className="text-xs text-slate-700 dark:text-dark-text-muted mt-1">Total Investment</p>
+            <p className="text-xl font-bold text-gray-900 dark:text-dark-text-primary">$645M</p>
+            <p className="text-xs text-gray-600 dark:text-dark-text-muted mt-1">Total Investment</p>
           </div>
-          <div className="text-center border-l border-r border-slate-300 dark:border-slate-600">
-            <p className="text-2xl font-bold text-green-600 dark:text-neon-green">2.2M+</p>
-            <p className="text-xs text-slate-700 dark:text-dark-text-muted mt-1">Residents Impacted</p>
+          <div className="text-center border-l border-r border-gray-300 dark:border-gray-600">
+            <p className="text-xl font-bold text-gray-900 dark:text-dark-text-primary">2.2M+</p>
+            <p className="text-xs text-gray-600 dark:text-dark-text-muted mt-1">Residents Impacted</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-purple-600 dark:text-neon-purple">60 Months</p>
-            <p className="text-xs text-slate-700 dark:text-dark-text-muted mt-1">Full Deployment</p>
+            <p className="text-xl font-bold text-gray-900 dark:text-dark-text-primary">60 Months</p>
+            <p className="text-xs text-gray-600 dark:text-dark-text-muted mt-1">Full Deployment</p>
           </div>
         </div>
       </div>
-    </div>
   )
 
   return (

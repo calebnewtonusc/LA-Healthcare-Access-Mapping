@@ -105,25 +105,25 @@ export default function RootLayout({
             </a>
             <StructuredData />
 
-          {/* Glassmorphic Header */}
-          <header role="banner" className="sticky top-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-dark-bg-secondary/80 border-b border-white/50 dark:border-slate-700/50 shadow-sm transition-colors duration-300">
+          {/* Header */}
+          <header role="banner" className="sticky top-0 z-50 bg-white dark:bg-dark-bg-secondary border-b border-gray-200 dark:border-gray-700 shadow-sm">
             <div className="container mx-auto px-4 py-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity" aria-label="LA Healthcare Access Dashboard - Home">
+                  <Link href="/" className="flex items-center gap-3" aria-label="LA Healthcare Access Dashboard - Home">
                     <Image
                       src="/logo.png"
                       alt="LA Healthcare Access Logo"
-                      width={48}
-                      height={48}
+                      width={40}
+                      height={40}
                       className="object-contain"
                       priority
                     />
                     <div>
-                      <h1 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">
+                      <h1 className="text-lg font-bold text-gray-900 dark:text-white">
                         LA Healthcare Access Dashboard
                       </h1>
-                      <p className="text-sm text-slate-700 dark:text-dark-text-secondary mt-1">
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
                         Policy Recommendations & Analysis
                       </p>
                     </div>
@@ -135,45 +135,45 @@ export default function RootLayout({
                     <ConnectionIndicator size="sm" className="hidden md:flex" />
                   )}
                   <ThemeToggle />
-                  <nav role="navigation" aria-label="Main navigation" className="hidden md:flex items-center gap-5">
+                  <nav role="navigation" aria-label="Main navigation" className="hidden md:flex items-center gap-6">
                     <Link
                       href="/"
-                      className="relative text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-all hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-slate-900 dark:after:bg-neon-cyan after:transition-all hover:after:w-full"
+                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                       aria-label="Navigate to Home page"
                     >
                       Home
                     </Link>
                     <Link
                       href="/analysis"
-                      className="relative text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-all hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-slate-900 dark:after:bg-neon-cyan after:transition-all hover:after:w-full"
+                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                       aria-label="Navigate to Data Analysis page"
                     >
                       Analysis
                     </Link>
                     <Link
                       href="/recommendations"
-                      className="relative text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-all hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-slate-900 dark:after:bg-neon-cyan after:transition-all hover:after:w-full"
+                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                       aria-label="Navigate to Policy Recommendations page"
                     >
                       Recommendations
                     </Link>
                     <Link
                       href="/methodology"
-                      className="relative text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-all hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-slate-900 dark:after:bg-neon-cyan after:transition-all hover:after:w-full"
+                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                       aria-label="Navigate to Methodology page"
                     >
                       Methodology
                     </Link>
                     <Link
                       href="/data"
-                      className="relative text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-all hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-slate-900 dark:after:bg-neon-cyan after:transition-all hover:after:w-full"
+                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                       aria-label="Navigate to Data and API documentation page"
                     >
                       Data & API
                     </Link>
                     <Link
                       href="/resources"
-                      className="relative text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-all hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-slate-900 dark:after:bg-neon-cyan after:transition-all hover:after:w-full"
+                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                       aria-label="Navigate to External Resources page"
                     >
                       Resources

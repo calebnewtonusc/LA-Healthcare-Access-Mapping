@@ -39,10 +39,7 @@ const dataTable = {
 
 export function PriorityMatrix() {
   const chartContent = (
-    <div className="relative group">
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-neon-purple/10 dark:to-neon-cyan/10 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
-
-      <div className="relative bg-white/80 dark:bg-dark-bg-tertiary/70 backdrop-blur-md border border-white/60 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-lg dark:shadow-neon-cyan/10 transition-colors duration-300">
+    <div className="bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded-lg p-6 shadow-sm">
         <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Recommendation Priority Matrix</h3>
         <p className="text-sm text-slate-600 dark:text-dark-text-secondary mb-6">Urgency vs. Impact Assessment</p>
 
@@ -119,26 +116,25 @@ export function PriorityMatrix() {
           </ScatterChart>
         </ResponsiveContainer>
 
-        <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
-          <div className="bg-red-50 dark:bg-neon-pink/10 border border-red-200 dark:border-neon-pink/30 rounded-lg p-2 transition-colors duration-300">
-            <p className="font-semibold text-red-900 dark:text-neon-pink">High Urgency + High Impact</p>
-            <p className="text-red-700 dark:text-neon-pink/80">Immediate action required</p>
+        <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
+          <div className="bg-gray-50 dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded p-2">
+            <p className="font-semibold text-gray-900 dark:text-dark-text-primary">High Urgency + High Impact</p>
+            <p className="text-gray-600 dark:text-dark-text-secondary">Immediate action required</p>
           </div>
-          <div className="bg-orange-50 dark:bg-neon-purple/10 border border-orange-200 dark:border-neon-purple/30 rounded-lg p-2 transition-colors duration-300">
-            <p className="font-semibold text-orange-900 dark:text-neon-purple">High Urgency + Low Impact</p>
-            <p className="text-orange-700 dark:text-neon-purple/80">Quick wins, address soon</p>
+          <div className="bg-gray-50 dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded p-2">
+            <p className="font-semibold text-gray-900 dark:text-dark-text-primary">High Urgency + Low Impact</p>
+            <p className="text-gray-600 dark:text-dark-text-secondary">Quick wins, address soon</p>
           </div>
-          <div className="bg-blue-50 dark:bg-neon-cyan/10 border border-blue-200 dark:border-neon-cyan/30 rounded-lg p-2 transition-colors duration-300">
-            <p className="font-semibold text-blue-900 dark:text-neon-cyan">Low Urgency + High Impact</p>
-            <p className="text-blue-700 dark:text-neon-cyan/80">Strategic planning needed</p>
+          <div className="bg-gray-50 dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded p-2">
+            <p className="font-semibold text-gray-900 dark:text-dark-text-primary">Low Urgency + High Impact</p>
+            <p className="text-gray-600 dark:text-dark-text-secondary">Strategic planning needed</p>
           </div>
-          <div className="bg-slate-50 dark:bg-dark-bg-secondary border border-slate-200 dark:border-slate-700 rounded-lg p-2 transition-colors duration-300">
-            <p className="font-semibold text-slate-900 dark:text-dark-text-primary">Low Urgency + Low Impact</p>
-            <p className="text-slate-700 dark:text-dark-text-secondary">Monitor and review</p>
+          <div className="bg-gray-50 dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded p-2">
+            <p className="font-semibold text-gray-900 dark:text-dark-text-primary">Low Urgency + Low Impact</p>
+            <p className="text-gray-600 dark:text-dark-text-secondary">Monitor and review</p>
           </div>
         </div>
       </div>
-    </div>
   )
 
   return (
