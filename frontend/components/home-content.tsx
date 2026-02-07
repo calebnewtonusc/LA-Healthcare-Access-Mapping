@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { BarChart3, MapPin, Lightbulb, Code2, Database, ExternalLink, Zap, TrendingUp, Users, Building2, AlertCircle, Target, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { AnimatedNumber } from './ui/animated-number'
-import { staggerContainer, slideUpFadeIn } from '@/lib/animations'
+import { staggerContainer, slideUpFadeIn, buttonHover, iconRotate, popIn } from '@/lib/animations'
 
 interface Stats {
   total_facilities: number
@@ -78,57 +78,91 @@ export function HomeContent({ stats }: { stats: Stats | null }) {
             animate="visible"
             className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
           >
-            <motion.div variants={slideUpFadeIn} className="relative group/card">
+            <motion.div variants={popIn} className="relative group/card">
               <div className="absolute inset-0 bg-gradient-to-br from-red-100 to-red-200 dark:from-neon-pink/20 dark:to-red-500/20 rounded-2xl blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
-              <div className="relative bg-white/70 dark:bg-dark-bg-tertiary/70 backdrop-blur-sm border border-red-200 dark:border-neon-pink/30 rounded-2xl p-6 shadow-sm text-center hover:shadow-neon-pink/20 dark:hover:shadow-neon-pink transition-all">
-                <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+              <motion.div
+                whileHover={{ scale: 1.02, y: -4 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                className="relative bg-white/70 dark:bg-dark-bg-tertiary/70 backdrop-blur-sm border border-red-200 dark:border-neon-pink/30 rounded-2xl p-6 shadow-sm text-center hover:shadow-neon-pink/20 dark:hover:shadow-neon-pink transition-all"
+              >
+                <motion.div
+                  className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center"
+                  whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                  transition={{ duration: 0.5 }}
+                >
                   <AlertCircle className="w-8 h-8 text-red-600 dark:text-neon-pink" />
-                </div>
+                </motion.div>
                 <h3 className="font-bold text-slate-900 dark:text-dark-text-primary text-lg mb-2">Access Deserts Identified</h3>
                 <p className="text-4xl font-bold text-red-600 dark:text-neon-pink mb-2">
                   <AnimatedNumber value={stats?.access_desert_population || 80831} separator="," />
                 </p>
                 <p className="text-sm text-slate-700 dark:text-dark-text-secondary">Residents living &gt;5km from nearest healthcare facility</p>
-              </div>
+              </motion.div>
             </motion.div>
 
-            <motion.div variants={slideUpFadeIn} className="relative group/card">
+            <motion.div variants={popIn} className="relative group/card">
               <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-green-200 dark:from-neon-green/20 dark:to-green-500/20 rounded-2xl blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
-              <div className="relative bg-white/70 dark:bg-dark-bg-tertiary/70 backdrop-blur-sm border border-green-200 dark:border-neon-green/30 rounded-2xl p-6 shadow-sm text-center hover:shadow-neon-green/20 dark:hover:shadow-neon-green transition-all">
-                <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+              <motion.div
+                whileHover={{ scale: 1.02, y: -4 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                className="relative bg-white/70 dark:bg-dark-bg-tertiary/70 backdrop-blur-sm border border-green-200 dark:border-neon-green/30 rounded-2xl p-6 shadow-sm text-center hover:shadow-neon-green/20 dark:hover:shadow-neon-green transition-all"
+              >
+                <motion.div
+                  className="bg-green-100 dark:bg-green-900/30 p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center"
+                  whileHover="hover"
+                  initial="rest"
+                  variants={iconRotate}
+                >
                   <Target className="w-8 h-8 text-green-600 dark:text-neon-green" />
-                </div>
+                </motion.div>
                 <h3 className="font-bold text-slate-900 dark:text-dark-text-primary text-lg mb-2">Projected ROI</h3>
                 <p className="text-4xl font-bold text-green-600 dark:text-neon-green mb-2">
                   <AnimatedNumber value={539} suffix="%" />
                 </p>
                 <p className="text-sm text-slate-700 dark:text-dark-text-secondary">10-year return on $645M infrastructure investment</p>
-              </div>
+              </motion.div>
             </motion.div>
 
-            <motion.div variants={slideUpFadeIn} className="relative group/card">
+            <motion.div variants={popIn} className="relative group/card">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-neon-cyan/20 dark:to-blue-500/20 rounded-2xl blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
-              <div className="relative bg-white/70 dark:bg-dark-bg-tertiary/70 backdrop-blur-sm border border-blue-200 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-sm text-center hover:shadow-neon-cyan/20 dark:hover:shadow-neon-cyan transition-all">
-                <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+              <motion.div
+                whileHover={{ scale: 1.02, y: -4 }}
+                transition={{ type: 'spring', stiffness: 300 }}
+                className="relative bg-white/70 dark:bg-dark-bg-tertiary/70 backdrop-blur-sm border border-blue-200 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-sm text-center hover:shadow-neon-cyan/20 dark:hover:shadow-neon-cyan transition-all"
+              >
+                <motion.div
+                  className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center"
+                  whileHover={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 0.4 }}
+                >
                   <Users className="w-8 h-8 text-blue-600 dark:text-neon-cyan" />
-                </div>
+                </motion.div>
                 <h3 className="font-bold text-slate-900 dark:text-dark-text-primary text-lg mb-2">Population Impact</h3>
                 <p className="text-4xl font-bold text-blue-600 dark:text-neon-cyan mb-2">
                   <AnimatedNumber value={3} suffix="M+" />
                 </p>
                 <p className="text-sm text-slate-700 dark:text-dark-text-secondary">People would benefit from recommended improvements</p>
-              </div>
+              </motion.div>
             </motion.div>
           </motion.div>
 
           <div className="text-center">
-            <Link
-              href="/analysis"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-neon-cyan dark:to-neon-purple text-white px-8 py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 dark:hover:shadow-neon-cyan transition-all font-semibold shadow-lg hover:shadow-xl text-lg hover:scale-105"
+            <motion.div
+              whileHover="hover"
+              whileTap="tap"
+              variants={buttonHover}
+              className="inline-block"
             >
-              Explore Full Analysis
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+              <Link
+                href="/analysis"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-neon-cyan dark:to-neon-purple text-white px-8 py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 dark:hover:shadow-neon-cyan transition-all font-semibold shadow-lg hover:shadow-xl text-lg"
+              >
+                Explore Full Analysis
+                <motion.div whileHover={{ x: 5 }} transition={{ type: 'spring', stiffness: 400 }}>
+                  <ArrowRight className="w-5 h-5" />
+                </motion.div>
+              </Link>
+            </motion.div>
           </div>
         </div>
       </motion.div>
@@ -181,18 +215,22 @@ export function HomeContent({ stats }: { stats: Stats | null }) {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {/* Analysis */}
-          <motion.div variants={slideUpFadeIn}>
+          <motion.div variants={slideUpFadeIn} whileHover={{ scale: 1.03, y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
             <Link href="/analysis" className="group block h-full">
               <div className="relative h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-neon-cyan/20 dark:to-blue-500/20 rounded-2xl blur opacity-30 group-hover:opacity-60 transition-opacity"></div>
                 <div className="relative bg-white/80 dark:bg-dark-bg-secondary/80 backdrop-blur-md border border-white/60 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-lg group-hover:shadow-xl dark:group-hover:shadow-neon-cyan/50 transition-all h-full">
-                  <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl w-14 h-14 mb-4 flex items-center justify-center">
+                  <motion.div
+                    className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-xl w-14 h-14 mb-4 flex items-center justify-center"
+                    whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                    transition={{ duration: 0.5 }}
+                  >
                     <BarChart3 className="w-7 h-7 text-blue-600 dark:text-neon-cyan" />
-                  </div>
+                  </motion.div>
                   <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Data Analysis</h3>
                   <p className="text-slate-700 dark:text-dark-text-secondary text-sm mb-4">Interactive charts, regional breakdowns, and impact visualizations</p>
                   <div className="flex items-center text-blue-600 dark:text-neon-cyan font-semibold text-sm group-hover:gap-2 transition-all">
-                    View Analysis <ArrowRight className="w-4 h-4 ml-1" />
+                    View Analysis <motion.div whileHover={{ x: 5 }}><ArrowRight className="w-4 h-4 ml-1" /></motion.div>
                   </div>
                 </div>
               </div>
@@ -200,7 +238,7 @@ export function HomeContent({ stats }: { stats: Stats | null }) {
           </motion.div>
 
           {/* Recommendations */}
-          <motion.div variants={slideUpFadeIn}>
+          <motion.div variants={slideUpFadeIn} whileHover={{ scale: 1.03, y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
             <Link href="/recommendations" className="group block h-full">
               <div className="relative h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-neon-green/20 dark:to-green-500/20 rounded-2xl blur opacity-30 group-hover:opacity-60 transition-opacity"></div>
@@ -219,7 +257,7 @@ export function HomeContent({ stats }: { stats: Stats | null }) {
           </motion.div>
 
           {/* Methodology */}
-          <motion.div variants={slideUpFadeIn}>
+          <motion.div variants={slideUpFadeIn} whileHover={{ scale: 1.03, y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
             <Link href="/methodology" className="group block h-full">
               <div className="relative h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-neon-purple/20 dark:to-neon-pink/20 rounded-2xl blur opacity-30 group-hover:opacity-60 transition-opacity"></div>
@@ -238,7 +276,7 @@ export function HomeContent({ stats }: { stats: Stats | null }) {
           </motion.div>
 
           {/* Data & API */}
-          <motion.div variants={slideUpFadeIn}>
+          <motion.div variants={slideUpFadeIn} whileHover={{ scale: 1.03, y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
             <Link href="/data" className="group block h-full">
               <div className="relative h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-100 to-amber-100 dark:from-orange-400/20 dark:to-amber-400/20 rounded-2xl blur opacity-30 group-hover:opacity-60 transition-opacity"></div>
@@ -257,7 +295,7 @@ export function HomeContent({ stats }: { stats: Stats | null }) {
           </motion.div>
 
           {/* Resources */}
-          <motion.div variants={slideUpFadeIn}>
+          <motion.div variants={slideUpFadeIn} whileHover={{ scale: 1.03, y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
             <Link href="/resources" className="group block h-full">
               <div className="relative h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-400/20 dark:to-cyan-400/20 rounded-2xl blur opacity-30 group-hover:opacity-60 transition-opacity"></div>
@@ -276,7 +314,7 @@ export function HomeContent({ stats }: { stats: Stats | null }) {
           </motion.div>
 
           {/* Interactive Maps */}
-          <motion.div variants={slideUpFadeIn}>
+          <motion.div variants={slideUpFadeIn} whileHover={{ scale: 1.03, y: -5 }} transition={{ type: 'spring', stiffness: 300 }}>
             <Link href="/analysis#maps" className="group block h-full">
               <div className="relative h-full">
                 <div className="absolute inset-0 bg-gradient-to-br from-pink-100 to-rose-100 dark:from-neon-pink/20 dark:to-rose-400/20 rounded-2xl blur opacity-30 group-hover:opacity-60 transition-opacity"></div>
