@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import './globals.css'
+import { MobileNav } from '@/components/mobile-nav'
+import { BackToTop } from '@/components/back-to-top'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -46,26 +48,29 @@ export default function RootLayout({
                   </p>
                 </Link>
               </div>
-              <nav className="hidden md:flex items-center gap-6">
-                <Link
-                  href="/"
-                  className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  href="/about"
-                  className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
-                >
-                  Methodology
-                </Link>
-                <Link
-                  href="/resources"
-                  className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
-                >
-                  Resources
-                </Link>
-              </nav>
+              <div className="flex items-center gap-4">
+                <nav className="hidden md:flex items-center gap-6">
+                  <Link
+                    href="/"
+                    className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+                  >
+                    Methodology
+                  </Link>
+                  <Link
+                    href="/resources"
+                    className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+                  >
+                    Resources
+                  </Link>
+                </nav>
+                <MobileNav />
+              </div>
             </div>
           </div>
         </header>
@@ -105,6 +110,8 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+
+        <BackToTop />
       </body>
     </html>
   )
