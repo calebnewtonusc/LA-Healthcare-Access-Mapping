@@ -747,6 +747,206 @@ export default function AboutPage() {
           </div>
         </div>
 
+        {/* Validation Against Official Designations */}
+        <div className="relative mb-6 group">
+          <div className="absolute inset-0 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
+          <div className="relative bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-6 shadow-md">
+            <div className="flex items-center gap-3 mb-4">
+              <AlertTriangle className="w-6 h-6 text-amber-600" />
+              <h2 className="text-2xl font-bold text-slate-900">How This Compares to Official Designations</h2>
+            </div>
+
+            <div className="space-y-4 text-sm">
+              <div className="bg-amber-50/80 backdrop-blur-sm rounded-lg p-4 border border-amber-200">
+                <h3 className="font-bold text-slate-900 mb-2">Our Analysis vs. Federal Shortage Area Designations</h3>
+                <p className="text-slate-700 mb-3">
+                  Federal agencies use <strong>Health Professional Shortage Areas (HPSA)</strong> and <strong>Medically Underserved Areas/Populations (MUA/P)</strong>
+                  to identify regions with limited healthcare access. Our analysis complements these with granular census tract-level metrics.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <div className="bg-white/70 backdrop-blur-sm rounded-lg p-3 border border-slate-200">
+                    <h4 className="font-semibold text-slate-900 mb-2 text-xs">Official HPSA/MUA Criteria</h4>
+                    <ul className="text-xs text-slate-700 space-y-1">
+                      <li>• Provider-to-population ratios</li>
+                      <li>• Poverty rates and demographics</li>
+                      <li>• Travel time to facilities</li>
+                      <li>• Updated periodically by HRSA</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white/70 backdrop-blur-sm rounded-lg p-3 border border-slate-200">
+                    <h4 className="font-semibold text-slate-900 mb-2 text-xs">Our Analysis Adds</h4>
+                    <ul className="text-xs text-slate-700 space-y-1">
+                      <li>• Census tract-level granularity (2,498 tracts)</li>
+                      <li>• KD-tree distance calculations (0.88km avg)</li>
+                      <li>• Composite access scoring (0-100)</li>
+                      <li>• Real-time facility data integration</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-600 mt-3 p-3 bg-white/60 rounded border border-slate-200">
+                  <strong className="text-slate-800">Note:</strong> Our "access desert" definition (5km threshold) aligns with HRSA standards for healthcare access.
+                  Areas we identify may overlap with but not exactly match official HPSA/MUA designations due to different methodologies.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* External Resources & Official Tools */}
+        <div className="relative mb-6 group">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-slate-100 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
+          <div className="relative bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-6 shadow-md">
+            <div className="flex items-center gap-3 mb-4">
+              <ExternalLink className="w-6 h-6 text-blue-600" />
+              <h2 className="text-2xl font-bold text-slate-900">External Resources & Official Tools</h2>
+            </div>
+
+            <p className="text-sm text-slate-700 mb-4">
+              Explore official government mapping tools and datasets that provide complementary perspectives on healthcare access in LA County.
+            </p>
+
+            <div className="space-y-3">
+              {/* LA County Official Maps */}
+              <div className="bg-blue-50/80 backdrop-blur-sm rounded-lg p-4 border border-blue-200">
+                <h3 className="font-bold text-slate-900 mb-2 text-sm flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-blue-600" />
+                  LA County Official Healthcare Maps
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <a href="https://apps.gis.lacounty.gov/static/DPH/community-profiles/" target="_blank" rel="noopener noreferrer"
+                     className="text-xs text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1">
+                    Community Health Profiles <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <a href="https://ph-lacounty.hub.arcgis.com/pages/chp" target="_blank" rel="noopener noreferrer"
+                     className="text-xs text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1">
+                    LA County Public Health Hub <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <a href="https://dhs.lacounty.gov/find-a-clinic-or-hospital/" target="_blank" rel="noopener noreferrer"
+                     className="text-xs text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1">
+                    Find a Clinic or Hospital <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <a href="https://planning.lacity.gov/interactive-health-atlas/index/index.html" target="_blank" rel="noopener noreferrer"
+                     className="text-xs text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-1">
+                    LA City Interactive Health Atlas <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Federal Shortage Area Tools */}
+              <div className="bg-purple-50/80 backdrop-blur-sm rounded-lg p-4 border border-purple-200">
+                <h3 className="font-bold text-slate-900 mb-2 text-sm flex items-center gap-2">
+                  <Database className="w-4 h-4 text-purple-600" />
+                  Federal Shortage Area Designations
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <a href="https://data.hrsa.gov/tools/shortage-area/hpsa-find" target="_blank" rel="noopener noreferrer"
+                     className="text-xs text-purple-600 hover:text-purple-800 hover:underline flex items-center gap-1">
+                    HRSA HPSA Find Tool <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <a href="https://data.hrsa.gov/tools/shortage-area/mua-find" target="_blank" rel="noopener noreferrer"
+                     className="text-xs text-purple-600 hover:text-purple-800 hover:underline flex items-center gap-1">
+                    HRSA MUA/P Find Tool <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <a href="https://data.lacounty.gov/maps/lacounty::medically-underserved-areas-populations/about" target="_blank" rel="noopener noreferrer"
+                     className="text-xs text-purple-600 hover:text-purple-800 hover:underline flex items-center gap-1">
+                    LA County MUA/P Map <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <a href="https://findahealthcenter.hrsa.gov/" target="_blank" rel="noopener noreferrer"
+                     className="text-xs text-purple-600 hover:text-purple-800 hover:underline flex items-center gap-1">
+                    Find a Federally Qualified Health Center <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Health Equity Context */}
+              <div className="bg-green-50/80 backdrop-blur-sm rounded-lg p-4 border border-green-200">
+                <h3 className="font-bold text-slate-900 mb-2 text-sm flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-green-600" />
+                  Health Equity & Social Determinants
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <a href="https://www.healthyplacesindex.org/" target="_blank" rel="noopener noreferrer"
+                     className="text-xs text-green-600 hover:text-green-800 hover:underline flex items-center gap-1">
+                    Healthy Places Index (California) <ExternalLink className="w-3 h-3" />
+                  </a>
+                  <a href="https://la.myneighborhooddata.org/" target="_blank" rel="noopener noreferrer"
+                     className="text-xs text-green-600 hover:text-green-800 hover:underline flex items-center gap-1">
+                    LA Neighborhood Data for Social Change <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-600 mt-4 p-3 bg-slate-50/80 rounded border border-slate-200">
+              <strong className="text-slate-800">Why compare sources?</strong> Different methodologies reveal different patterns.
+              Official designations determine funding eligibility, while granular analyses like ours identify specific neighborhoods for targeted intervention.
+            </p>
+          </div>
+        </div>
+
+        {/* Code Transparency & Reproducibility */}
+        <div className="relative mb-6 group">
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-50 to-blue-50 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
+          <div className="relative bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-6 shadow-md">
+            <div className="flex items-center gap-3 mb-4">
+              <BookOpen className="w-6 h-6 text-slate-600" />
+              <h2 className="text-2xl font-bold text-slate-900">Code Transparency & Reproducibility</h2>
+            </div>
+
+            <p className="text-sm text-slate-700 mb-4">
+              All analysis code, data processing pipelines, and visualizations are publicly available for verification and extension.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                <h3 className="font-semibold text-slate-900 mb-3 text-sm">Access the Code</h3>
+                <a
+                  href="https://github.com/calebnewtonusc/la-healthcare-access-mapping"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg text-sm transition-colors mb-3"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  View on GitHub
+                </a>
+                <ul className="text-xs text-slate-700 space-y-1">
+                  <li>✓ Data processing scripts (Python)</li>
+                  <li>✓ Analysis algorithms (KD-tree, scoring)</li>
+                  <li>✓ Dashboard source code (Next.js)</li>
+                  <li>✓ 44 automated tests</li>
+                </ul>
+              </div>
+
+              <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                <h3 className="font-semibold text-slate-900 mb-3 text-sm">Key Files</h3>
+                <ul className="text-xs text-slate-700 space-y-2">
+                  <li>
+                    <code className="bg-slate-100 px-2 py-1 rounded text-slate-800">src/analysis/calculate_access_metrics.py</code>
+                    <p className="text-slate-600 mt-1">Distance calculations & access scoring</p>
+                  </li>
+                  <li>
+                    <code className="bg-slate-100 px-2 py-1 rounded text-slate-800">src/impact/cost_benefit_analysis.py</code>
+                    <p className="text-slate-600 mt-1">ROI projections & financial models</p>
+                  </li>
+                  <li>
+                    <code className="bg-slate-100 px-2 py-1 rounded text-slate-800">src/data_processing/fix_census_merge.py</code>
+                    <p className="text-slate-600 mt-1">Census data cleaning & validation</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-4 p-3 bg-blue-50/80 rounded-lg border border-blue-200">
+              <p className="text-xs text-slate-700">
+                <strong className="text-slate-900">Reproducibility Note:</strong> All data sources are publicly accessible.
+                Follow the README instructions to reproduce the entire analysis pipeline from raw data to final visualizations.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Contact/Attribution - Glassmorphic */}
         <div className="relative mb-6 group">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-100 to-slate-200 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
@@ -756,8 +956,12 @@ export default function AboutPage() {
               This project was created as an educational exercise in public health data analysis, geographic information systems (GIS),
               and data visualization. It demonstrates the application of data science techniques to real-world public health questions.
             </p>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-slate-600 mb-3">
               <strong className="text-slate-900">Technologies used:</strong> Python (Pandas, GeoPandas, Folium), FastAPI, Next.js, TypeScript, Tailwind CSS
+            </p>
+            <p className="text-xs text-slate-600 p-3 bg-slate-50/80 rounded border border-slate-200">
+              <strong className="text-slate-800">Academic Context:</strong> This analysis complements official healthcare access assessments with
+              granular, data-driven insights. It should be used alongside—not instead of—official HPSA/MUA designations and local health department guidance.
             </p>
           </div>
         </div>
