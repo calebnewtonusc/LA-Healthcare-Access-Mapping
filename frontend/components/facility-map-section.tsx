@@ -4,6 +4,10 @@ import { motion } from 'framer-motion'
 import { MapPin, Users, TrendingUp, ExternalLink } from 'lucide-react'
 import { NeonBadge } from './ui/neon-badge'
 import { LazyIframe } from './ui/lazy-iframe'
+import { useRealtimeFacilities } from '@/lib/hooks/use-realtime-facilities'
+import { useTimeSinceUpdate } from '@/lib/stores/realtime-store'
+import { useConnectionStatus } from '@/lib/hooks/use-connection-status'
+import { LiveUpdateBadge } from './ui/live-update-badge'
 
 interface Facility {
   geoid?: string
@@ -21,8 +25,16 @@ interface FacilityMapSectionProps {
   facilities: Facility[] | null
 }
 
-export function FacilityMapSection({ facilities }: FacilityMapSectionProps) {
+export function FacilityMapSection({ facilities: ssrFacilities }: FacilityMapSectionProps) {
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+
+  // Real-time data
+  const { facilities: realtimeFacilities, isFlashing } = useRealtimeFacilities()
+  const { isConnected } = useConnectionStatus()
+  const lastUpdated = useTimeSinceUpdate('facilities')
+
+  // Merge SSR facilities with real-time data (real-time takes precedence)
+  const facilities = realtimeFacilities.length > 0 ? realtimeFacilities : ssrFacilities
 
   const getRankBadge = (index: number) => {
     if (index === 0) return { label: '1st', variant: 'high' as const }
@@ -32,12 +44,21 @@ export function FacilityMapSection({ facilities }: FacilityMapSectionProps) {
   }
 
   return (
-    <div className="relative group">
+    <motion.div
+      animate={{
+        backgroundColor: isFlashing ? 'rgba(0, 245, 255, 0.1)' : 'transparent',
+      }}
+      transition={{ duration: 0.6 }}
+      className="relative group"
+    >
       <div className="absolute inset-0 bg-gradient-to-r from-slate-200 to-slate-300 dark:from-neon-cyan/20 dark:to-neon-purple/20 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
       <div className="relative bg-white/70 dark:bg-dark-bg-secondary/70 backdrop-blur-md border border-white/50 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-md dark:shadow-neon-cyan/10 transition-colors duration-300">
-        <h3 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary mb-4">
-          Recommended Facility Locations
-        </h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">
+            Recommended Facility Locations
+          </h3>
+          <LiveUpdateBadge isLive={isConnected} lastUpdated={lastUpdated} />
+        </div>
 
         {/* Map Embed */}
         <div className="mb-6">
@@ -129,6 +150,6 @@ export function FacilityMapSection({ facilities }: FacilityMapSectionProps) {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   )
 }

@@ -5,6 +5,7 @@ import { BarChart3, MapPin, Lightbulb, Code2, Database, ExternalLink, Zap, Trend
 import { motion } from 'framer-motion'
 import { AnimatedNumber } from './ui/animated-number'
 import { staggerContainer, slideUpFadeIn, buttonHover, iconRotate, popIn } from '@/lib/animations'
+import { useRealtimeStats } from '@/lib/hooks/use-realtime-stats'
 
 interface Stats {
   total_facilities: number
@@ -16,7 +17,12 @@ interface Stats {
   roi?: string
 }
 
-export function HomeContent({ stats }: { stats: Stats | null }) {
+export function HomeContent({ stats: ssrStats }: { stats: Stats | null }) {
+  // Real-time data
+  const { stats: realtimeStats } = useRealtimeStats()
+
+  // Merge SSR stats with real-time stats (real-time takes precedence)
+  const stats = realtimeStats || ssrStats
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       {/* Academic Disclaimer */}
