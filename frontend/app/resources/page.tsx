@@ -1,6 +1,36 @@
+import type { Metadata } from 'next'
 import { ExternalLink, MapPin, Database, TrendingUp, FileText, Layers, Search, Building2 } from 'lucide-react'
 import Link from 'next/link'
 import { Breadcrumbs } from '@/components/breadcrumbs'
+
+export const metadata: Metadata = {
+  title: 'External Resources & Official Tools | LA Healthcare Access Dashboard',
+  description: 'Comprehensive directory of government healthcare mapping tools, official datasets, and resources for Los Angeles County. Includes HRSA Health Finder, LA County Public Health maps, CHHS data portal, federal HPSA designations, and more authoritative sources for healthcare access research.',
+  keywords: 'healthcare resources, LA County health maps, HRSA finder, HPSA designation, MUA data, public health tools, government health data, census healthcare data, official health maps, healthcare facility finder',
+  openGraph: {
+    title: 'Healthcare Resources & Official Tools - Los Angeles County',
+    description: 'Directory of government healthcare maps, datasets, and official tools for LA County health research and facility finding.',
+    type: 'website',
+    url: 'https://la-healthcare-access-mapping.vercel.app/resources',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Directory of official healthcare resources and tools for LA County',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LA County Healthcare Resources Directory',
+    description: 'Comprehensive directory of government health maps, datasets, and official healthcare tools',
+    images: ['/og-image.png'],
+  },
+  alternates: {
+    canonical: 'https://la-healthcare-access-mapping.vercel.app/resources',
+  },
+}
 
 export default function ResourcesPage() {
   return (

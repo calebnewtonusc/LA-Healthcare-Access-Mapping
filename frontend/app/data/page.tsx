@@ -1,9 +1,33 @@
 import { Breadcrumbs } from '@/components/breadcrumbs'
-import { Server, Zap, Database, Code2, ExternalLink, CheckCircle, Clock } from 'lucide-react'
+import { Server, Zap, Database, ExternalLink, CheckCircle } from 'lucide-react'
 
 export const metadata = {
-  title: 'API Documentation - LA Healthcare Access Dashboard',
-  description: 'Live REST API endpoints for healthcare access data, facility locations, recommendations, and analytics',
+  title: 'API Documentation & Data Access | LA Healthcare Access Dashboard',
+  description: 'Live REST API documentation with endpoints for healthcare statistics, facility locations, policy recommendations, and census tract data. Free public access to LA County healthcare data covering 2,498 census tracts and 4,512 facilities. Includes JSON response examples and usage instructions.',
+  keywords: 'healthcare API, REST API documentation, public health data API, facility location API, healthcare statistics API, JSON API, census tract data, LA County health data, open data API, healthcare data access',
+  openGraph: {
+    title: 'API Documentation - LA County Healthcare Data Access',
+    description: 'Free REST API with healthcare statistics, facility locations, and policy recommendations for LA County. JSON endpoints with live data.',
+    type: 'website',
+    url: 'https://la-healthcare-access-mapping.vercel.app/data',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'API documentation for LA County healthcare data access',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LA Healthcare Data API Documentation',
+    description: 'Free REST API: 4,512 facilities, 2,498 census tracts, policy recommendations',
+    images: ['/og-image.png'],
+  },
+  alternates: {
+    canonical: 'https://la-healthcare-access-mapping.vercel.app/data',
+  },
 }
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://la-healthcare-access-mapping-production.up.railway.app'

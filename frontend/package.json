@@ -6,9 +6,11 @@
     "dev": "next dev",
     "dev:socket": "node server.js",
     "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "start:socket": "NODE_ENV=production node server.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.17.19",

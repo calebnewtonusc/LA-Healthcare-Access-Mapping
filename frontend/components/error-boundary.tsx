@@ -1,7 +1,8 @@
 'use client'
 
 import { Component, ReactNode } from 'react'
-import { AlertCircle, RefreshCw } from 'lucide-react'
+import { AlertCircle, RefreshCw, Home } from 'lucide-react'
+import Link from 'next/link'
 
 interface Props {
   children: ReactNode
@@ -10,7 +11,8 @@ interface Props {
 
 interface State {
   hasError: boolean
-  error?: Error
+  error?: Error | undefined
+  errorInfo?: string | undefined
 }
 
 export class ErrorBoundary extends Component<Props, State> {
@@ -25,6 +27,18 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: any) {
     console.error('Error caught by boundary:', error, errorInfo)
+
+    this.setState({
+      errorInfo: errorInfo.componentStack,
+    })
+
+    // TODO: Log to error tracking service (e.g., Sentry, LogRocket)
+    // logErrorToService(error, errorInfo)
+  }
+
+  handleReset = () => {
+    this.setState({ hasError: false, error: undefined, errorInfo: undefined })
+    window.location.reload()
   }
 
   render() {
@@ -35,40 +49,90 @@ export class ErrorBoundary extends Component<Props, State> {
 
       return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-dark-bg-primary dark:via-dark-bg-secondary dark:to-dark-bg-primary flex items-center justify-center p-4">
-          <div className="max-w-md w-full">
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-red-100 to-orange-100 dark:from-neon-pink/20 dark:to-orange-400/20 rounded-2xl blur-sm opacity-40"></div>
-
-              <div className="relative bg-white/80 dark:bg-dark-bg-secondary/80 backdrop-blur-md border border-white/60 dark:border-neon-pink/30 rounded-2xl p-8 shadow-xl">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-xl">
-                    <AlertCircle className="w-8 h-8 text-red-600 dark:text-neon-pink" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">
-                    Something went wrong
-                  </h2>
+          <div className="max-w-2xl w-full">
+            {/* Error Card */}
+            <div className="bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded-2xl shadow-lg p-8">
+              {/* Icon */}
+              <div className="flex justify-center mb-6">
+                <div className="bg-red-100 dark:bg-red-900/30 p-4 rounded-full">
+                  <AlertCircle className="w-12 h-12 text-red-600 dark:text-red-400" aria-hidden="true" />
                 </div>
+              </div>
 
-                <p className="text-slate-700 dark:text-dark-text-secondary mb-6">
-                  We encountered an error while loading this component. Please try refreshing the page.
-                </p>
+              {/* Title */}
+              <h1 className="text-3xl font-bold text-center text-gray-900 dark:text-dark-text-primary mb-3">
+                Something Went Wrong
+              </h1>
 
-                {process.env.NODE_ENV === 'development' && this.state.error && (
-                  <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
-                    <p className="text-xs font-mono text-red-800 dark:text-red-300 break-all">
-                      {this.state.error.message}
-                    </p>
-                  </div>
-                )}
+              {/* Description */}
+              <p className="text-center text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
+                An unexpected error occurred while rendering this page. Our team has been notified
+                and will investigate the issue.
+              </p>
 
+              {/* Error Details (Development Only) */}
+              {process.env.NODE_ENV === 'development' && this.state.error && (
+                <div className="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 max-h-64 overflow-auto">
+                  <h3 className="text-sm font-semibold text-red-900 dark:text-red-200 mb-2">
+                    Error Details (Development Only):
+                  </h3>
+                  <pre className="text-xs text-red-800 dark:text-red-300 font-mono whitespace-pre-wrap break-words">
+                    {this.state.error.toString()}
+                  </pre>
+                  {this.state.errorInfo && (
+                    <>
+                      <h4 className="text-sm font-semibold text-red-900 dark:text-red-200 mt-3 mb-2">
+                        Component Stack:
+                      </h4>
+                      <pre className="text-xs text-red-800 dark:text-red-300 font-mono whitespace-pre-wrap break-words">
+                        {this.state.errorInfo}
+                      </pre>
+                    </>
+                  )}
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <button
-                  onClick={() => window.location.reload()}
-                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-neon-cyan dark:to-neon-purple text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 dark:hover:shadow-neon-cyan transition-all font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-neon-cyan focus:ring-offset-2"
+                  onClick={this.handleReset}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transition-colors font-semibold"
+                  aria-label="Reload page and try again"
                 >
-                  <RefreshCw className="w-5 h-5" />
+                  <RefreshCw className="w-5 h-5" aria-hidden="true" />
                   Reload Page
                 </button>
+
+                <Link
+                  href="/"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900 transition-colors font-semibold"
+                >
+                  <Home className="w-5 h-5" aria-hidden="true" />
+                  Back to Home
+                </Link>
               </div>
+
+              {/* Help Text */}
+              <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <p className="text-sm text-center text-gray-600 dark:text-gray-400">
+                  If this problem persists, please{' '}
+                  <a
+                    href="mailto:calebnew@usc.edu?subject=Dashboard Error Report"
+                    className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  >
+                    report the issue
+                  </a>
+                  .
+                </p>
+              </div>
+            </div>
+
+            {/* Additional Info Card */}
+            <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 text-center">
+              <p className="text-sm text-blue-900 dark:text-blue-200">
+                <strong>Tip:</strong> Try clearing your browser cache or using a different browser
+                if the problem continues.
+              </p>
             </div>
           </div>
         </div>

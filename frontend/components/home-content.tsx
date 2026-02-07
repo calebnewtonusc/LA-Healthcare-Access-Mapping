@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { BarChart3, MapPin, Lightbulb, Code2, Database, ExternalLink, Zap, TrendingUp, Users, Building2, AlertCircle, Target, ArrowRight } from 'lucide-react'
+import { BarChart3, MapPin, Lightbulb, Code2, Database, ExternalLink, Zap, Users, AlertCircle, Target, ArrowRight, AlertTriangle, Clock } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { AnimatedNumber } from './ui/animated-number'
 import { staggerContainer, slideUpFadeIn, buttonHover, iconRotate, popIn } from '@/lib/animations'
@@ -25,20 +25,34 @@ export function HomeContent({ stats: ssrStats }: { stats: Stats | null }) {
   const stats = realtimeStats || ssrStats
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
-      {/* Academic Disclaimer */}
+      {/* Educational Research Disclaimer - Prominent */}
       <motion.div
         initial="hidden"
         animate="visible"
         variants={slideUpFadeIn}
-        className="mb-6 relative group"
+        className="mb-8"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-200 to-slate-300 dark:from-neon-cyan/20 dark:to-neon-purple/20 rounded-xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
-        <div className="relative bg-white/70 dark:bg-dark-bg-secondary/70 backdrop-blur-md border border-white/50 dark:border-neon-cyan/30 rounded-xl p-4 shadow-md">
-          <p className="text-sm text-slate-800 dark:text-dark-text-secondary text-center">
-            <span className="font-bold text-slate-900 dark:text-dark-text-primary">Academic Research Project</span> • For educational purposes •
-            Analysis based on public datasets • Not official LA County policy •
-            <Link href="/methodology" className="underline text-slate-700 dark:text-neon-cyan hover:text-blue-600 dark:hover:text-neon-purple ml-1 transition-colors">View methodology & sources</Link>
-          </p>
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-6 rounded-lg shadow-md">
+          <div className="flex gap-4">
+            <div className="flex-shrink-0">
+              <AlertTriangle className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-base font-bold text-yellow-900 dark:text-yellow-200 mb-2">
+                Educational Research Project
+              </h3>
+              <div className="text-sm text-yellow-800 dark:text-yellow-300 space-y-1">
+                <p>
+                  This dashboard represents <strong>independent student research</strong> for educational purposes.
+                  It has not been peer-reviewed or validated by public health experts.
+                  Data estimates have <strong>±30-50% uncertainty</strong>.{' '}
+                  <Link href="/about" className="underline hover:text-yellow-900 dark:hover:text-yellow-100 font-semibold">
+                    See limitations
+                  </Link>.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </motion.div>
 
@@ -205,6 +219,18 @@ export function HomeContent({ stats: ssrStats }: { stats: Stats | null }) {
           <div className="text-sm text-slate-700 dark:text-dark-text-secondary">Facilities per 10K</div>
         </motion.div>
       </motion.div>
+
+      {/* Data Freshness Indicator for Quick Stats */}
+      <div className="mb-12 text-center text-xs text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2 flex-wrap">
+        <div className="flex items-center gap-1">
+          <Clock className="w-3 h-3" />
+          <span>Data: 2020 Census • Oct 2024 Facility Data</span>
+        </div>
+        <span>•</span>
+        <span>Last updated: {new Date().toLocaleDateString()}</span>
+        <span>•</span>
+        <span className="text-yellow-600 dark:text-yellow-400 font-medium">±30% uncertainty</span>
+      </div>
 
       {/* Navigation Hub */}
       <motion.div

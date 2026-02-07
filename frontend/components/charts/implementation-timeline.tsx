@@ -1,6 +1,7 @@
 'use client'
 
 import { CheckCircle, Clock, AlertCircle } from 'lucide-react'
+import { AccessibleChartWrapper } from './accessible-chart-wrapper'
 
 const phases = [
   {
@@ -47,8 +48,20 @@ const statusConfig = {
   future: { icon: AlertCircle, color: 'slate', label: 'Future Phase' },
 }
 
+const dataTable = {
+  headers: ['Phase', 'Duration', 'Status', 'Total Cost', 'Total Impact', 'Key Initiatives'],
+  rows: phases.map(p => [
+    p.phase,
+    p.duration,
+    statusConfig[p.status as keyof typeof statusConfig].label,
+    p.totalCost,
+    p.totalImpact,
+    p.items.map(i => i.name).join('; ')
+  ])
+}
+
 export function ImplementationTimeline() {
-  return (
+  const chartContent = (
     <div className="relative group">
       <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-neon-cyan/10 dark:to-neon-purple/10 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
 
@@ -131,5 +144,16 @@ export function ImplementationTimeline() {
         </div>
       </div>
     </div>
+  )
+
+  return (
+    <AccessibleChartWrapper
+      title="Implementation Timeline"
+      description="Three-phase deployment strategy over 60 months with $645M total investment impacting 2.2M+ residents. Phase 1 (0-12 months): $85M for mobile units and telehealth. Phase 2 (12-36 months): $340M for community health centers. Phase 3 (36-60 months): $220M for expansion."
+      dataTable={dataTable}
+      ariaLabel="Implementation timeline showing phased rollout. Phase 1 (0-12 months, Ready to Start): Deploy 15 Mobile Health Units ($50M), Launch Telehealth Platform ($25M), Community Health Worker Training ($10M), totaling $85M to impact 325K residents. Phase 2 (12-36 months, In Planning): Build 6 Community Health Centers ($240M), Establish Transit Healthcare Routes ($80M), Expand Telehealth Services ($20M), totaling $340M to impact 1.2M residents. Phase 3 (36-60 months, Future Phase): Build 4 Additional Health Centers ($160M), Complete Transit Network ($40M), Community Health Worker Expansion ($20M), totaling $220M to impact 700K residents. Overall: $645M investment over 60 months impacting 2.2M+ residents."
+    >
+      {chartContent}
+    </AccessibleChartWrapper>
   )
 }

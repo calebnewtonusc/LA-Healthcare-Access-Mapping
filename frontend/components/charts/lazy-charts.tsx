@@ -27,3 +27,11 @@ export const PriorityMatrixLazy = dynamic(
     ssr: false
   }
 )
+
+export const ImplementationTimelineLazy = dynamic(
+  () => import('./implementation-timeline').then(mod => ({ default: mod.ImplementationTimeline })),
+  {
+    loading: () => <ChartSkeleton />,
+    ssr: false
+  }
+)

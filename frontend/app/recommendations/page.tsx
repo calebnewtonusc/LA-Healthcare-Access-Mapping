@@ -1,7 +1,6 @@
 import { Breadcrumbs } from '@/components/breadcrumbs'
-import { RecommendationsList } from '@/components/recommendations-list'
-import { PriorityMatrix } from '@/components/charts/priority-matrix'
-import { ImplementationTimeline } from '@/components/charts/implementation-timeline'
+import { RecommendationsPageContent } from '@/components/recommendations-page-content'
+import { PriorityMatrixLazy as PriorityMatrix, ImplementationTimelineLazy as ImplementationTimeline } from '@/components/charts/lazy-charts'
 import { Lightbulb, DollarSign, TrendingUp, Percent, Clock, Target, BarChart3 } from 'lucide-react'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
@@ -32,8 +31,32 @@ async function getRecommendations() {
 }
 
 export const metadata = {
-  title: 'Policy Recommendations - LA Healthcare Access Dashboard',
-  description: 'Evidence-based policy recommendations, implementation timeline, and ROI analysis for improving healthcare access in Los Angeles County',
+  title: 'Policy Recommendations & ROI Analysis | LA Healthcare Access Dashboard',
+  description: 'Evidence-based policy recommendations to improve healthcare access for 3M+ LA County residents. Includes implementation timeline, $645M investment analysis with 539% ROI, and priority matrix for policymakers and stakeholders.',
+  keywords: 'healthcare policy recommendations, LA County health policy, healthcare ROI analysis, implementation timeline, facility expansion, health equity policy, access desert solutions, healthcare investment, public health policy, evidence-based recommendations',
+  openGraph: {
+    title: 'Healthcare Policy Recommendations for Los Angeles County',
+    description: 'Evidence-based recommendations with $645M investment plan, 539% ROI, and implementation roadmap to improve healthcare access for 3M+ residents.',
+    type: 'website',
+    url: 'https://la-healthcare-access-mapping.vercel.app/recommendations',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Policy recommendations and ROI analysis for LA County healthcare access improvements',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LA County Healthcare Policy Recommendations',
+    description: 'Evidence-based recommendations: $645M investment, 539% ROI, serving 3M+ residents',
+    images: ['/og-image.png'],
+  },
+  alternates: {
+    canonical: 'https://la-healthcare-access-mapping.vercel.app/recommendations',
+  },
 }
 
 export default async function RecommendationsPage() {
@@ -183,7 +206,7 @@ export default async function RecommendationsPage() {
             <Target className="w-5 h-5 text-green-600" />
             <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Detailed Recommendations</h2>
           </div>
-          <RecommendationsList recommendations={recommendations} />
+          <RecommendationsPageContent recommendations={recommendations} />
         </section>
 
         {/* Priority Matrix */}

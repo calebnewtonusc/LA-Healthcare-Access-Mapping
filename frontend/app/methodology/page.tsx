@@ -1,6 +1,37 @@
-import { FileText, Database, AlertTriangle, BookOpen, Calendar, ExternalLink, ArrowDown, ArrowRight, Zap, TrendingUp, DollarSign, Users, MapPin } from 'lucide-react'
+import type { Metadata } from 'next'
+import { FileText, Database, AlertTriangle, BookOpen, Calendar, ExternalLink, ArrowRight, Zap, TrendingUp, DollarSign, Users, MapPin, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import { Breadcrumbs } from '@/components/breadcrumbs'
+import { ScrollToButton } from '@/components/scroll-to-button'
+
+export const metadata: Metadata = {
+  title: 'Methodology & Data Sources | LA Healthcare Access Dashboard',
+  description: 'Comprehensive methodology documentation for LA County healthcare access analysis. Includes data sources (2020 Census, DHHS facilities), Haversine formula calculations, KD-tree spatial analysis, ROI modeling, and validation methods with detailed limitations and uncertainty estimates.',
+  keywords: 'healthcare analysis methodology, Haversine formula, spatial analysis, KD-tree algorithm, census tract analysis, healthcare data sources, ROI calculation, access score methodology, geospatial analysis methods, public health research methods',
+  openGraph: {
+    title: 'Methodology & Data Sources - LA Healthcare Access Analysis',
+    description: 'Detailed methodology documentation including data sources, spatial analysis algorithms, ROI modeling, and validation methods for LA County healthcare access research.',
+    type: 'article',
+    url: 'https://la-healthcare-access-mapping.vercel.app/methodology',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Methodology documentation for LA County healthcare access analysis',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LA Healthcare Access Analysis Methodology',
+    description: 'Comprehensive methodology: Census data, Haversine calculations, KD-tree spatial analysis, ROI modeling',
+    images: ['/og-image.png'],
+  },
+  alternates: {
+    canonical: 'https://la-healthcare-access-mapping.vercel.app/methodology',
+  },
+}
 
 export default function AboutPage() {
   return (
@@ -39,6 +70,158 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+
+        {/* Quick Start: Methodology in 5 Minutes */}
+        <div className="relative mb-8 group">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
+          <div className="relative bg-blue-50/90 dark:bg-blue-900/20 backdrop-blur-md border-2 border-blue-300 dark:border-blue-700 rounded-2xl p-6 shadow-lg">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3 text-gray-900 dark:text-dark-text-primary">
+              <BookOpen className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+              Quick Start: Methodology in 5 Minutes
+            </h2>
+
+            <div className="space-y-5">
+              <div>
+                <h3 className="font-bold text-lg text-gray-900 dark:text-dark-text-primary mb-2">
+                  What we analyzed:
+                </h3>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  Healthcare facility access for 9.9M LA County residents across 2,498 census tracts
+                  using 2020 Census data and current facility locations from California DHHS.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-bold text-lg text-gray-900 dark:text-dark-text-primary mb-2">
+                  How we measured "access":
+                </h3>
+                <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
+                  Straight-line distance to nearest facility using the Haversine formula. Areas more than 5km (3.1 miles) from facilities
+                  are considered "access deserts" (based on federal HRSA standards).
+                </p>
+                <div className="bg-white/70 dark:bg-gray-800/50 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
+                  <p className="text-xs text-gray-700 dark:text-gray-300 font-mono">
+                    distance = 2 × R × arcsin(√(sin²((lat₂-lat₁)/2) + cos(lat₁)×cos(lat₂)×sin²((lon₂-lon₁)/2)))
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">where R = 6,371 km (Earth's radius)</p>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="font-bold text-lg text-gray-900 dark:text-dark-text-primary mb-2">
+                  Key limitations:
+                </h3>
+                <ul className="text-sm list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                  <li><strong>Distance ≠ actual travel time</strong> (no traffic, terrain, or transit data)</li>
+                  <li><strong>All facilities treated equally</strong> (no ER vs clinic distinction)</li>
+                  <li><strong>Cost estimates are approximations</strong> (±30-50% uncertainty)</li>
+                  <li><strong>Not peer-reviewed</strong> or validated by public health experts</li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="font-bold text-lg text-gray-900 dark:text-dark-text-primary mb-2">
+                  Data sources:
+                </h3>
+                <ul className="text-sm list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                  <li>U.S. Census Bureau (2020 Decennial Census + ACS 5-Year Estimates)</li>
+                  <li>California DHHS Open Data Portal (Licensed Facilities)</li>
+                  <li>TIGER/Line Shapefiles (Geographic Boundaries)</li>
+                </ul>
+              </div>
+            </div>
+
+            <ScrollToButton
+              targetId="detailed-methodology"
+              className="mt-6 text-sm text-blue-700 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-200 flex items-center gap-2 font-semibold transition-colors"
+            >
+              Read detailed methodology below
+              <ChevronDown className="w-4 h-4" />
+            </ScrollToButton>
+          </div>
+        </div>
+
+        {/* Glossary */}
+        <div className="relative mb-8 group">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
+          <div className="relative bg-white/80 dark:bg-dark-bg-secondary/80 backdrop-blur-md border border-purple-200 dark:border-purple-700 rounded-2xl p-6 shadow-md">
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-dark-text-primary">Glossary</h2>
+
+            <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="border-l-4 border-blue-500 pl-4 bg-blue-50/50 dark:bg-blue-900/10 rounded-r-lg p-3">
+                <dt className="font-bold text-gray-900 dark:text-dark-text-primary mb-1">Census Tract</dt>
+                <dd className="text-sm text-gray-700 dark:text-gray-300">
+                  Geographic subdivision of a county with roughly 4,000 residents. Used by Census Bureau for data collection.
+                </dd>
+              </div>
+
+              <div className="border-l-4 border-green-500 pl-4 bg-green-50/50 dark:bg-green-900/10 rounded-r-lg p-3">
+                <dt className="font-bold text-gray-900 dark:text-dark-text-primary mb-1">HPSA (Health Professional Shortage Area)</dt>
+                <dd className="text-sm text-gray-700 dark:text-gray-300">
+                  Federal designation for areas lacking adequate healthcare providers. Determined by HRSA.
+                </dd>
+              </div>
+
+              <div className="border-l-4 border-purple-500 pl-4 bg-purple-50/50 dark:bg-purple-900/10 rounded-r-lg p-3">
+                <dt className="font-bold text-gray-900 dark:text-dark-text-primary mb-1">Haversine Formula</dt>
+                <dd className="text-sm text-gray-700 dark:text-gray-300">
+                  Mathematical formula calculating straight-line distance between two geographic points on Earth's surface.
+                </dd>
+              </div>
+
+              <div className="border-l-4 border-red-500 pl-4 bg-red-50/50 dark:bg-red-900/10 rounded-r-lg p-3">
+                <dt className="font-bold text-gray-900 dark:text-dark-text-primary mb-1">Access Desert</dt>
+                <dd className="text-sm text-gray-700 dark:text-gray-300">
+                  Area where residents are more than 5km (3.1 miles) from the nearest healthcare facility.
+                </dd>
+              </div>
+
+              <div className="border-l-4 border-orange-500 pl-4 bg-orange-50/50 dark:bg-orange-900/10 rounded-r-lg p-3">
+                <dt className="font-bold text-gray-900 dark:text-dark-text-primary mb-1">KD-Tree</dt>
+                <dd className="text-sm text-gray-700 dark:text-gray-300">
+                  Data structure for efficiently finding nearest neighbors in spatial data. Used to identify closest facility.
+                </dd>
+              </div>
+
+              <div className="border-l-4 border-teal-500 pl-4 bg-teal-50/50 dark:bg-teal-900/10 rounded-r-lg p-3">
+                <dt className="font-bold text-gray-900 dark:text-dark-text-primary mb-1">MUA/P (Medically Underserved Area/Population)</dt>
+                <dd className="text-sm text-gray-700 dark:text-gray-300">
+                  Federal designation for regions with too few healthcare providers, high poverty, or elderly populations.
+                </dd>
+              </div>
+
+              <div className="border-l-4 border-indigo-500 pl-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-r-lg p-3">
+                <dt className="font-bold text-gray-900 dark:text-dark-text-primary mb-1">ROI (Return on Investment)</dt>
+                <dd className="text-sm text-gray-700 dark:text-gray-300">
+                  Financial metric showing projected savings vs costs: (Savings - Costs) / Costs × 100%
+                </dd>
+              </div>
+
+              <div className="border-l-4 border-pink-500 pl-4 bg-pink-50/50 dark:bg-pink-900/10 rounded-r-lg p-3">
+                <dt className="font-bold text-gray-900 dark:text-dark-text-primary mb-1">ACS (American Community Survey)</dt>
+                <dd className="text-sm text-gray-700 dark:text-gray-300">
+                  Annual Census Bureau survey providing demographic and economic data. 5-Year estimates average 5 years of data.
+                </dd>
+              </div>
+
+              <div className="border-l-4 border-yellow-500 pl-4 bg-yellow-50/50 dark:bg-yellow-900/10 rounded-r-lg p-3">
+                <dt className="font-bold text-gray-900 dark:text-dark-text-primary mb-1">CRS (Coordinate Reference System)</dt>
+                <dd className="text-sm text-gray-700 dark:text-gray-300">
+                  System for locating geographic positions. We use WGS84 (lat/long) and EPSG:3857 (meters).
+                </dd>
+              </div>
+
+              <div className="border-l-4 border-cyan-500 pl-4 bg-cyan-50/50 dark:bg-cyan-900/10 rounded-r-lg p-3">
+                <dt className="font-bold text-gray-900 dark:text-dark-text-primary mb-1">Composite Access Score</dt>
+                <dd className="text-sm text-gray-700 dark:text-gray-300">
+                  0-100 scale combining distance (50%), facility density (30%), and population density (20%).
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <div id="detailed-methodology"></div>
 
         {/* Data Sources Section - Glassmorphic */}
         <div className="relative mb-6 group">

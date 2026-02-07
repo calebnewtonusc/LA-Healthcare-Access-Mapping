@@ -55,3 +55,51 @@ export function ChartSkeleton() {
     </div>
   )
 }
+
+export function CardSkeleton() {
+  return (
+    <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6" role="status" aria-label="Loading card">
+      <Skeleton variant="text" className="w-1/3 mb-4" />
+      <Skeleton variant="text" className="w-full mb-2" />
+      <Skeleton variant="text" className="w-5/6" />
+      <span className="sr-only">Loading...</span>
+    </div>
+  )
+}
+
+export function TableSkeleton({ rows = 5 }: { rows?: number }) {
+  return (
+    <div className="space-y-3" role="status" aria-label="Loading table">
+      {/* Header */}
+      <div className="grid grid-cols-4 gap-4 border-b border-gray-200 dark:border-gray-700 pb-2">
+        {[1, 2, 3, 4].map((i) => (
+          <Skeleton key={i} variant="text" className="w-full" />
+        ))}
+      </div>
+      {/* Rows */}
+      {Array.from({ length: rows }).map((_, rowIndex) => (
+        <div key={rowIndex} className="grid grid-cols-4 gap-4">
+          {[1, 2, 3, 4].map((i) => (
+            <Skeleton key={i} variant="text" className="w-full" />
+          ))}
+        </div>
+      ))}
+      <span className="sr-only">Loading table data...</span>
+    </div>
+  )
+}
+
+export function ListSkeleton({ items = 5 }: { items?: number }) {
+  return (
+    <div className="space-y-3" role="status" aria-label="Loading list">
+      {Array.from({ length: items }).map((_, i) => (
+        <div key={i} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+          <Skeleton variant="text" className="w-2/3 mb-2" />
+          <Skeleton variant="text" className="w-full mb-2" />
+          <Skeleton variant="text" className="w-4/5" />
+        </div>
+      ))}
+      <span className="sr-only">Loading list items...</span>
+    </div>
+  )
+}
