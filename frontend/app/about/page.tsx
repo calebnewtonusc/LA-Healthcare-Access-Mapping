@@ -1,4 +1,4 @@
-import { FileText, Database, AlertTriangle, BookOpen, Calendar, ExternalLink } from 'lucide-react'
+import { FileText, Database, AlertTriangle, BookOpen, Calendar, ExternalLink, ArrowDown, ArrowRight, Zap, TrendingUp, DollarSign, Users, MapPin } from 'lucide-react'
 import Link from 'next/link'
 
 export default function AboutPage() {
@@ -101,6 +101,130 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
+
+            {/* Data Sources Key Metrics */}
+            <div className="mt-6 pt-6 border-t border-slate-300">
+              <h3 className="font-bold text-slate-900 mb-3 text-sm">Data Coverage Summary</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="bg-white/90 backdrop-blur-sm rounded-lg p-3 border border-slate-200 text-center">
+                  <Users className="w-5 h-5 text-blue-600 mx-auto mb-1" />
+                  <div className="text-lg font-bold text-slate-900">9.9M</div>
+                  <div className="text-xs text-slate-600">Total Population</div>
+                </div>
+                <div className="bg-white/90 backdrop-blur-sm rounded-lg p-3 border border-slate-200 text-center">
+                  <MapPin className="w-5 h-5 text-purple-600 mx-auto mb-1" />
+                  <div className="text-lg font-bold text-slate-900">4,512</div>
+                  <div className="text-xs text-slate-600">Healthcare Facilities</div>
+                </div>
+                <div className="bg-white/90 backdrop-blur-sm rounded-lg p-3 border border-slate-200 text-center">
+                  <Database className="w-5 h-5 text-green-600 mx-auto mb-1" />
+                  <div className="text-lg font-bold text-slate-900">2,498</div>
+                  <div className="text-xs text-slate-600">Census Tracts</div>
+                </div>
+                <div className="bg-white/90 backdrop-blur-sm rounded-lg p-3 border border-slate-200 text-center">
+                  <Zap className="w-5 h-5 text-amber-600 mx-auto mb-1" />
+                  <div className="text-lg font-bold text-slate-900">100%</div>
+                  <div className="text-xs text-slate-600">Data Coverage</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Data Pipeline Visualization */}
+        <div className="relative mb-6 group">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
+          <div className="relative bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-6 shadow-md">
+            <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <Zap className="w-5 h-5 text-slate-600" />
+              Data Pipeline Flow
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {/* Step 1 */}
+              <div className="relative">
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200 shadow-sm h-full">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Database className="w-5 h-5 text-blue-600" />
+                    <h4 className="font-bold text-slate-900 text-sm">Data Collection</h4>
+                  </div>
+                  <ul className="text-xs text-slate-700 space-y-1">
+                    <li>• Census API</li>
+                    <li>• CA DHHS Portal</li>
+                    <li>• TIGER/Line Shapefiles</li>
+                  </ul>
+                  <div className="mt-3 text-xs font-semibold text-blue-700">
+                    4,512 facilities<br/>
+                    2,498 tracts
+                  </div>
+                </div>
+                <div className="hidden md:block absolute -right-3 top-1/2 transform -translate-y-1/2 text-slate-400">
+                  <ArrowRight className="w-6 h-6" />
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="relative">
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200 shadow-sm h-full">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Zap className="w-5 h-5 text-purple-600" />
+                    <h4 className="font-bold text-slate-900 text-sm">Processing</h4>
+                  </div>
+                  <ul className="text-xs text-slate-700 space-y-1">
+                    <li>• Geocoding</li>
+                    <li>• CRS projection</li>
+                    <li>• Data validation</li>
+                  </ul>
+                  <div className="mt-3 text-xs font-semibold text-purple-700">
+                    100% coverage<br/>
+                    0 CRS warnings
+                  </div>
+                </div>
+                <div className="hidden md:block absolute -right-3 top-1/2 transform -translate-y-1/2 text-slate-400">
+                  <ArrowRight className="w-6 h-6" />
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="relative">
+                <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200 shadow-sm h-full">
+                  <div className="flex items-center gap-2 mb-2">
+                    <MapPin className="w-5 h-5 text-green-600" />
+                    <h4 className="font-bold text-slate-900 text-sm">Analysis</h4>
+                  </div>
+                  <ul className="text-xs text-slate-700 space-y-1">
+                    <li>• KD-tree search</li>
+                    <li>• Access scoring</li>
+                    <li>• Gap identification</li>
+                  </ul>
+                  <div className="mt-3 text-xs font-semibold text-green-700">
+                    80K in deserts<br/>
+                    0.88 km avg dist
+                  </div>
+                </div>
+                <div className="hidden md:block absolute -right-3 top-1/2 transform -translate-y-1/2 text-slate-400">
+                  <ArrowRight className="w-6 h-6" />
+                </div>
+              </div>
+
+              {/* Step 4 */}
+              <div>
+                <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg p-4 border border-amber-200 shadow-sm h-full">
+                  <div className="flex items-center gap-2 mb-2">
+                    <TrendingUp className="w-5 h-5 text-amber-600" />
+                    <h4 className="font-bold text-slate-900 text-sm">Insights</h4>
+                  </div>
+                  <ul className="text-xs text-slate-700 space-y-1">
+                    <li>• Policy recs</li>
+                    <li>• Cost-benefit</li>
+                    <li>• Visualizations</li>
+                  </ul>
+                  <div className="mt-3 text-xs font-semibold text-amber-700">
+                    5 recommendations<br/>
+                    539% ROI
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -133,6 +257,25 @@ export default function AboutPage() {
                   <li><strong>Population Weighting:</strong> Severity score = distance_km × population, prioritizing high-density underserved areas</li>
                   <li><strong>Data Source:</strong> Census tract centroids from TIGER/Line Shapefiles, facility coordinates from CA DHHS</li>
                 </ul>
+
+                {/* Access Desert Visual Metrics */}
+                <div className="mt-4 grid grid-cols-3 gap-3">
+                  <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-3 border border-red-200 text-center">
+                    <div className="text-2xl font-bold text-red-700 mb-1">80,831</div>
+                    <div className="text-xs text-slate-700">Residents in</div>
+                    <div className="text-xs text-slate-700 font-semibold">Access Deserts</div>
+                  </div>
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-3 border border-blue-200 text-center">
+                    <div className="text-2xl font-bold text-blue-700 mb-1">5 km</div>
+                    <div className="text-xs text-slate-700">Maximum</div>
+                    <div className="text-xs text-slate-700 font-semibold">Access Distance</div>
+                  </div>
+                  <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-3 border border-green-200 text-center">
+                    <div className="text-2xl font-bold text-green-700 mb-1">0.88 km</div>
+                    <div className="text-xs text-slate-700">Average</div>
+                    <div className="text-xs text-slate-700 font-semibold">Distance to Care</div>
+                  </div>
+                </div>
               </div>
 
               <div>
@@ -146,6 +289,37 @@ export default function AboutPage() {
                     <li>• Facilities within 5km (30% weight): (count/max_count) × 30</li>
                     <li>• Population density (20% weight): (density/max_density) × 20</li>
                   </ul>
+
+                  {/* Visual Score Breakdown */}
+                  <div className="mt-4 space-y-2">
+                    <div>
+                      <div className="flex justify-between text-xs mb-1">
+                        <span className="text-slate-700 font-medium">Distance (50%)</span>
+                        <span className="text-slate-600">50 points max</span>
+                      </div>
+                      <div className="h-6 bg-slate-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" style={{width: '50%'}}></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-xs mb-1">
+                        <span className="text-slate-700 font-medium">Facility Density (30%)</span>
+                        <span className="text-slate-600">30 points max</span>
+                      </div>
+                      <div className="h-6 bg-slate-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-purple-500 to-purple-600 rounded-full" style={{width: '30%'}}></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-xs mb-1">
+                        <span className="text-slate-700 font-medium">Population Density (20%)</span>
+                        <span className="text-slate-600">20 points max</span>
+                      </div>
+                      <div className="h-6 bg-slate-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-green-500 to-green-600 rounded-full" style={{width: '20%'}}></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <ul className="list-disc list-inside text-slate-600 space-y-1 ml-2">
                   <li><strong>Priority Ranking:</strong> Combines distance, population, median income, poverty rate, and vehicle access</li>
@@ -158,31 +332,93 @@ export default function AboutPage() {
               <div>
                 <h3 className="font-bold text-slate-900 mb-2">Cost-Benefit Analysis</h3>
                 <div className="bg-slate-50/80 backdrop-blur-sm border border-slate-200/50 rounded-lg p-3 mb-2">
-                  <p className="text-slate-600 mb-2">
+                  <p className="text-slate-600 mb-3">
                     <strong className="text-slate-800">Facility Construction Costs (2026 estimates):</strong>
                   </p>
-                  <ul className="text-xs text-slate-600 space-y-1 ml-4">
-                    <li>• Construction: $450/sq ft × 15,000 sq ft = <strong>$6.75M</strong></li>
-                    <li>• Land acquisition (LA County avg): <strong>$2.0M</strong></li>
-                    <li>• Medical equipment: <strong>$1.5M</strong></li>
-                    <li>• <strong>Total per facility: $10.25M</strong></li>
-                  </ul>
-                  <p className="text-slate-600 mt-2 mb-2">
+
+                  {/* Construction Cost Visual Breakdown */}
+                  <div className="grid grid-cols-3 gap-3 mb-4">
+                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-blue-200 text-center">
+                      <div className="text-2xl font-bold text-blue-600 mb-1">$6.75M</div>
+                      <div className="text-xs text-slate-600">Construction</div>
+                      <div className="text-xs text-slate-500 mt-1">$450/sq ft × 15k sq ft</div>
+                    </div>
+                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-purple-200 text-center">
+                      <div className="text-2xl font-bold text-purple-600 mb-1">$2.0M</div>
+                      <div className="text-xs text-slate-600">Land</div>
+                      <div className="text-xs text-slate-500 mt-1">LA County avg</div>
+                    </div>
+                    <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-green-200 text-center">
+                      <div className="text-2xl font-bold text-green-600 mb-1">$1.5M</div>
+                      <div className="text-xs text-slate-600">Equipment</div>
+                      <div className="text-xs text-slate-500 mt-1">Medical supplies</div>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-3 mb-4 border border-slate-300">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-bold text-slate-900">Total per Facility:</span>
+                      <span className="text-2xl font-bold text-slate-900">$10.25M</span>
+                    </div>
+                  </div>
+
+                  <p className="text-slate-600 mt-4 mb-3">
                     <strong className="text-slate-800">Annual Operating Costs:</strong>
                   </p>
-                  <ul className="text-xs text-slate-600 space-y-1 ml-4">
-                    <li>• Staffing (doctors, nurses, admin): $2.0M/year</li>
-                    <li>• Supplies and maintenance: $600K/year</li>
-                    <li>• Utilities and overhead: $400K/year</li>
-                    <li>• <strong>Total operating: $3.0M/year</strong></li>
-                  </ul>
-                  <p className="text-slate-600 mt-2 mb-2">
+
+                  {/* Operating Costs Pie Chart Style */}
+                  <div className="space-y-2 mb-4">
+                    <div>
+                      <div className="flex justify-between text-xs mb-1">
+                        <span className="text-slate-700">Staffing</span>
+                        <span className="font-semibold text-slate-900">$2.0M/yr (67%)</span>
+                      </div>
+                      <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-blue-500 to-blue-600" style={{width: '67%'}}></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-xs mb-1">
+                        <span className="text-slate-700">Supplies & Maintenance</span>
+                        <span className="font-semibold text-slate-900">$600K/yr (20%)</span>
+                      </div>
+                      <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-purple-500 to-purple-600" style={{width: '20%'}}></div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between text-xs mb-1">
+                        <span className="text-slate-700">Utilities & Overhead</span>
+                        <span className="font-semibold text-slate-900">$400K/yr (13%)</span>
+                      </div>
+                      <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-green-500 to-green-600" style={{width: '13%'}}></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="text-slate-600 mt-4 mb-2">
                     <strong className="text-slate-800">Estimated Savings:</strong>
                   </p>
                   <ul className="text-xs text-slate-600 space-y-1 ml-4">
                     <li>• ER diversion: (population/1000) × 250 preventable visits/year × ($2000 - $150) per visit</li>
                     <li>• Chronic disease management: population × 40% with chronic conditions × 20% improvement rate × $1500 savings/year</li>
                   </ul>
+
+                  {/* 10-Year ROI Visualization */}
+                  <div className="mt-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-4 border border-green-200">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="text-xs text-slate-600 mb-1">10-Year Return on Investment</div>
+                        <div className="text-3xl font-bold text-green-700">539% ROI</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xs text-slate-600">Total Savings</div>
+                        <div className="text-xl font-bold text-slate-900">~$4.1B</div>
+                        <div className="text-xs text-slate-500">over 10 years</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <ul className="list-disc list-inside text-slate-600 space-y-1 ml-2">
                   <li><strong>Industry Sources:</strong> Healthcare facility costs based on{' '}
@@ -239,6 +475,147 @@ export default function AboutPage() {
                 <strong className="text-slate-900">Data Quality:</strong> Relies on accuracy and completeness of source datasets. Errors in geocoding,
                 reporting, or data collection may affect results.
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Policy Recommendations Visual Summary */}
+        <div className="relative mb-6 group">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
+          <div className="relative bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-6 shadow-md">
+            <div className="flex items-center gap-3 mb-4">
+              <TrendingUp className="w-6 h-6 text-slate-600" />
+              <h2 className="text-2xl font-bold text-slate-900">Policy Recommendations at a Glance</h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+              {/* Recommendation 1 */}
+              <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-4 border-2 border-red-300 shadow-sm">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
+                  <span className="text-xs font-bold text-red-800 uppercase">Critical Priority</span>
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2 text-sm">New Healthcare Facilities</h3>
+                <div className="space-y-1 text-xs text-slate-700">
+                  <div className="flex justify-between">
+                    <span>Cost:</span>
+                    <span className="font-semibold">$102.5M</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Timeline:</span>
+                    <span className="font-semibold">3-5 years</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Affected:</span>
+                    <span className="font-semibold">3M+ people</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Recommendation 2 */}
+              <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4 border-2 border-orange-300 shadow-sm">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+                  <span className="text-xs font-bold text-orange-800 uppercase">High Priority</span>
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2 text-sm">Mobile Clinics</h3>
+                <div className="space-y-1 text-xs text-slate-700">
+                  <div className="flex justify-between">
+                    <span>Cost:</span>
+                    <span className="font-semibold">$1.25M + $2M/yr</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Timeline:</span>
+                    <span className="font-semibold">1-2 years</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Affected:</span>
+                    <span className="font-semibold">500K+ people</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Recommendation 3 */}
+              <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-4 border-2 border-yellow-300 shadow-sm">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 bg-yellow-600 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+                  <span className="text-xs font-bold text-yellow-800 uppercase">High Priority</span>
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2 text-sm">Transportation Services</h3>
+                <div className="space-y-1 text-xs text-slate-700">
+                  <div className="flex justify-between">
+                    <span>Cost:</span>
+                    <span className="font-semibold">$50K + $750K/yr</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Timeline:</span>
+                    <span className="font-semibold">1-2 years</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Affected:</span>
+                    <span className="font-semibold">100K+ people</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Recommendation 4 */}
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border-2 border-blue-300 shadow-sm">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm">4</div>
+                  <span className="text-xs font-bold text-blue-800 uppercase">Medium Priority</span>
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2 text-sm">Telehealth Expansion</h3>
+                <div className="space-y-1 text-xs text-slate-700">
+                  <div className="flex justify-between">
+                    <span>Cost:</span>
+                    <span className="font-semibold">$300K + $250K/yr</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Timeline:</span>
+                    <span className="font-semibold">1 year</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Affected:</span>
+                    <span className="font-semibold">200K+ people</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Recommendation 5 */}
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 border-2 border-purple-300 shadow-sm">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">5</div>
+                  <span className="text-xs font-bold text-purple-800 uppercase">High Priority</span>
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2 text-sm">Low-Income Investment</h3>
+                <div className="space-y-1 text-xs text-slate-700">
+                  <div className="flex justify-between">
+                    <span>Focus:</span>
+                    <span className="font-semibold">Bottom 25% income</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Strategy:</span>
+                    <span className="font-semibold">Equity-focused</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Affected:</span>
+                    <span className="font-semibold">750K+ people</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Total Impact */}
+              <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-4 border-2 border-green-400 shadow-md">
+                <div className="flex items-center gap-2 mb-2">
+                  <DollarSign className="w-6 h-6 text-green-700" />
+                  <span className="text-xs font-bold text-green-800 uppercase">Total Investment</span>
+                </div>
+                <div className="text-center mt-2">
+                  <div className="text-3xl font-bold text-green-700 mb-1">$645M</div>
+                  <div className="text-xs text-slate-700 mb-2">10-year projection</div>
+                  <div className="text-sm font-semibold text-green-800">539% ROI</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
