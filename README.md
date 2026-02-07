@@ -16,14 +16,16 @@ Engineered geospatial analysis pipeline serving **9.9 million residents** across
 **🌐 [View Live Dashboard](https://la-healthcare-access-mapping.vercel.app/)** - Interactive web application with real-time data visualization
 
 The project is deployed as a production web application featuring:
-- **📊 Interactive Dashboard** - Professional glassmorphic design with comprehensive metrics
-- **🗺️ Dynamic Maps** - Explore 4,512 facility locations and access desert heatmaps
-- **💡 Policy Recommendations** - 5 evidence-based interventions with full methodology
-- **📈 Financial Analysis** - $645M investment opportunity, 539% ROI projection
+- **📊 Interactive Dashboard** - Professional glassmorphic design with comprehensive metrics and visual storytelling
+- **🗺️ Dynamic Maps** - Explore 4,512 facility locations and access desert heatmaps with custom legends
+- **💡 Policy Recommendations** - 5 evidence-based interventions with full methodology and impact visualizations
+- **📈 Financial Analysis** - $645M investment opportunity, 539% ROI projection with comparative analytics
+- **📚 Comprehensive Resources** - 20+ official government tools, HPSA/MUA finders, and facility locators
+- **🎨 Premium UX** - Mobile navigation, breadcrumbs, back-to-top, smooth animations with Framer Motion
 - **🔄 Auto-Updating** - Monthly data refresh via GitHub Actions automation
 - **⚡ Performance Optimized** - Lazy loading, server-side caching, 93% faster page generation
 
-**Tech Stack**: Next.js 16 (Vercel) + FastAPI (Railway) + Python 3.13 + GeoPandas
+**Tech Stack**: Next.js 16 (Vercel) + FastAPI (Railway) + Python 3.13 + GeoPandas + Framer Motion
 
 ---
 
@@ -122,10 +124,19 @@ pytest tests/ -v
 - **Multiple Metrics**: Distance-based, density-based, and composite access scores
 
 ### 🗺️ Interactive Visualizations
-- **Folium Maps**: Interactive facility locations with custom legends
-- **Heatmaps**: Access desert visualization across census tracts
-- **Dashboard**: Real-time metrics with glassmorphic design
-- **Performance**: Lazy loading, optimized rendering, responsive design
+- **Folium Maps**: Interactive facility locations with custom legends and fullscreen controls
+- **Heatmaps**: Access desert visualization across census tracts with neon styling
+- **Data Storytelling**: Visual pipeline diagrams, comparison charts, impact metrics
+- **Multi-Page Navigation**: Dashboard, Methodology, and Resources pages with breadcrumb trails
+- **Performance**: Lazy loading, optimized rendering, responsive mobile-first design
+
+### 🎨 Premium User Experience
+- **Glassmorphic Design**: Frosted glass cards with backdrop blur throughout the interface
+- **Mobile Navigation**: Animated slide-out menu with smooth transitions and backdrop effects
+- **Smart Navigation**: Auto-generating breadcrumbs and back-to-top button with scroll detection
+- **Smooth Animations**: Framer Motion for page transitions, hover effects, and component reveals
+- **Responsive Layout**: Mobile-first design with adaptive grids and touch-optimized controls
+- **Accessibility**: ARIA labels, semantic HTML, keyboard navigation support
 
 ### 💡 Policy Recommendations
 - **5 Evidence-Based Interventions**: Infrastructure, transportation, equity, services
@@ -149,10 +160,17 @@ pytest tests/ -v
 la-healthcare-access-mapping/
 ├── frontend/                   # Next.js 16 web application
 │   ├── app/                    # App Router pages
+│   │   ├── page.tsx           # Main dashboard
+│   │   ├── about/             # Methodology & sources
+│   │   ├── resources/         # External tools directory
+│   │   └── layout.tsx         # Site-wide layout
 │   ├── components/             # React components
 │   │   ├── key-metrics.tsx
 │   │   ├── recommendations-list.tsx
 │   │   ├── facility-map-section.tsx
+│   │   ├── mobile-nav.tsx     # Mobile navigation menu
+│   │   ├── back-to-top.tsx    # Scroll-to-top button
+│   │   ├── breadcrumbs.tsx    # Navigation breadcrumbs
 │   │   └── ui/                # Reusable UI components
 │   └── package.json
 ├── backend/                    # FastAPI server
@@ -399,7 +417,8 @@ git push origin feature/your-feature-name
 
 ### Technologies
 - Python scientific computing stack (NumPy, Pandas, GeoPandas)
-- Next.js, React, Tailwind CSS
+- Next.js 16, React 19, Tailwind CSS
+- Framer Motion, Lucide React
 - FastAPI, Uvicorn
 - Folium, Matplotlib, Seaborn
 - Pytest, Jupyter, Black
