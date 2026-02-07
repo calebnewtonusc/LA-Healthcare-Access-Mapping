@@ -74,26 +74,23 @@ export function KeyMetrics({ stats: ssrStats }: KeyMetricsProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: metric.delay }}
-              className="relative group"
+              className="bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-neon-cyan/20 dark:to-neon-purple/20 rounded-xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
-              <div className="relative bg-white/70 dark:bg-dark-bg-secondary/70 backdrop-blur-md border border-white/50 dark:border-neon-cyan/30 rounded-xl p-6 shadow-md dark:shadow-neon-cyan/10 transition-colors duration-300">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <p className="text-sm text-slate-700 dark:text-dark-text-secondary mb-2 font-medium">{metric.label}</p>
-                    {metric.value !== undefined ? (
-                      <p className="text-4xl font-bold text-slate-900 dark:text-dark-text-primary">
-                        <AnimatedNumber value={metric.value} />
-                      </p>
-                    ) : (
-                      <p className="text-2xl font-semibold text-slate-400 dark:text-dark-text-muted">
-                        Data Unavailable
-                      </p>
-                    )}
-                  </div>
-                  <div className="bg-slate-100/80 dark:bg-dark-bg-tertiary backdrop-blur-sm p-3 rounded-full">
-                    <metric.icon className="w-8 h-8 text-slate-700 dark:text-neon-cyan" />
-                  </div>
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <p className="text-sm text-gray-600 dark:text-dark-text-secondary mb-2">{metric.label}</p>
+                  {metric.value !== undefined ? (
+                    <p className="text-3xl font-bold text-gray-900 dark:text-dark-text-primary">
+                      <AnimatedNumber value={metric.value} />
+                    </p>
+                  ) : (
+                    <p className="text-xl font-semibold text-gray-400 dark:text-dark-text-muted">
+                      Data Unavailable
+                    </p>
+                  )}
+                </div>
+                <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
+                  <metric.icon className="w-7 h-7 text-blue-600 dark:text-blue-400" />
                 </div>
               </div>
             </motion.div>
