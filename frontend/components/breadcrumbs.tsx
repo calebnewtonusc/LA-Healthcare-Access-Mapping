@@ -35,17 +35,17 @@ export function Breadcrumbs() {
           return (
             <li key={crumb.href} className="flex items-center gap-2">
               {index > 0 && (
-                <ChevronRight className="w-4 h-4 text-slate-400" />
+                <ChevronRight className="w-4 h-4 text-slate-400 dark:text-dark-text-muted" />
               )}
               {isLast ? (
-                <span className="text-slate-900 font-medium flex items-center gap-1.5">
+                <span className="text-slate-900 dark:text-dark-text-primary font-medium flex items-center gap-1.5">
                   {Icon && <Icon className="w-4 h-4" />}
                   {crumb.name}
                 </span>
               ) : (
                 <Link
                   href={crumb.href}
-                  className="text-slate-600 hover:text-slate-900 transition-colors flex items-center gap-1.5"
+                  className="text-slate-600 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors flex items-center gap-1.5"
                 >
                   {Icon && <Icon className="w-4 h-4" />}
                   {crumb.name}
