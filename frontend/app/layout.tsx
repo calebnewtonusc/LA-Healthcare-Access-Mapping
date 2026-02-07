@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Link from 'next/link'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -34,12 +35,38 @@ export default function RootLayout({
         {/* Glassmorphic Header */}
         <header className="sticky top-0 z-50 backdrop-blur-lg bg-white/80 border-b border-white/50 shadow-sm">
           <div className="container mx-auto px-4 py-4">
-            <h1 className="text-2xl font-bold text-slate-900">
-              LA Healthcare Access Dashboard
-            </h1>
-            <p className="text-sm text-slate-700 mt-1">
-              Policy Recommendations & Analysis
-            </p>
+            <div className="flex items-center justify-between">
+              <div>
+                <Link href="/" className="hover:opacity-80 transition-opacity">
+                  <h1 className="text-2xl font-bold text-slate-900">
+                    LA Healthcare Access Dashboard
+                  </h1>
+                  <p className="text-sm text-slate-700 mt-1">
+                    Policy Recommendations & Analysis
+                  </p>
+                </Link>
+              </div>
+              <nav className="hidden md:flex items-center gap-6">
+                <Link
+                  href="/"
+                  className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+                >
+                  Methodology
+                </Link>
+                <Link
+                  href="/resources"
+                  className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+                >
+                  Resources
+                </Link>
+              </nav>
+            </div>
           </div>
         </header>
 
