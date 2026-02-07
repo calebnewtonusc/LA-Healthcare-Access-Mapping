@@ -83,7 +83,7 @@ export function initializeSocketServer(httpServer: HTTPServer): SocketIOServer {
     })
 
     // Ping/Pong for connection health check
-    socket.on('ping', (payload: PingPayload) => {
+    socket.on('ping', (_payload: PingPayload) => {
       socket.emit('pong', { timestamp: Date.now() })
     })
 

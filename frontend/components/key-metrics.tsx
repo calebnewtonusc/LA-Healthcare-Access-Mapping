@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Users, Building2, FileText, MapPin } from 'lucide-react'
+import { Users, Building2, FileText, MapPin, Clock } from 'lucide-react'
 import { AnimatedNumber } from './ui/animated-number'
 import { useRealtimeStats } from '@/lib/hooks/use-realtime-stats'
 import { useTimeSinceUpdate } from '@/lib/stores/realtime-store'
@@ -21,7 +21,7 @@ interface KeyMetricsProps {
 
 export function KeyMetrics({ stats: ssrStats }: KeyMetricsProps) {
   // Real-time data
-  const { stats: realtimeStats, isFlashing } = useRealtimeStats()
+  const { stats: realtimeStats } = useRealtimeStats()
   const { isConnected } = useConnectionStatus()
   const lastUpdated = useTimeSinceUpdate('stats')
 
@@ -96,6 +96,18 @@ export function KeyMetrics({ stats: ssrStats }: KeyMetricsProps) {
             </motion.div>
           )
         })}
+      </div>
+
+      {/* Data Freshness Indicator */}
+      <div className="mt-4 text-center text-xs text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2 flex-wrap">
+        <div className="flex items-center gap-1">
+          <Clock className="w-3 h-3" />
+          <span>Data: 2020 Census</span>
+        </div>
+        <span>•</span>
+        <span>Last updated: {new Date().toLocaleDateString()}</span>
+        <span>•</span>
+        <span className="text-yellow-600 dark:text-yellow-400 font-medium">±30% uncertainty</span>
       </div>
     </div>
   )

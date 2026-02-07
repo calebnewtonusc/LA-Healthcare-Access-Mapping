@@ -1,8 +1,7 @@
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { KeyMetrics } from '@/components/key-metrics'
 import { FacilityMapSection } from '@/components/facility-map-section'
-import { RegionalBreakdown } from '@/components/charts/regional-breakdown'
-import { ImpactComparison } from '@/components/charts/impact-comparison'
+import { RegionalBreakdownLazy as RegionalBreakdown, ImpactComparisonLazy as ImpactComparison } from '@/components/charts/lazy-charts'
 import { LazyIframe } from '@/components/ui/lazy-iframe'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { BarChart3, MapPin, TrendingUp, Layers, Flame } from 'lucide-react'
@@ -35,8 +34,32 @@ async function getFacilities() {
 }
 
 export const metadata = {
-  title: 'Data Analysis - LA Healthcare Access Dashboard',
-  description: 'Comprehensive data analysis, interactive charts, regional breakdowns, and geospatial visualizations for LA County healthcare access',
+  title: 'Data Analysis & Visualizations | LA Healthcare Access Dashboard',
+  description: 'Interactive data visualizations analyzing healthcare facility distribution, access gaps, and regional disparities across 2,498 census tracts in Los Angeles County. Explore maps, charts, and statistical breakdowns covering 9.9M residents.',
+  keywords: 'healthcare data analysis, LA County health statistics, facility distribution charts, access desert maps, regional health disparities, census tract analysis, geospatial healthcare data, public health visualization',
+  openGraph: {
+    title: 'Healthcare Access Analysis - Los Angeles County Data Visualizations',
+    description: 'Explore interactive maps and charts analyzing healthcare facility distribution and access gaps across 2,498 LA County census tracts.',
+    type: 'website',
+    url: 'https://la-healthcare-access-mapping.vercel.app/analysis',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Interactive charts and maps showing healthcare facility distribution in LA County',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LA County Healthcare Access Data Analysis',
+    description: 'Interactive visualizations of healthcare facility distribution and access gaps across 9.9M residents',
+    images: ['/og-image.png'],
+  },
+  alternates: {
+    canonical: 'https://la-healthcare-access-mapping.vercel.app/analysis',
+  },
 }
 
 export default async function AnalysisPage() {

@@ -1,6 +1,7 @@
 'use client'
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
+import { AccessibleChartWrapper } from './accessible-chart-wrapper'
 
 const regionalData = [
   { region: 'Central LA', tracts: 412, accessDeserts: 18500, avgDistance: 1.2, facilityDensity: 6.2, score: 72 },
@@ -19,8 +20,20 @@ const getScoreColor = (score: number) => {
   return '#ef4444' // red
 }
 
+const dataTable = {
+  headers: ['Region', 'Access Score', 'Census Tracts', 'Access Deserts', 'Avg Distance (km)', 'Facility Density'],
+  rows: regionalData.map(d => [
+    d.region,
+    `${d.score}/100`,
+    d.tracts.toLocaleString(),
+    d.accessDeserts.toLocaleString(),
+    d.avgDistance,
+    `${d.facilityDensity}/10K`
+  ])
+}
+
 export function RegionalBreakdown() {
-  return (
+  const chartContent = (
     <div className="relative group">
       <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-blue-50 dark:from-neon-green/10 dark:to-neon-cyan/10 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
 
@@ -99,5 +112,16 @@ export function RegionalBreakdown() {
         </div>
       </div>
     </div>
+  )
+
+  return (
+    <AccessibleChartWrapper
+      title="Regional Access Breakdown"
+      description="Bar chart showing healthcare access scores by LA County region. South LA has the lowest score at 45/100 with 28,400 residents in access deserts. West LA has the highest score at 85/100."
+      dataTable={dataTable}
+      ariaLabel="Bar chart displaying healthcare access scores for 7 regions in LA County. Values range from 45 (South LA, Poor) to 85 (West LA, Excellent). Access scores include: Central LA 72, East LA 61, San Fernando Valley 68, San Gabriel Valley 74, and South Bay 79."
+    >
+      {chartContent}
+    </AccessibleChartWrapper>
   )
 }

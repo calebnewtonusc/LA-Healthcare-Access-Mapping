@@ -1,10 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Building2, Bus, Scale, TrendingUp, ChevronDown, Users, DollarSign, Clock, Target } from 'lucide-react'
-import { NeonBadge } from './ui/neon-badge'
-import { cardHover, iconPulse } from '@/lib/animations'
+import { Building2, Bus, Scale, TrendingUp, ChevronDown, Users, DollarSign, Clock as ClockIcon, Target, AlertCircle, AlertTriangle, Info } from 'lucide-react'
 import { useRealtimeRecommendations } from '@/lib/hooks/use-realtime-recommendations'
 import { useTimeSinceUpdate } from '@/lib/stores/realtime-store'
 import { useConnectionStatus } from '@/lib/hooks/use-connection-status'
@@ -24,13 +21,6 @@ interface RecommendationsListProps {
   recommendations: Recommendation[] | null
 }
 
-const priorityBorders: Record<string, string> = {
-  'Critical': 'border-l-4 border-l-slate-900 dark:border-l-neon-pink',
-  'High': 'border-l-4 border-l-slate-700 dark:border-l-neon-purple',
-  'Medium': 'border-l-4 border-l-slate-500 dark:border-l-neon-cyan',
-  'Low': 'border-l-4 border-l-slate-400 dark:border-l-neon-green',
-}
-
 const categoryIcons: Record<string, any> = {
   'Infrastructure': Building2,
   'Transportation': Bus,
@@ -42,7 +32,7 @@ export function RecommendationsList({ recommendations: ssrRecommendations }: Rec
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0)
 
   // Real-time data
-  const { recommendations: realtimeRecommendations, isFlashing } = useRealtimeRecommendations()
+  const { recommendations: realtimeRecommendations } = useRealtimeRecommendations()
   const { isConnected } = useConnectionStatus()
   const lastUpdated = useTimeSinceUpdate('recommendations')
 
@@ -86,8 +76,6 @@ export function RecommendationsList({ recommendations: ssrRecommendations }: Rec
           {recommendations.map((rec, index) => {
             const isExpanded = expandedIndex === index
             const CategoryIcon = categoryIcons[rec.Category || ''] || Target
-            const priorityVariant = rec.Priority === 'Critical' || rec.Priority === 'High' ? 'high' :
-                                   rec.Priority === 'Medium' ? 'medium' : 'low'
 
             return (
               <div
@@ -105,16 +93,30 @@ export function RecommendationsList({ recommendations: ssrRecommendations }: Rec
                     </h4>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={`px-2 py-1 text-xs font-semibold rounded ${
+                    <span className={`px-2 py-1 text-xs font-semibold rounded flex items-center gap-1 ${
                       rec.Priority === 'Critical' || rec.Priority === 'High'
                         ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                         : rec.Priority === 'Medium'
                         ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
                         : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
                     }`}>
-                      {rec.Priority}
+                      {rec.Priority === 'Critical' || rec.Priority === 'High' ? (
+                        <AlertCircle className="w-3 h-3" aria-hidden="true" />
+                      ) : rec.Priority === 'Medium' ? (
+                        <AlertTriangle className="w-3 h-3" aria-hidden="true" />
+                      ) : (
+                        <Info className="w-3 h-3" aria-hidden="true" />
+                      )}
+                      <span>{rec.Priority} Priority</span>
+                      <span className="sr-only">
+                        {rec.Priority === 'Critical' || rec.Priority === 'High'
+                          ? 'Requires immediate attention'
+                          : rec.Priority === 'Medium'
+                          ? 'Should be addressed soon'
+                          : 'Can be scheduled for later'}
+                      </span>
                     </span>
-                    <ChevronDown className={`w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`} aria-hidden="true" />
                   </div>
                 </div>
 
@@ -152,7 +154,7 @@ export function RecommendationsList({ recommendations: ssrRecommendations }: Rec
                       </div>
                       <div className="flex items-start gap-2">
                         <div className="bg-gray-100 dark:bg-gray-800 p-2 rounded-lg">
-                          <Clock className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+                          <ClockIcon className="w-4 h-4 text-gray-700 dark:text-gray-300" />
                         </div>
                         <div>
                           <span className="text-xs text-gray-600 dark:text-gray-400">Timeline</span>
@@ -196,8 +198,19 @@ export function RecommendationsList({ recommendations: ssrRecommendations }: Rec
               </div>
             )
           })}
+        </div>
+
+        {/* Data Freshness Indicator */}
+        <div className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2 flex-wrap">
+          <div className="flex items-center gap-1">
+            <ClockIcon className="w-3 h-3" />
+            <span>Data: 2020 Census • Oct 2024 Facility Data</span>
+          </div>
+          <span>•</span>
+          <span>Last updated: {new Date().toLocaleDateString()}</span>
+          <span>•</span>
+          <span className="text-yellow-600 dark:text-yellow-400 font-medium">±30-50% cost uncertainty</span>
+        </div>
       </div>
-    </div>
   )
 }
-

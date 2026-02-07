@@ -1,6 +1,7 @@
 'use client'
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { AccessibleChartWrapper } from './accessible-chart-wrapper'
 
 const comparisonData = [
   {
@@ -40,8 +41,18 @@ const comparisonData = [
   },
 ]
 
+const dataTable = {
+  headers: ['Metric', 'Current', 'Projected', 'Improvement'],
+  rows: comparisonData.map(d => [
+    d.metric,
+    `${d.current.toLocaleString()} ${d.unit}`,
+    `${d.projected.toLocaleString()} ${d.unit}`,
+    d.improvement
+  ])
+}
+
 export function ImpactComparison() {
-  return (
+  const chartContent = (
     <div className="relative group">
       <div className="absolute inset-0 bg-gradient-to-r from-red-50 via-orange-50 to-green-50 dark:from-neon-pink/10 dark:via-neon-purple/10 dark:to-neon-green/10 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
 
@@ -73,7 +84,9 @@ export function ImpactComparison() {
             <Tooltip
               content={({ active, payload }) => {
                 if (active && payload && payload.length >= 2) {
-                  const data = payload[0].payload
+                  const item = payload[0]
+                  if (!item) return null
+                  const data = item.payload
                   return (
                     <div className="bg-white/95 dark:bg-dark-bg-secondary/95 backdrop-blur-sm border border-slate-200 dark:border-neon-cyan/30 rounded-lg p-4 shadow-lg min-w-[240px]">
                       <p className="font-bold text-slate-900 dark:text-dark-text-primary mb-2">{data.metric}</p>
@@ -137,5 +150,16 @@ export function ImpactComparison() {
         </div>
       </div>
     </div>
+  )
+
+  return (
+    <AccessibleChartWrapper
+      title="Projected Impact Analysis"
+      description="Comparison bar chart showing current state versus projected post-implementation improvements across 5 key healthcare metrics. Access desert population would decrease 57%, preventable ER visits would drop 50%, and facility density would increase 60%."
+      dataTable={dataTable}
+      ariaLabel="Grouped bar chart comparing current healthcare metrics with projected improvements. Five metrics shown: Access Desert Population (80,831 current to 35,000 projected, -57%), Average Distance to Facility (880m to 450m, -49%), Facility Density (4.5 to 7.2 per 10K, +60%), Preventable ER Visits (125,000 to 62,500 annual, -50%), and Healthcare Cost Per Capita ($3,200 to $2,400 per year, -25%)."
+    >
+      {chartContent}
+    </AccessibleChartWrapper>
   )
 }

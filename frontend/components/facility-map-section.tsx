@@ -1,8 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { MapPin, Users, TrendingUp, ExternalLink } from 'lucide-react'
-import { NeonBadge } from './ui/neon-badge'
+import { MapPin, Users, TrendingUp, ExternalLink, Clock } from 'lucide-react'
 import { LazyIframe } from './ui/lazy-iframe'
 import { useRealtimeFacilities } from '@/lib/hooks/use-realtime-facilities'
 import { useTimeSinceUpdate } from '@/lib/stores/realtime-store'
@@ -29,7 +27,7 @@ export function FacilityMapSection({ facilities: ssrFacilities }: FacilityMapSec
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
   // Real-time data
-  const { facilities: realtimeFacilities, isFlashing } = useRealtimeFacilities()
+  const { facilities: realtimeFacilities } = useRealtimeFacilities()
   const { isConnected } = useConnectionStatus()
   const lastUpdated = useTimeSinceUpdate('facilities')
 
@@ -141,6 +139,18 @@ export function FacilityMapSection({ facilities: ssrFacilities }: FacilityMapSec
               View all {facilities.length} locations on interactive map
               <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
+          </div>
+
+          {/* Data Freshness Indicator */}
+          <div className="mt-6 text-center text-xs text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2 flex-wrap">
+            <div className="flex items-center gap-1">
+              <Clock className="w-3 h-3" />
+              <span>Data: 2020 Census • Oct 2024 Facility Data</span>
+            </div>
+            <span>•</span>
+            <span>Last updated: {new Date().toLocaleDateString()}</span>
+            <span>•</span>
+            <span className="text-yellow-600 dark:text-yellow-400 font-medium">±30% uncertainty</span>
           </div>
         </div>
       )}
