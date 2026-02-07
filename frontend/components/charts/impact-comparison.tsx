@@ -43,11 +43,11 @@ const comparisonData = [
 export function ImpactComparison() {
   return (
     <div className="relative group">
-      <div className="absolute inset-0 bg-gradient-to-r from-red-50 via-orange-50 to-green-50 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-red-50 via-orange-50 to-green-50 dark:from-neon-pink/10 dark:via-neon-purple/10 dark:to-neon-green/10 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
 
-      <div className="relative bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl p-6 shadow-lg">
-        <h3 className="text-xl font-bold text-slate-900 mb-2">Projected Impact Analysis</h3>
-        <p className="text-sm text-slate-600 mb-6">Current State vs. Post-Implementation Projections</p>
+      <div className="relative bg-white/80 dark:bg-dark-bg-tertiary/70 backdrop-blur-md border border-white/60 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-lg dark:shadow-neon-cyan/10 transition-colors duration-300">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Projected Impact Analysis</h3>
+        <p className="text-sm text-slate-600 dark:text-dark-text-secondary mb-6">Current State vs. Post-Implementation Projections</p>
 
         <ResponsiveContainer width="100%" height={350}>
           <BarChart
@@ -55,17 +55,19 @@ export function ImpactComparison() {
             margin={{ top: 20, right: 30, left: 20, bottom: 80 }}
             layout="horizontal"
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" className="dark:stroke-slate-700" />
             <XAxis
               dataKey="metric"
               angle={-45}
               textAnchor="end"
               height={120}
               stroke="#64748b"
+              className="dark:stroke-slate-400"
               style={{ fontSize: '11px' }}
             />
             <YAxis
               stroke="#64748b"
+              className="dark:stroke-slate-400"
               label={{ value: 'Value (normalized)', angle: -90, position: 'insideLeft', style: { fill: '#64748b', fontWeight: 600 } }}
             />
             <Tooltip
@@ -73,20 +75,20 @@ export function ImpactComparison() {
                 if (active && payload && payload.length >= 2) {
                   const data = payload[0].payload
                   return (
-                    <div className="bg-white/95 backdrop-blur-sm border border-slate-200 rounded-lg p-4 shadow-lg min-w-[240px]">
-                      <p className="font-bold text-slate-900 mb-2">{data.metric}</p>
+                    <div className="bg-white/95 dark:bg-dark-bg-secondary/95 backdrop-blur-sm border border-slate-200 dark:border-neon-cyan/30 rounded-lg p-4 shadow-lg min-w-[240px]">
+                      <p className="font-bold text-slate-900 dark:text-dark-text-primary mb-2">{data.metric}</p>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
-                          <span className="text-red-700">Current:</span>
-                          <span className="font-semibold text-red-900">{data.current.toLocaleString()} {data.unit}</span>
+                          <span className="text-red-700 dark:text-neon-pink">Current:</span>
+                          <span className="font-semibold text-red-900 dark:text-neon-pink">{data.current.toLocaleString()} {data.unit}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-green-700">Projected:</span>
-                          <span className="font-semibold text-green-900">{data.projected.toLocaleString()} {data.unit}</span>
+                          <span className="text-green-700 dark:text-neon-green">Projected:</span>
+                          <span className="font-semibold text-green-900 dark:text-neon-green">{data.projected.toLocaleString()} {data.unit}</span>
                         </div>
-                        <div className="pt-2 border-t border-slate-200 flex justify-between">
-                          <span className="text-slate-700">Change:</span>
-                          <span className={`font-bold ${data.improvement.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
+                        <div className="pt-2 border-t border-slate-200 dark:border-slate-700 flex justify-between">
+                          <span className="text-slate-700 dark:text-dark-text-secondary">Change:</span>
+                          <span className={`font-bold ${data.improvement.startsWith('+') ? 'text-green-600 dark:text-neon-green' : 'text-red-600 dark:text-neon-pink'}`}>
                             {data.improvement}
                           </span>
                         </div>
@@ -103,11 +105,11 @@ export function ImpactComparison() {
                 <div className="flex justify-center gap-6 text-sm mt-2">
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 rounded bg-red-500"></div>
-                    <span className="text-slate-700">Current State</span>
+                    <span className="text-slate-700 dark:text-dark-text-secondary">Current State</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 rounded bg-green-500"></div>
-                    <span className="text-slate-700">Projected (Post-Implementation)</span>
+                    <span className="text-slate-700 dark:text-dark-text-secondary">Projected (Post-Implementation)</span>
                   </div>
                 </div>
               )}
@@ -119,18 +121,18 @@ export function ImpactComparison() {
 
         <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3">
           {comparisonData.map((item, idx) => (
-            <div key={idx} className="bg-slate-50 border border-slate-200 rounded-lg p-3">
-              <p className="text-xs text-slate-600 mb-1">{item.metric}</p>
-              <p className={`text-lg font-bold ${item.improvement.startsWith('-') && item.metric !== 'Facility Density' ? 'text-green-600' : item.improvement.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
+            <div key={idx} className="bg-slate-50 dark:bg-dark-bg-secondary border border-slate-200 dark:border-slate-700 rounded-lg p-3 transition-colors duration-300">
+              <p className="text-xs text-slate-600 dark:text-dark-text-muted mb-1">{item.metric}</p>
+              <p className={`text-lg font-bold ${item.improvement.startsWith('-') && item.metric !== 'Facility Density' ? 'text-green-600 dark:text-neon-green' : item.improvement.startsWith('+') ? 'text-green-600 dark:text-neon-green' : 'text-red-600 dark:text-neon-pink'}`}>
                 {item.improvement}
               </p>
             </div>
           ))}
         </div>
 
-        <div className="mt-4 bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg p-4">
-          <p className="text-sm text-slate-700 leading-relaxed">
-            <span className="font-semibold text-green-900">Key Insight:</span> Implementation of all recommendations is projected to reduce the access desert population by <span className="font-bold text-green-700">57%</span>, decrease preventable ER visits by <span className="font-bold text-green-700">50%</span>, and improve facility density by <span className="font-bold text-green-700">60%</span>.
+        <div className="mt-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-neon-green/10 dark:to-neon-cyan/10 border border-green-200 dark:border-neon-green/30 rounded-lg p-4 transition-colors duration-300">
+          <p className="text-sm text-slate-700 dark:text-dark-text-secondary leading-relaxed">
+            <span className="font-semibold text-green-900 dark:text-neon-green">Key Insight:</span> Implementation of all recommendations is projected to reduce the access desert population by <span className="font-bold text-green-700 dark:text-neon-green">57%</span>, decrease preventable ER visits by <span className="font-bold text-green-700 dark:text-neon-green">50%</span>, and improve facility density by <span className="font-bold text-green-700 dark:text-neon-green">60%</span>.
           </p>
         </div>
       </div>
