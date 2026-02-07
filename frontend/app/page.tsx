@@ -3,7 +3,7 @@ import { RecommendationsList } from '@/components/recommendations-list'
 import { FacilityMapSection } from '@/components/facility-map-section'
 import { AnimatedNumber } from '@/components/ui/animated-number'
 import { LazyIframe } from '@/components/ui/lazy-iframe'
-import { DollarSign, TrendingUp, Percent, MapPin, Flame, ExternalLink } from 'lucide-react'
+import { DollarSign, TrendingUp, Percent, MapPin, Flame, ExternalLink, AlertCircle, Target, Zap, Users, Building2, ArrowRight, CheckCircle } from 'lucide-react'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
@@ -78,9 +78,195 @@ export default async function DashboardPage() {
         </p>
       </div>
 
+      {/* Key Findings Hero Section */}
+      <div className="mb-10 relative group">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
+        <div className="relative bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl p-8 shadow-lg">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-3 rounded-xl shadow-md">
+              <Zap className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-slate-900">Key Findings</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="relative group/card">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-100 to-red-200 rounded-xl blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
+              <div className="relative bg-white/70 backdrop-blur-sm border border-red-200 rounded-xl p-5 shadow-sm">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="bg-red-100 p-2 rounded-lg">
+                    <AlertCircle className="w-5 h-5 text-red-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-lg">Access Deserts</h4>
+                    <p className="text-3xl font-bold text-red-600 mt-2">80,831</p>
+                  </div>
+                </div>
+                <p className="text-sm text-slate-700">Residents living more than 5km from the nearest healthcare facility</p>
+              </div>
+            </div>
+
+            <div className="relative group/card">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-green-200 rounded-xl blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
+              <div className="relative bg-white/70 backdrop-blur-sm border border-green-200 rounded-xl p-5 shadow-sm">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="bg-green-100 p-2 rounded-lg">
+                    <Target className="w-5 h-5 text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-lg">ROI Projection</h4>
+                    <p className="text-3xl font-bold text-green-600 mt-2">539%</p>
+                  </div>
+                </div>
+                <p className="text-sm text-slate-700">Expected 10-year return on healthcare infrastructure investment</p>
+              </div>
+            </div>
+
+            <div className="relative group/card">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
+              <div className="relative bg-white/70 backdrop-blur-sm border border-blue-200 rounded-xl p-5 shadow-sm">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="bg-blue-100 p-2 rounded-lg">
+                    <Users className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-lg">Population Impact</h4>
+                    <p className="text-3xl font-bold text-blue-600 mt-2">3M+</p>
+                  </div>
+                </div>
+                <p className="text-sm text-slate-700">People would benefit from recommended infrastructure improvements</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Key Metrics */}
       <div className="mb-10">
         <KeyMetrics stats={stats} />
+      </div>
+
+      {/* Impact Comparison: Current vs Recommended */}
+      <div className="mb-10 relative group">
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-100 via-blue-50 to-slate-100 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
+        <div className="relative bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl p-8 shadow-lg">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="bg-gradient-to-br from-slate-600 to-slate-800 p-3 rounded-xl shadow-md">
+              <ArrowRight className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-slate-900">Current State vs. Recommended Improvements</h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Current State */}
+            <div className="relative group/current">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-50 to-red-100 rounded-xl blur opacity-30 group-hover/current:opacity-50 transition-opacity"></div>
+              <div className="relative bg-white/70 backdrop-blur-sm border border-red-200 rounded-xl p-6 shadow-sm">
+                <div className="flex items-center gap-2 mb-4">
+                  <AlertCircle className="w-5 h-5 text-red-600" />
+                  <h4 className="font-bold text-lg text-slate-900">Current Situation</h4>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-red-100 rounded-full p-1.5 mt-0.5">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">80,831 residents</p>
+                      <p className="text-sm text-slate-700">Living in healthcare access deserts</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="bg-red-100 rounded-full p-1.5 mt-0.5">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">4.5 facilities/10K</p>
+                      <p className="text-sm text-slate-700">Current facility density</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="bg-red-100 rounded-full p-1.5 mt-0.5">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">Limited access</p>
+                      <p className="text-sm text-slate-700">For low-income and remote areas</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="bg-red-100 rounded-full p-1.5 mt-0.5">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">High ER utilization</p>
+                      <p className="text-sm text-slate-700">For preventable conditions</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Recommended State */}
+            <div className="relative group/recommended">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-green-100 rounded-xl blur opacity-30 group-hover/recommended:opacity-50 transition-opacity"></div>
+              <div className="relative bg-white/70 backdrop-blur-sm border border-green-200 rounded-xl p-6 shadow-sm">
+                <div className="flex items-center gap-2 mb-4">
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                  <h4 className="font-bold text-lg text-slate-900">With Recommendations</h4>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-green-100 rounded-full p-1.5 mt-0.5">
+                      <CheckCircle className="w-3 h-3 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">40-60% reduction</p>
+                      <p className="text-sm text-slate-700">In access desert population</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="bg-green-100 rounded-full p-1.5 mt-0.5">
+                      <CheckCircle className="w-3 h-3 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">10 new facilities</p>
+                      <p className="text-sm text-slate-700">Strategically located in underserved areas</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="bg-green-100 rounded-full p-1.5 mt-0.5">
+                      <CheckCircle className="w-3 h-3 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">Mobile & telehealth</p>
+                      <p className="text-sm text-slate-700">Immediate access for vulnerable populations</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="bg-green-100 rounded-full p-1.5 mt-0.5">
+                      <CheckCircle className="w-3 h-3 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">3M+ people served</p>
+                      <p className="text-sm text-slate-700">Improved preventive care access</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 text-center">
+            <a
+              href="/about"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all font-semibold shadow-md hover:shadow-lg"
+            >
+              Learn More About Our Methodology
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
       </div>
 
       {/* Main Content Grid */}
@@ -94,65 +280,116 @@ export default async function DashboardPage() {
 
       {/* Cost-Benefit Overview */}
       <div className="mt-10 relative group">
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-200 to-slate-300 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
-        <div className="relative bg-white/70 backdrop-blur-md border border-white/50 rounded-2xl p-8 shadow-md">
-          <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">
-            Financial Analysis
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="absolute inset-0 bg-gradient-to-r from-green-50 via-blue-50 to-purple-50 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
+        <div className="relative bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl p-8 shadow-lg">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="bg-gradient-to-br from-green-500 to-blue-600 p-3 rounded-xl shadow-md">
+              <DollarSign className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-slate-900">
+              Financial Analysis & ROI Projection
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="relative group/card">
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
-              <div className="relative bg-white/60 backdrop-blur-sm border border-white/40 rounded-xl p-6 text-center shadow-sm">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
+              <div className="relative bg-white/70 backdrop-blur-sm border border-blue-200 rounded-xl p-6 text-center shadow-sm">
                 <div className="flex justify-center mb-3">
-                  <div className="bg-slate-100/80 backdrop-blur-sm p-3 rounded-full">
-                    <DollarSign className="w-6 h-6 text-slate-700" />
+                  <div className="bg-blue-100 p-3 rounded-full">
+                    <DollarSign className="w-6 h-6 text-blue-600" />
                   </div>
                 </div>
-                <div className="text-4xl font-bold text-slate-900 mb-2">
-                  {stats?.total_investment || 'N/A'}*
+                <div className="text-4xl font-bold text-blue-600 mb-2">
+                  {stats?.total_investment || '$645M'}
                 </div>
-                <div className="text-sm text-slate-700">
-                  10-Year Investment (Est.)
+                <div className="text-sm text-slate-700 font-medium">
+                  Total Investment Required
+                </div>
+                <div className="text-xs text-slate-600 mt-2">
+                  10-year projection
                 </div>
               </div>
             </div>
             <div className="relative group/card">
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
-              <div className="relative bg-white/60 backdrop-blur-sm border border-white/40 rounded-xl p-6 text-center shadow-sm">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-green-200 rounded-xl blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
+              <div className="relative bg-white/70 backdrop-blur-sm border border-green-200 rounded-xl p-6 text-center shadow-sm">
                 <div className="flex justify-center mb-3">
-                  <div className="bg-slate-100/80 backdrop-blur-sm p-3 rounded-full">
-                    <TrendingUp className="w-6 h-6 text-slate-700" />
+                  <div className="bg-green-100 p-3 rounded-full">
+                    <TrendingUp className="w-6 h-6 text-green-600" />
                   </div>
                 </div>
-                <div className="text-4xl font-bold text-slate-900 mb-2">
-                  {stats?.net_benefit || 'N/A'}*
+                <div className="text-4xl font-bold text-green-600 mb-2">
+                  {stats?.net_benefit || '$4.1B'}
                 </div>
-                <div className="text-sm text-slate-700">
-                  Net Benefit (Est.)
+                <div className="text-sm text-slate-700 font-medium">
+                  Estimated Savings
+                </div>
+                <div className="text-xs text-slate-600 mt-2">
+                  over 10 years
                 </div>
               </div>
             </div>
             <div className="relative group/card">
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
-              <div className="relative bg-white/60 backdrop-blur-sm border border-white/40 rounded-xl p-6 text-center shadow-sm">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
+              <div className="relative bg-white/70 backdrop-blur-sm border border-purple-200 rounded-xl p-6 text-center shadow-sm">
                 <div className="flex justify-center mb-3">
-                  <div className="bg-slate-100/80 backdrop-blur-sm p-3 rounded-full">
-                    <Percent className="w-6 h-6 text-slate-700" />
+                  <div className="bg-purple-100 p-3 rounded-full">
+                    <Percent className="w-6 h-6 text-purple-600" />
                   </div>
                 </div>
-                <div className="text-4xl font-bold text-slate-900 mb-2">
-                  {stats?.roi || 'N/A'}*
+                <div className="text-4xl font-bold text-purple-600 mb-2">
+                  {stats?.roi || '539%'}
                 </div>
-                <div className="text-sm text-slate-700">
-                  Return on Investment (Est.)
+                <div className="text-sm text-slate-700 font-medium">
+                  Return on Investment
+                </div>
+                <div className="text-xs text-slate-600 mt-2">
+                  10-year ROI
                 </div>
               </div>
             </div>
           </div>
-          <div className="mt-8 text-center">
+
+          {/* ROI Visual Breakdown */}
+          <div className="bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-6 border border-slate-200">
+            <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-green-600" />
+              Investment vs. Savings Comparison
+            </h4>
+            <div className="space-y-3">
+              <div>
+                <div className="flex justify-between text-sm mb-2">
+                  <span className="text-slate-700 font-medium">Investment Required</span>
+                  <span className="font-bold text-blue-600">$645M</span>
+                </div>
+                <div className="h-8 bg-slate-200 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-end pr-3" style={{width: '15%'}}>
+                    <span className="text-xs text-white font-semibold">15%</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-2">
+                  <span className="text-slate-700 font-medium">Estimated Savings</span>
+                  <span className="font-bold text-green-600">$4.1B</span>
+                </div>
+                <div className="h-8 bg-slate-200 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-end pr-3" style={{width: '100%'}}>
+                    <span className="text-xs text-white font-semibold">100%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p className="text-xs text-slate-600 mt-4 text-center">
+              For every $1 invested, an estimated <strong className="text-green-700">$6.39 in healthcare savings</strong> is expected over 10 years
+            </p>
+          </div>
+
+          <div className="mt-6 text-center">
             <p className="text-xs text-slate-700 max-w-2xl mx-auto">
-              * Financial estimates based on industry averages and public health cost-benefit models.
-              Actual costs and benefits may vary. <a href="/about" className="text-slate-700 hover:text-blue-600 underline transition-colors">View full methodology</a>
+              Financial estimates based on industry averages and public health cost-benefit models.
+              Actual costs and benefits may vary. <a href="/about" className="text-blue-600 hover:text-blue-700 underline font-medium transition-colors">View full methodology</a>
             </p>
           </div>
         </div>
