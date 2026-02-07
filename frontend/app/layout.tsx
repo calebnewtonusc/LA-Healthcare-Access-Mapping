@@ -4,14 +4,52 @@ import Link from 'next/link'
 import './globals.css'
 import { MobileNav } from '@/components/mobile-nav'
 import { BackToTop } from '@/components/back-to-top'
+import { StructuredData } from '@/components/structured-data'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'LA Healthcare Access Dashboard',
-  description: 'Interactive dashboard for Los Angeles County healthcare access analysis and policy recommendations',
-  keywords: 'healthcare access, Los Angeles County, policy recommendations, census data, healthcare facilities',
-  authors: [{ name: 'LA Healthcare Access Mapping Project' }],
+  title: 'LA Healthcare Access Dashboard - Policy Recommendations & Analysis',
+  description: 'Interactive dashboard analyzing healthcare facility access across 2,498 LA County census tracts. Features policy recommendations, ROI analysis, and geospatial mapping serving 9.9M residents.',
+  keywords: 'healthcare access, Los Angeles County, policy recommendations, census data, healthcare facilities, HPSA, MUA, geospatial analysis, public health, healthcare equity',
+  authors: [{ name: 'Caleb Newton' }, { name: 'LA Healthcare Access Mapping Project' }],
+  creator: 'Caleb Newton',
+  publisher: 'LA Healthcare Access Mapping',
+  metadataBase: new URL('https://la-healthcare-access-mapping.vercel.app'),
+  openGraph: {
+    title: 'LA Healthcare Access Dashboard - Policy Recommendations & Analysis',
+    description: 'Comprehensive analysis of healthcare access gaps across Los Angeles County with evidence-based policy recommendations and $645M investment opportunity.',
+    url: 'https://la-healthcare-access-mapping.vercel.app',
+    siteName: 'LA Healthcare Access Mapping',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'LA Healthcare Access Dashboard - Interactive maps and policy recommendations',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'LA Healthcare Access Dashboard',
+    description: 'Analyzing healthcare facility access across 2,498 LA County census tracts serving 9.9M residents',
+    images: ['/og-image.png'],
+    creator: '@calebnewtonusc',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 }
 
 export const viewport = {
@@ -32,8 +70,20 @@ export default function RootLayout({
         {/* Preconnect to API domain for faster requests */}
         <link rel="preconnect" href={process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'} />
         <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'} />
+
+        {/* PWA & App Icons */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="LA Healthcare Access" />
+
+        {/* Additional Performance Hints */}
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={`${inter.className} bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100`}>
+        <StructuredData />
+
         {/* Glassmorphic Header */}
         <header className="sticky top-0 z-50 backdrop-blur-lg bg-white/80 border-b border-white/50 shadow-sm">
           <div className="container mx-auto px-4 py-4">
