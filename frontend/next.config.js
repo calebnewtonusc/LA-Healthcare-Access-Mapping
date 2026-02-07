@@ -17,7 +17,6 @@ const nextConfig = {
   compress: true,
 
   // Production optimizations
-  swcMinify: true,
   reactStrictMode: true,
 
   // Remove console logs in production
