@@ -5,6 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Building2, Bus, Scale, TrendingUp, ChevronDown, Users, DollarSign, Clock, Target } from 'lucide-react'
 import { NeonBadge } from './ui/neon-badge'
 import { cardHover, iconPulse } from '@/lib/animations'
+import { useRealtimeRecommendations } from '@/lib/hooks/use-realtime-recommendations'
+import { useTimeSinceUpdate } from '@/lib/stores/realtime-store'
+import { useConnectionStatus } from '@/lib/hooks/use-connection-status'
+import { LiveUpdateBadge } from './ui/live-update-badge'
 
 interface Recommendation {
   Priority?: string
@@ -34,8 +38,16 @@ const categoryIcons: Record<string, any> = {
   'Service Expansion': TrendingUp,
 }
 
-export function RecommendationsList({ recommendations }: RecommendationsListProps) {
+export function RecommendationsList({ recommendations: ssrRecommendations }: RecommendationsListProps) {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0)
+
+  // Real-time data
+  const { recommendations: realtimeRecommendations, isFlashing } = useRealtimeRecommendations()
+  const { isConnected } = useConnectionStatus()
+  const lastUpdated = useTimeSinceUpdate('recommendations')
+
+  // Merge SSR recommendations with real-time data (real-time takes precedence)
+  const recommendations = realtimeRecommendations.length > 0 ? realtimeRecommendations : ssrRecommendations
 
   if (!recommendations || recommendations.length === 0) {
     return (
@@ -56,12 +68,21 @@ export function RecommendationsList({ recommendations }: RecommendationsListProp
   }
 
   return (
-    <div className="relative group">
+    <motion.div
+      animate={{
+        backgroundColor: isFlashing ? 'rgba(0, 245, 255, 0.1)' : 'transparent',
+      }}
+      transition={{ duration: 0.6 }}
+      className="relative group"
+    >
       <div className="absolute inset-0 bg-gradient-to-r from-slate-200 to-slate-300 dark:from-neon-cyan/20 dark:to-neon-purple/20 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
       <div className="relative bg-white/70 dark:bg-dark-bg-secondary/70 backdrop-blur-md border border-white/50 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-md dark:shadow-neon-cyan/10 transition-colors duration-300">
-        <h3 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary mb-6">
-          Policy Recommendations
-        </h3>
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">
+            Policy Recommendations
+          </h3>
+          <LiveUpdateBadge isLive={isConnected} lastUpdated={lastUpdated} />
+        </div>
 
         <div className="space-y-4">
           {recommendations.map((rec, index) => {
@@ -203,7 +224,7 @@ export function RecommendationsList({ recommendations }: RecommendationsListProp
           })}
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
