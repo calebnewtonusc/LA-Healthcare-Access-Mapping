@@ -74,6 +74,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // Check WebSocket enabled status - defaults to false for safety
+  const isWebSocketEnabled = process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED === 'true'
+
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
@@ -85,6 +88,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="LA Healthcare Access" />
 
@@ -93,7 +97,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-dark-bg-primary dark:via-dark-bg-secondary dark:to-dark-bg-primary transition-colors duration-300`}>
         <ThemeProvider>
-          <WebSocketProvider enabled={process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED !== 'false'}>
+          <WebSocketProvider enabled={isWebSocketEnabled}>
             <a href="#main-content" className="skip-to-content">
               Skip to main content
             </a>
@@ -125,7 +129,7 @@ export default function RootLayout({
                 </div>
                 <div className="flex items-center gap-4">
                   {/* Connection Indicator - only show when WebSocket is enabled */}
-                  {process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED !== 'false' && (
+                  {isWebSocketEnabled && (
                     <ConnectionIndicator size="sm" className="hidden md:flex" />
                   )}
                   <ThemeToggle />
