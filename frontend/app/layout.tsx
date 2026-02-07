@@ -99,18 +99,36 @@ export default function RootLayout({
                 </Link>
               </div>
               <div className="flex items-center gap-4">
-                <nav className="hidden md:flex items-center gap-6">
+                <nav className="hidden md:flex items-center gap-5">
                   <Link
                     href="/"
                     className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
                   >
-                    Dashboard
+                    Home
                   </Link>
                   <Link
-                    href="/about"
+                    href="/analysis"
+                    className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+                  >
+                    Analysis
+                  </Link>
+                  <Link
+                    href="/recommendations"
+                    className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+                  >
+                    Recommendations
+                  </Link>
+                  <Link
+                    href="/methodology"
                     className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
                   >
                     Methodology
+                  </Link>
+                  <Link
+                    href="/data"
+                    className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+                  >
+                    Data & API
                   </Link>
                   <Link
                     href="/resources"

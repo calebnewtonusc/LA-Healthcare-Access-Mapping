@@ -66,16 +66,43 @@ export function MobileNav() {
                     className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 transition-colors group"
                   >
                     <Home className="w-5 h-5 text-slate-600 group-hover:text-slate-900" />
-                    <span className="font-medium text-slate-700 group-hover:text-slate-900">Dashboard</span>
+                    <span className="font-medium text-slate-700 group-hover:text-slate-900">Home</span>
                   </Link>
 
                   <Link
-                    href="/about"
+                    href="/analysis"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 transition-colors group"
+                  >
+                    <BookOpen className="w-5 h-5 text-slate-600 group-hover:text-slate-900" />
+                    <span className="font-medium text-slate-700 group-hover:text-slate-900">Analysis</span>
+                  </Link>
+
+                  <Link
+                    href="/recommendations"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 transition-colors group"
+                  >
+                    <BookOpen className="w-5 h-5 text-slate-600 group-hover:text-slate-900" />
+                    <span className="font-medium text-slate-700 group-hover:text-slate-900">Recommendations</span>
+                  </Link>
+
+                  <Link
+                    href="/methodology"
                     onClick={() => setIsOpen(false)}
                     className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 transition-colors group"
                   >
                     <BookOpen className="w-5 h-5 text-slate-600 group-hover:text-slate-900" />
                     <span className="font-medium text-slate-700 group-hover:text-slate-900">Methodology</span>
+                  </Link>
+
+                  <Link
+                    href="/data"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 transition-colors group"
+                  >
+                    <BookOpen className="w-5 h-5 text-slate-600 group-hover:text-slate-900" />
+                    <span className="font-medium text-slate-700 group-hover:text-slate-900">Data & API</span>
                   </Link>
 
                   <Link
