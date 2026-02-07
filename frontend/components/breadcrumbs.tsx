@@ -11,7 +11,7 @@ export function Breadcrumbs() {
 
   const segments = pathname.split('/').filter(Boolean)
 
-  const breadcrumbs = [
+  const breadcrumbs: Array<{ name: string; href: string; icon?: typeof Home }> = [
     { name: 'Dashboard', href: '/', icon: Home }
   ]
 
