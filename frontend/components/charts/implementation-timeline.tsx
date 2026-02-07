@@ -50,11 +50,11 @@ const statusConfig = {
 export function ImplementationTimeline() {
   return (
     <div className="relative group">
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-neon-cyan/10 dark:to-neon-purple/10 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
 
-      <div className="relative bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl p-6 shadow-lg">
-        <h3 className="text-xl font-bold text-slate-900 mb-2">Implementation Timeline</h3>
-        <p className="text-sm text-slate-600 mb-6">Phased 5-Year Deployment Strategy</p>
+      <div className="relative bg-white/80 dark:bg-dark-bg-tertiary/70 backdrop-blur-md border border-white/60 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-lg dark:shadow-neon-cyan/10 transition-colors duration-300">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Implementation Timeline</h3>
+        <p className="text-sm text-slate-600 dark:text-dark-text-secondary mb-6">Phased 5-Year Deployment Strategy</p>
 
         <div className="space-y-6">
           {phases.map((phase, idx) => {
@@ -65,47 +65,47 @@ export function ImplementationTimeline() {
               <div key={idx} className="relative">
                 {/* Timeline connector */}
                 {idx < phases.length - 1 && (
-                  <div className="absolute left-5 top-14 bottom-0 w-0.5 bg-gradient-to-b from-slate-300 to-transparent"></div>
+                  <div className="absolute left-5 top-14 bottom-0 w-0.5 bg-gradient-to-b from-slate-300 dark:from-slate-600 to-transparent"></div>
                 )}
 
-                <div className="bg-white/70 backdrop-blur-sm border border-slate-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+                <div className="bg-white/70 dark:bg-dark-bg-secondary/70 backdrop-blur-sm border border-slate-200 dark:border-slate-700 rounded-xl p-5 hover:shadow-md dark:hover:shadow-neon-cyan/20 transition-all duration-300">
                   {/* Phase Header */}
                   <div className="flex items-start gap-4 mb-4">
                     <div className={`bg-${statusColor}-100 p-2 rounded-full shrink-0`}>
                       <StatusIcon className={`w-6 h-6 text-${statusColor}-600`} />
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-slate-900 text-lg">{phase.phase}</h4>
-                      <p className="text-sm text-slate-600">{phase.duration}</p>
+                      <h4 className="font-bold text-slate-900 dark:text-dark-text-primary text-lg">{phase.phase}</h4>
+                      <p className="text-sm text-slate-600 dark:text-dark-text-secondary">{phase.duration}</p>
                       <span className={`inline-block mt-1 px-2 py-0.5 bg-${statusColor}-100 text-${statusColor}-700 text-xs font-semibold rounded`}>
                         {statusConfig[phase.status as keyof typeof statusConfig].label}
                       </span>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-slate-600">Total Cost</p>
-                      <p className="text-xl font-bold text-slate-900">{phase.totalCost}</p>
+                      <p className="text-sm text-slate-600 dark:text-dark-text-secondary">Total Cost</p>
+                      <p className="text-xl font-bold text-slate-900 dark:text-dark-text-primary">{phase.totalCost}</p>
                     </div>
                   </div>
 
                   {/* Phase Items */}
                   <div className="space-y-2 mb-4 ml-14">
                     {phase.items.map((item, itemIdx) => (
-                      <div key={itemIdx} className="flex items-center justify-between py-2 px-3 bg-slate-50 rounded-lg">
+                      <div key={itemIdx} className="flex items-center justify-between py-2 px-3 bg-slate-50 dark:bg-dark-bg-primary rounded-lg">
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-slate-900">{item.name}</p>
+                          <p className="text-sm font-medium text-slate-900 dark:text-dark-text-primary">{item.name}</p>
                         </div>
                         <div className="flex items-center gap-4 text-xs">
-                          <span className="text-blue-600 font-semibold">{item.cost}</span>
-                          <span className="text-green-600 font-semibold">{item.impact}</span>
+                          <span className="text-blue-600 dark:text-neon-cyan font-semibold">{item.cost}</span>
+                          <span className="text-green-600 dark:text-neon-green font-semibold">{item.impact}</span>
                         </div>
                       </div>
                     ))}
                   </div>
 
                   {/* Phase Summary */}
-                  <div className="ml-14 bg-gradient-to-r from-blue-50 to-green-50 border border-slate-200 rounded-lg p-3">
-                    <p className="text-sm text-slate-700">
-                      <span className="font-semibold">Total Impact:</span> {phase.totalImpact} will benefit from Phase {idx + 1} interventions
+                  <div className="ml-14 bg-gradient-to-r from-blue-50 to-green-50 dark:from-neon-cyan/10 dark:to-neon-green/10 border border-slate-200 dark:border-neon-cyan/30 rounded-lg p-3 transition-colors duration-300">
+                    <p className="text-sm text-slate-700 dark:text-dark-text-secondary">
+                      <span className="font-semibold dark:text-dark-text-primary">Total Impact:</span> {phase.totalImpact} will benefit from Phase {idx + 1} interventions
                     </p>
                   </div>
                 </div>
@@ -115,18 +115,18 @@ export function ImplementationTimeline() {
         </div>
 
         {/* Timeline Summary */}
-        <div className="mt-6 grid grid-cols-3 gap-4 bg-slate-50 border border-slate-200 rounded-xl p-4">
+        <div className="mt-6 grid grid-cols-3 gap-4 bg-slate-50 dark:bg-dark-bg-secondary border border-slate-200 dark:border-slate-700 rounded-xl p-4 transition-colors duration-300">
           <div className="text-center">
-            <p className="text-2xl font-bold text-blue-600">$645M</p>
-            <p className="text-xs text-slate-700 mt-1">Total Investment</p>
+            <p className="text-2xl font-bold text-blue-600 dark:text-neon-cyan">$645M</p>
+            <p className="text-xs text-slate-700 dark:text-dark-text-muted mt-1">Total Investment</p>
           </div>
-          <div className="text-center border-l border-r border-slate-300">
-            <p className="text-2xl font-bold text-green-600">2.2M+</p>
-            <p className="text-xs text-slate-700 mt-1">Residents Impacted</p>
+          <div className="text-center border-l border-r border-slate-300 dark:border-slate-600">
+            <p className="text-2xl font-bold text-green-600 dark:text-neon-green">2.2M+</p>
+            <p className="text-xs text-slate-700 dark:text-dark-text-muted mt-1">Residents Impacted</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-purple-600">60 Months</p>
-            <p className="text-xs text-slate-700 mt-1">Full Deployment</p>
+            <p className="text-2xl font-bold text-purple-600 dark:text-neon-purple">60 Months</p>
+            <p className="text-xs text-slate-700 dark:text-dark-text-muted mt-1">Full Deployment</p>
           </div>
         </div>
       </div>

@@ -28,15 +28,15 @@ const PRIORITY_COLORS = {
 export function PriorityMatrix() {
   return (
     <div className="relative group">
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-neon-purple/10 dark:to-neon-cyan/10 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
 
-      <div className="relative bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl p-6 shadow-lg">
-        <h3 className="text-xl font-bold text-slate-900 mb-2">Recommendation Priority Matrix</h3>
-        <p className="text-sm text-slate-600 mb-6">Urgency vs. Impact Assessment</p>
+      <div className="relative bg-white/80 dark:bg-dark-bg-tertiary/70 backdrop-blur-md border border-white/60 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-lg dark:shadow-neon-cyan/10 transition-colors duration-300">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Recommendation Priority Matrix</h3>
+        <p className="text-sm text-slate-600 dark:text-dark-text-secondary mb-6">Urgency vs. Impact Assessment</p>
 
         <ResponsiveContainer width="100%" height={400}>
           <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" className="dark:stroke-slate-700" />
             <XAxis
               type="number"
               dataKey="urgency"
@@ -44,6 +44,7 @@ export function PriorityMatrix() {
               domain={[0, 100]}
               label={{ value: 'Urgency Score', position: 'insideBottom', offset: -10, style: { fill: '#64748b', fontWeight: 600 } }}
               stroke="#64748b"
+              className="dark:stroke-slate-400"
             />
             <YAxis
               type="number"
@@ -52,6 +53,7 @@ export function PriorityMatrix() {
               domain={[0, 100]}
               label={{ value: 'Impact Score', angle: -90, position: 'insideLeft', style: { fill: '#64748b', fontWeight: 600 } }}
               stroke="#64748b"
+              className="dark:stroke-slate-400"
             />
             <Tooltip
               cursor={{ strokeDasharray: '3 3' }}
@@ -59,12 +61,12 @@ export function PriorityMatrix() {
                 if (active && payload && payload[0]) {
                   const data = payload[0].payload as Recommendation
                   return (
-                    <div className="bg-white/95 backdrop-blur-sm border border-slate-200 rounded-lg p-3 shadow-lg">
-                      <p className="font-bold text-slate-900 mb-1">{data.title}</p>
-                      <p className="text-sm text-slate-600">Priority: <span className="font-semibold" style={{ color: PRIORITY_COLORS[data.priority as keyof typeof PRIORITY_COLORS] }}>{data.priority}</span></p>
-                      <p className="text-sm text-slate-600">Urgency: <span className="font-semibold">{data.urgency}/100</span></p>
-                      <p className="text-sm text-slate-600">Impact: <span className="font-semibold">{data.impact}/100</span></p>
-                      <p className="text-sm text-slate-600">Cost: <span className="font-semibold">{data.cost}</span></p>
+                    <div className="bg-white/95 dark:bg-dark-bg-secondary/95 backdrop-blur-sm border border-slate-200 dark:border-neon-cyan/30 rounded-lg p-3 shadow-lg">
+                      <p className="font-bold text-slate-900 dark:text-dark-text-primary mb-1">{data.title}</p>
+                      <p className="text-sm text-slate-600 dark:text-dark-text-secondary">Priority: <span className="font-semibold" style={{ color: PRIORITY_COLORS[data.priority as keyof typeof PRIORITY_COLORS] }}>{data.priority}</span></p>
+                      <p className="text-sm text-slate-600 dark:text-dark-text-secondary">Urgency: <span className="font-semibold">{data.urgency}/100</span></p>
+                      <p className="text-sm text-slate-600 dark:text-dark-text-secondary">Impact: <span className="font-semibold">{data.impact}/100</span></p>
+                      <p className="text-sm text-slate-600 dark:text-dark-text-secondary">Cost: <span className="font-semibold">{data.cost}</span></p>
                     </div>
                   )
                 }
@@ -77,15 +79,15 @@ export function PriorityMatrix() {
                 <div className="flex justify-center gap-4 text-sm">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: PRIORITY_COLORS.Critical }}></div>
-                    <span className="text-slate-700">Critical</span>
+                    <span className="text-slate-700 dark:text-dark-text-secondary">Critical</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: PRIORITY_COLORS.High }}></div>
-                    <span className="text-slate-700">High</span>
+                    <span className="text-slate-700 dark:text-dark-text-secondary">High</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: PRIORITY_COLORS.Medium }}></div>
-                    <span className="text-slate-700">Medium</span>
+                    <span className="text-slate-700 dark:text-dark-text-secondary">Medium</span>
                   </div>
                 </div>
               )}
@@ -106,21 +108,21 @@ export function PriorityMatrix() {
         </ResponsiveContainer>
 
         <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-2">
-            <p className="font-semibold text-red-900">High Urgency + High Impact</p>
-            <p className="text-red-700">Immediate action required</p>
+          <div className="bg-red-50 dark:bg-neon-pink/10 border border-red-200 dark:border-neon-pink/30 rounded-lg p-2 transition-colors duration-300">
+            <p className="font-semibold text-red-900 dark:text-neon-pink">High Urgency + High Impact</p>
+            <p className="text-red-700 dark:text-neon-pink/80">Immediate action required</p>
           </div>
-          <div className="bg-orange-50 border border-orange-200 rounded-lg p-2">
-            <p className="font-semibold text-orange-900">High Urgency + Low Impact</p>
-            <p className="text-orange-700">Quick wins, address soon</p>
+          <div className="bg-orange-50 dark:bg-neon-purple/10 border border-orange-200 dark:border-neon-purple/30 rounded-lg p-2 transition-colors duration-300">
+            <p className="font-semibold text-orange-900 dark:text-neon-purple">High Urgency + Low Impact</p>
+            <p className="text-orange-700 dark:text-neon-purple/80">Quick wins, address soon</p>
           </div>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-2">
-            <p className="font-semibold text-blue-900">Low Urgency + High Impact</p>
-            <p className="text-blue-700">Strategic planning needed</p>
+          <div className="bg-blue-50 dark:bg-neon-cyan/10 border border-blue-200 dark:border-neon-cyan/30 rounded-lg p-2 transition-colors duration-300">
+            <p className="font-semibold text-blue-900 dark:text-neon-cyan">Low Urgency + High Impact</p>
+            <p className="text-blue-700 dark:text-neon-cyan/80">Strategic planning needed</p>
           </div>
-          <div className="bg-slate-50 border border-slate-200 rounded-lg p-2">
-            <p className="font-semibold text-slate-900">Low Urgency + Low Impact</p>
-            <p className="text-slate-700">Monitor and review</p>
+          <div className="bg-slate-50 dark:bg-dark-bg-secondary border border-slate-200 dark:border-slate-700 rounded-lg p-2 transition-colors duration-300">
+            <p className="font-semibold text-slate-900 dark:text-dark-text-primary">Low Urgency + Low Impact</p>
+            <p className="text-slate-700 dark:text-dark-text-secondary">Monitor and review</p>
           </div>
         </div>
       </div>
