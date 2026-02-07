@@ -86,7 +86,7 @@ export function RegionalBreakdown() {
           </div>
           <div className="bg-red-50 border border-red-200 rounded-lg p-2 text-center">
             <div className="w-3 h-3 rounded-full bg-red-500 mx-auto mb-1"></div>
-            <p className="font-semibold text-red-900">Poor (<45)</p>
+            <p className="font-semibold text-red-900">Poor (&lt;45)</p>
           </div>
         </div>
 
