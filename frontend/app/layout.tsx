@@ -5,6 +5,8 @@ import './globals.css'
 import { MobileNav } from '@/components/mobile-nav'
 import { BackToTop } from '@/components/back-to-top'
 import { StructuredData } from '@/components/structured-data'
+import { ThemeProvider } from '@/components/theme-provider'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -65,7 +67,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         {/* Preconnect to API domain for faster requests */}
         <link rel="preconnect" href={process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'} />
@@ -81,69 +83,71 @@ export default function RootLayout({
         {/* Additional Performance Hints */}
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className={`${inter.className} bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100`}>
-        <StructuredData />
+      <body className={`${inter.className} bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-dark-bg-primary dark:via-dark-bg-secondary dark:to-dark-bg-primary transition-colors duration-300`}>
+        <ThemeProvider>
+          <StructuredData />
 
-        {/* Glassmorphic Header */}
-        <header className="sticky top-0 z-50 backdrop-blur-lg bg-white/80 border-b border-white/50 shadow-sm">
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                  <img
-                    src="/logo.png"
-                    alt="LA Healthcare Access Logo"
-                    className="w-12 h-12 object-contain"
-                  />
-                  <div>
-                    <h1 className="text-2xl font-bold text-slate-900">
-                      LA Healthcare Access Dashboard
-                    </h1>
-                    <p className="text-sm text-slate-700 mt-1">
-                      Policy Recommendations & Analysis
-                    </p>
-                  </div>
-                </Link>
-              </div>
-              <div className="flex items-center gap-4">
-                <nav className="hidden md:flex items-center gap-5">
-                  <Link
-                    href="/"
-                    className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
-                  >
-                    Home
+          {/* Glassmorphic Header */}
+          <header className="sticky top-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-dark-bg-secondary/80 border-b border-white/50 dark:border-slate-700/50 shadow-sm transition-colors duration-300">
+            <div className="container mx-auto px-4 py-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                    <img
+                      src="/logo.png"
+                      alt="LA Healthcare Access Logo"
+                      className="w-12 h-12 object-contain"
+                    />
+                    <div>
+                      <h1 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">
+                        LA Healthcare Access Dashboard
+                      </h1>
+                      <p className="text-sm text-slate-700 dark:text-dark-text-secondary mt-1">
+                        Policy Recommendations & Analysis
+                      </p>
+                    </div>
                   </Link>
-                  <Link
-                    href="/analysis"
-                    className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
-                  >
-                    Analysis
-                  </Link>
-                  <Link
-                    href="/recommendations"
-                    className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
-                  >
-                    Recommendations
-                  </Link>
-                  <Link
-                    href="/methodology"
-                    className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
-                  >
-                    Methodology
-                  </Link>
-                  <Link
-                    href="/data"
-                    className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
-                  >
-                    Data & API
-                  </Link>
-                  <Link
-                    href="/resources"
-                    className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
-                  >
-                    Resources
-                  </Link>
-                </nav>
+                </div>
+                <div className="flex items-center gap-4">
+                  <ThemeToggle />
+                  <nav className="hidden md:flex items-center gap-5">
+                    <Link
+                      href="/"
+                      className="text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors"
+                    >
+                      Home
+                    </Link>
+                    <Link
+                      href="/analysis"
+                      className="text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors"
+                    >
+                      Analysis
+                    </Link>
+                    <Link
+                      href="/recommendations"
+                      className="text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors"
+                    >
+                      Recommendations
+                    </Link>
+                    <Link
+                      href="/methodology"
+                      className="text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors"
+                    >
+                      Methodology
+                    </Link>
+                    <Link
+                      href="/data"
+                      className="text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors"
+                    >
+                      Data & API
+                    </Link>
+                    <Link
+                      href="/resources"
+                      className="text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors"
+                    >
+                      Resources
+                    </Link>
+                  </nav>
                 <MobileNav />
               </div>
             </div>
@@ -155,38 +159,39 @@ export default function RootLayout({
           {children}
         </main>
 
-        {/* Footer */}
-        <footer className="mt-20 pt-12 pb-12 bg-gradient-to-br from-slate-100/80 to-slate-200/50 border-t-2 border-slate-300 rounded-t-3xl">
-          <div className="container mx-auto px-4 flex flex-col items-center gap-6">
-            <a
-              href="https://calebnewton.me"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 px-8 py-6 bg-white/70 backdrop-blur-sm rounded-full border-2 border-slate-300/60 shadow-md hover:shadow-xl hover:-translate-y-0.5 hover:border-slate-400/80 transition-all duration-300 no-underline"
-            >
-              <img
-                src="/caleb-usc.jpg"
-                alt="Caleb Newton at USC"
-                className="w-12 h-12 rounded-full object-cover border-2 border-slate-500 shadow-lg"
-                style={{ objectPosition: 'center 30%' }}
-              />
-              <div className="flex flex-col items-start gap-1">
-                <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold">
-                  Built by
-                </span>
-                <span className="text-base text-slate-900 font-bold">
-                  Caleb Newton
-                </span>
+          {/* Footer */}
+          <footer className="mt-20 pt-12 pb-12 bg-gradient-to-br from-slate-100/80 to-slate-200/50 dark:from-dark-bg-secondary/80 dark:to-dark-bg-tertiary/50 border-t-2 border-slate-300 dark:border-slate-700 rounded-t-3xl transition-colors duration-300">
+            <div className="container mx-auto px-4 flex flex-col items-center gap-6">
+              <a
+                href="https://calebnewton.me"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 px-8 py-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-full border-2 border-slate-300/60 dark:border-neon-cyan/30 shadow-md hover:shadow-xl dark:hover:shadow-neon-cyan hover:-translate-y-0.5 hover:border-slate-400/80 dark:hover:border-neon-cyan transition-all duration-300 no-underline"
+              >
+                <img
+                  src="/caleb-usc.jpg"
+                  alt="Caleb Newton at USC"
+                  className="w-12 h-12 rounded-full object-cover border-2 border-slate-500 dark:border-neon-cyan shadow-lg"
+                  style={{ objectPosition: 'center 30%' }}
+                />
+                <div className="flex flex-col items-start gap-1">
+                  <span className="text-xs text-slate-500 dark:text-dark-text-muted uppercase tracking-wider font-semibold">
+                    Built by
+                  </span>
+                  <span className="text-base text-slate-900 dark:text-dark-text-primary font-bold">
+                    Caleb Newton
+                  </span>
+                </div>
+              </a>
+              <div className="text-center text-sm text-slate-700 dark:text-dark-text-secondary">
+                <p className="font-semibold text-slate-900 dark:text-dark-text-primary mb-1">LA Healthcare Access Mapping</p>
+                <p className="text-xs">Evidence-based policy recommendations for underserved communities</p>
               </div>
-            </a>
-            <div className="text-center text-sm text-slate-700">
-              <p className="font-semibold text-slate-900 mb-1">LA Healthcare Access Mapping</p>
-              <p className="text-xs">Evidence-based policy recommendations for underserved communities</p>
             </div>
-          </div>
-        </footer>
+          </footer>
 
-        <BackToTop />
+          <BackToTop />
+        </ThemeProvider>
       </body>
     </html>
   )

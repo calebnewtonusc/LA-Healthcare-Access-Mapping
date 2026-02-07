@@ -10,12 +10,17 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.17.19",
+    "file-saver": "^2.0.5",
     "framer-motion": "^12.33.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.1.0",
     "lucide-react": "^0.563.0",
     "next": "^16.1.6",
+    "next-themes": "^0.4.6",
     "react": "^19.2.4",
     "react-countup": "^6.5.3",
     "react-dom": "^19.2.4",
+    "react-intersection-observer": "^10.0.2",
     "recharts": "^2.10.4",
     "swr": "^2.4.0"
   },
