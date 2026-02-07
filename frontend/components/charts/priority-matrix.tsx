@@ -1,6 +1,7 @@
 'use client'
 
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Legend } from 'recharts'
+import { AccessibleChartWrapper } from './accessible-chart-wrapper'
 
 interface Recommendation {
   id: string
@@ -25,8 +26,19 @@ const PRIORITY_COLORS = {
   Medium: '#3b82f6',
 }
 
+const dataTable = {
+  headers: ['Recommendation', 'Priority', 'Urgency Score', 'Impact Score', 'Cost'],
+  rows: recommendations.map(r => [
+    r.title,
+    r.priority,
+    `${r.urgency}/100`,
+    `${r.impact}/100`,
+    r.cost
+  ])
+}
+
 export function PriorityMatrix() {
-  return (
+  const chartContent = (
     <div className="relative group">
       <div className="absolute inset-0 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-neon-purple/10 dark:to-neon-cyan/10 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
 
@@ -127,5 +139,16 @@ export function PriorityMatrix() {
         </div>
       </div>
     </div>
+  )
+
+  return (
+    <AccessibleChartWrapper
+      title="Recommendation Priority Matrix"
+      description="Scatter plot matrix showing 5 recommendations plotted by urgency (0-100) and impact (0-100). New Community Health Centers rated Critical priority at 95 urgency and 95 impact. Mobile Health Units and other initiatives shown at varying urgency/impact levels."
+      dataTable={dataTable}
+      ariaLabel="Priority matrix scatter chart with 5 recommendations. Critical priority (red): New Community Health Centers at 95% urgency, 95% impact, $400M cost. High priority (orange): Mobile Health Units (90% urgency, 75% impact, $50M), Public Transit Healthcare Routes (80% urgency, 70% impact, $120M), Telehealth Expansion (85% urgency, 65% impact, $45M). Medium priority (blue): Community Health Worker Program (60% urgency, 60% impact, $30M)."
+    >
+      {chartContent}
+    </AccessibleChartWrapper>
   )
 }

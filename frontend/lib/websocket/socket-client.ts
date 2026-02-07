@@ -42,10 +42,10 @@ class SocketClient {
 
     this.socket = io(this.config.url, {
       reconnection: true,
-      reconnectionAttempts: this.config.reconnectionAttempts,
-      reconnectionDelay: this.config.reconnectionDelay,
-      reconnectionDelayMax: this.config.reconnectionDelayMax,
-      timeout: this.config.timeout,
+      ...(this.config.reconnectionAttempts !== undefined && { reconnectionAttempts: this.config.reconnectionAttempts }),
+      ...(this.config.reconnectionDelay !== undefined && { reconnectionDelay: this.config.reconnectionDelay }),
+      ...(this.config.reconnectionDelayMax !== undefined && { reconnectionDelayMax: this.config.reconnectionDelayMax }),
+      ...(this.config.timeout !== undefined && { timeout: this.config.timeout }),
       transports: ['websocket', 'polling'], // Try WebSocket first, fallback to polling
     })
 
