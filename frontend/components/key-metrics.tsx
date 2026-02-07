@@ -54,18 +54,16 @@ export function KeyMetrics({ stats: ssrStats }: KeyMetricsProps) {
     },
   ]
 
+  const isWebSocketEnabled = process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED !== 'false'
+
   return (
-    <motion.div
-      animate={{
-        backgroundColor: isFlashing ? 'rgba(0, 245, 255, 0.1)' : 'transparent',
-      }}
-      transition={{ duration: 0.6 }}
-      className="relative"
-    >
-      {/* Live Update Badge */}
-      <div className="absolute -top-3 right-0 z-10">
-        <LiveUpdateBadge isLive={isConnected} lastUpdated={lastUpdated} />
-      </div>
+    <div className="relative">
+      {/* Live Update Badge - only show when WebSocket is enabled and connected */}
+      {isWebSocketEnabled && isConnected && (
+        <div className="absolute -top-3 right-0 z-10">
+          <LiveUpdateBadge isLive={isConnected} lastUpdated={lastUpdated} />
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {metrics.map((metric, index) => {
@@ -101,6 +99,6 @@ export function KeyMetrics({ stats: ssrStats }: KeyMetricsProps) {
           )
         })}
       </div>
-    </motion.div>
+    </div>
   )
 }
