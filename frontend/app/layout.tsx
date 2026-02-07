@@ -91,6 +91,9 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-dark-bg-primary dark:via-dark-bg-secondary dark:to-dark-bg-primary transition-colors duration-300`}>
         <ThemeProvider>
+          <a href="#main-content" className="skip-to-content">
+            Skip to main content
+          </a>
           <StructuredData />
 
           {/* Glassmorphic Header */}
@@ -164,7 +167,7 @@ export default function RootLayout({
         </header>
 
         {/* Main content */}
-        <main className="min-h-screen">
+        <main id="main-content" className="min-h-screen" tabIndex={-1}>
           {children}
         </main>
 
