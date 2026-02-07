@@ -67,21 +67,20 @@ export function RecommendationsList({ recommendations: ssrRecommendations }: Rec
     setExpandedIndex(expandedIndex === index ? null : index)
   }
 
+  const isWebSocketEnabled = process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED !== 'false'
+
   return (
-    <motion.div
-      animate={{
-        backgroundColor: isFlashing ? 'rgba(0, 245, 255, 0.1)' : 'transparent',
-      }}
-      transition={{ duration: 0.6 }}
-      className="relative group"
-    >
+    <div className="relative group">
       <div className="absolute inset-0 bg-gradient-to-r from-slate-200 to-slate-300 dark:from-neon-cyan/20 dark:to-neon-purple/20 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
       <div className="relative bg-white/70 dark:bg-dark-bg-secondary/70 backdrop-blur-md border border-white/50 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-md dark:shadow-neon-cyan/10 transition-colors duration-300">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">
             Policy Recommendations
           </h3>
-          <LiveUpdateBadge isLive={isConnected} lastUpdated={lastUpdated} />
+          {/* Live Update Badge - only show when WebSocket is enabled and connected */}
+          {isWebSocketEnabled && isConnected && (
+            <LiveUpdateBadge isLive={isConnected} lastUpdated={lastUpdated} />
+          )}
         </div>
 
         <div className="space-y-4">
@@ -224,7 +223,7 @@ export function RecommendationsList({ recommendations: ssrRecommendations }: Rec
           })}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 

@@ -124,7 +124,10 @@ export default function RootLayout({
                   </Link>
                 </div>
                 <div className="flex items-center gap-4">
-                  <ConnectionIndicator size="sm" className="hidden md:flex" />
+                  {/* Connection Indicator - only show when WebSocket is enabled */}
+                  {process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED !== 'false' && (
+                    <ConnectionIndicator size="sm" className="hidden md:flex" />
+                  )}
                   <ThemeToggle />
                   <nav className="hidden md:flex items-center gap-5">
                     <Link
