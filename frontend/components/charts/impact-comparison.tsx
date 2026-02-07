@@ -53,10 +53,7 @@ const dataTable = {
 
 export function ImpactComparison() {
   const chartContent = (
-    <div className="relative group">
-      <div className="absolute inset-0 bg-gradient-to-r from-red-50 via-orange-50 to-green-50 dark:from-neon-pink/10 dark:via-neon-purple/10 dark:to-neon-green/10 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
-
-      <div className="relative bg-white/80 dark:bg-dark-bg-tertiary/70 backdrop-blur-md border border-white/60 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-lg dark:shadow-neon-cyan/10 transition-colors duration-300">
+    <div className="bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded-lg p-6 shadow-sm">
         <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Projected Impact Analysis</h3>
         <p className="text-sm text-slate-600 dark:text-dark-text-secondary mb-6">Current State vs. Post-Implementation Projections</p>
 
@@ -143,13 +140,12 @@ export function ImpactComparison() {
           ))}
         </div>
 
-        <div className="mt-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-neon-green/10 dark:to-neon-cyan/10 border border-green-200 dark:border-neon-green/30 rounded-lg p-4 transition-colors duration-300">
-          <p className="text-sm text-slate-700 dark:text-dark-text-secondary leading-relaxed">
-            <span className="font-semibold text-green-900 dark:text-neon-green">Key Insight:</span> Implementation of all recommendations is projected to reduce the access desert population by <span className="font-bold text-green-700 dark:text-neon-green">57%</span>, decrease preventable ER visits by <span className="font-bold text-green-700 dark:text-neon-green">50%</span>, and improve facility density by <span className="font-bold text-green-700 dark:text-neon-green">60%</span>.
+        <div className="mt-4 bg-gray-50 dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded p-3">
+          <p className="text-sm text-gray-700 dark:text-dark-text-secondary">
+            <span className="font-semibold text-gray-900 dark:text-dark-text-primary">Key Insight:</span> Implementation projected to reduce access desert population by <span className="font-semibold">57%</span>, decrease preventable ER visits by <span className="font-semibold">50%</span>, and improve facility density by <span className="font-semibold">60%</span>.
           </p>
         </div>
       </div>
-    </div>
   )
 
   return (
