@@ -35,8 +35,9 @@ export function BackToTop() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 p-3 bg-gradient-to-br from-blue-600 to-purple-600 dark:from-neon-cyan dark:to-neon-purple text-white rounded-full shadow-lg hover:shadow-xl dark:hover:shadow-neon-cyan hover:from-blue-700 hover:to-purple-700 dark:hover:from-neon-cyan dark:hover:to-neon-purple transition-all duration-300 group"
-          aria-label="Back to top"
+          className="fixed bottom-8 right-8 z-40 p-3 bg-gradient-to-br from-blue-600 to-purple-600 dark:from-neon-cyan dark:to-neon-purple text-white rounded-full shadow-lg hover:shadow-xl dark:hover:shadow-neon-cyan hover:from-blue-700 hover:to-purple-700 dark:hover:from-neon-cyan dark:hover:to-neon-purple transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-blue-400 dark:focus:ring-neon-cyan focus:ring-offset-2"
+          aria-label="Scroll to top of page"
+          title="Scroll to top"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
