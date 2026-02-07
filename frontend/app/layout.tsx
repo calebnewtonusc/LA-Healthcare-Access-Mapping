@@ -8,6 +8,8 @@ import { BackToTop } from '@/components/back-to-top'
 import { StructuredData } from '@/components/structured-data'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { WebSocketProvider } from '@/components/providers/websocket-provider'
+import { ConnectionIndicator } from '@/components/ui/connection-indicator'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -91,10 +93,11 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-dark-bg-primary dark:via-dark-bg-secondary dark:to-dark-bg-primary transition-colors duration-300`}>
         <ThemeProvider>
-          <a href="#main-content" className="skip-to-content">
-            Skip to main content
-          </a>
-          <StructuredData />
+          <WebSocketProvider enabled={process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED !== 'false'}>
+            <a href="#main-content" className="skip-to-content">
+              Skip to main content
+            </a>
+            <StructuredData />
 
           {/* Glassmorphic Header */}
           <header className="sticky top-0 z-50 backdrop-blur-lg bg-white/80 dark:bg-dark-bg-secondary/80 border-b border-white/50 dark:border-slate-700/50 shadow-sm transition-colors duration-300">
@@ -121,6 +124,7 @@ export default function RootLayout({
                   </Link>
                 </div>
                 <div className="flex items-center gap-4">
+                  <ConnectionIndicator size="sm" className="hidden md:flex" />
                   <ThemeToggle />
                   <nav className="hidden md:flex items-center gap-5">
                     <Link
@@ -206,6 +210,7 @@ export default function RootLayout({
           </footer>
 
           <BackToTop />
+          </WebSocketProvider>
         </ThemeProvider>
       </body>
     </html>
