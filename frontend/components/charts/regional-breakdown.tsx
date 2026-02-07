@@ -22,40 +22,42 @@ const getScoreColor = (score: number) => {
 export function RegionalBreakdown() {
   return (
     <div className="relative group">
-      <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-green-50 to-blue-50 dark:from-neon-green/10 dark:to-neon-cyan/10 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
 
-      <div className="relative bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl p-6 shadow-lg">
-        <h3 className="text-xl font-bold text-slate-900 mb-2">Regional Access Breakdown</h3>
-        <p className="text-sm text-slate-600 mb-6">Healthcare Access Scores by LA County Region</p>
+      <div className="relative bg-white/80 dark:bg-dark-bg-tertiary/70 backdrop-blur-md border border-white/60 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-lg dark:shadow-neon-cyan/10 transition-colors duration-300">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Regional Access Breakdown</h3>
+        <p className="text-sm text-slate-600 dark:text-dark-text-secondary mb-6">Healthcare Access Scores by LA County Region</p>
 
         <ResponsiveContainer width="100%" height={350}>
           <BarChart data={regionalData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" className="dark:stroke-slate-700" />
             <XAxis
               dataKey="region"
               angle={-45}
               textAnchor="end"
               height={100}
               stroke="#64748b"
+              className="dark:stroke-slate-400"
               style={{ fontSize: '12px' }}
             />
             <YAxis
               label={{ value: 'Access Score (0-100)', angle: -90, position: 'insideLeft', style: { fill: '#64748b', fontWeight: 600 } }}
               stroke="#64748b"
+              className="dark:stroke-slate-400"
             />
             <Tooltip
               content={({ active, payload }) => {
                 if (active && payload && payload[0]) {
                   const data = payload[0].payload
                   return (
-                    <div className="bg-white/95 backdrop-blur-sm border border-slate-200 rounded-lg p-4 shadow-lg min-w-[220px]">
-                      <p className="font-bold text-slate-900 mb-2">{data.region}</p>
+                    <div className="bg-white/95 dark:bg-dark-bg-secondary/95 backdrop-blur-sm border border-slate-200 dark:border-neon-cyan/30 rounded-lg p-4 shadow-lg min-w-[220px]">
+                      <p className="font-bold text-slate-900 dark:text-dark-text-primary mb-2">{data.region}</p>
                       <div className="space-y-1 text-sm">
-                        <p className="text-slate-700">Access Score: <span className="font-semibold">{data.score}/100</span></p>
-                        <p className="text-slate-700">Census Tracts: <span className="font-semibold">{data.tracts.toLocaleString()}</span></p>
-                        <p className="text-slate-700">Access Deserts: <span className="font-semibold text-red-600">{data.accessDeserts.toLocaleString()}</span></p>
-                        <p className="text-slate-700">Avg Distance: <span className="font-semibold">{data.avgDistance} km</span></p>
-                        <p className="text-slate-700">Facility Density: <span className="font-semibold">{data.facilityDensity}/10K</span></p>
+                        <p className="text-slate-700 dark:text-dark-text-secondary">Access Score: <span className="font-semibold">{data.score}/100</span></p>
+                        <p className="text-slate-700 dark:text-dark-text-secondary">Census Tracts: <span className="font-semibold">{data.tracts.toLocaleString()}</span></p>
+                        <p className="text-slate-700 dark:text-dark-text-secondary">Access Deserts: <span className="font-semibold text-red-600 dark:text-neon-pink">{data.accessDeserts.toLocaleString()}</span></p>
+                        <p className="text-slate-700 dark:text-dark-text-secondary">Avg Distance: <span className="font-semibold">{data.avgDistance} km</span></p>
+                        <p className="text-slate-700 dark:text-dark-text-secondary">Facility Density: <span className="font-semibold">{data.facilityDensity}/10K</span></p>
                       </div>
                     </div>
                   )
@@ -72,27 +74,27 @@ export function RegionalBreakdown() {
         </ResponsiveContainer>
 
         <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
-          <div className="bg-green-50 border border-green-200 rounded-lg p-2 text-center">
+          <div className="bg-green-50 dark:bg-neon-green/10 border border-green-200 dark:border-neon-green/30 rounded-lg p-2 text-center transition-colors duration-300">
             <div className="w-3 h-3 rounded-full bg-green-500 mx-auto mb-1"></div>
-            <p className="font-semibold text-green-900">Excellent (75+)</p>
+            <p className="font-semibold text-green-900 dark:text-neon-green">Excellent (75+)</p>
           </div>
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 text-center">
+          <div className="bg-blue-50 dark:bg-neon-cyan/10 border border-blue-200 dark:border-neon-cyan/30 rounded-lg p-2 text-center transition-colors duration-300">
             <div className="w-3 h-3 rounded-full bg-blue-500 mx-auto mb-1"></div>
-            <p className="font-semibold text-blue-900">Good (60-74)</p>
+            <p className="font-semibold text-blue-900 dark:text-neon-cyan">Good (60-74)</p>
           </div>
-          <div className="bg-orange-50 border border-orange-200 rounded-lg p-2 text-center">
+          <div className="bg-orange-50 dark:bg-neon-purple/10 border border-orange-200 dark:border-neon-purple/30 rounded-lg p-2 text-center transition-colors duration-300">
             <div className="w-3 h-3 rounded-full bg-orange-500 mx-auto mb-1"></div>
-            <p className="font-semibold text-orange-900">Fair (45-59)</p>
+            <p className="font-semibold text-orange-900 dark:text-neon-purple">Fair (45-59)</p>
           </div>
-          <div className="bg-red-50 border border-red-200 rounded-lg p-2 text-center">
+          <div className="bg-red-50 dark:bg-neon-pink/10 border border-red-200 dark:border-neon-pink/30 rounded-lg p-2 text-center transition-colors duration-300">
             <div className="w-3 h-3 rounded-full bg-red-500 mx-auto mb-1"></div>
-            <p className="font-semibold text-red-900">Poor (&lt;45)</p>
+            <p className="font-semibold text-red-900 dark:text-neon-pink">Poor (&lt;45)</p>
           </div>
         </div>
 
-        <div className="mt-4 bg-slate-50 border border-slate-200 rounded-lg p-3">
-          <p className="text-xs text-slate-700">
-            <span className="font-semibold">South LA</span> shows the lowest access score (45) with 28,400 residents in access deserts, indicating urgent need for intervention.
+        <div className="mt-4 bg-slate-50 dark:bg-dark-bg-secondary border border-slate-200 dark:border-slate-700 rounded-lg p-3 transition-colors duration-300">
+          <p className="text-xs text-slate-700 dark:text-dark-text-secondary">
+            <span className="font-semibold dark:text-dark-text-primary">South LA</span> shows the lowest access score (45) with 28,400 residents in access deserts, indicating urgent need for intervention.
           </p>
         </div>
       </div>
