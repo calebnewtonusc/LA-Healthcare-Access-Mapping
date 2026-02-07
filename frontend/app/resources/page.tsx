@@ -1,15 +1,15 @@
 import { ExternalLink, MapPin, Database, TrendingUp, FileText, Layers, Search, Building2 } from 'lucide-react'
 import Link from 'next/link'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 export default function ResourcesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
       <div className="container mx-auto px-4 py-8 max-w-6xl">
+        <Breadcrumbs />
+
         {/* Header */}
         <div className="mb-8">
-          <Link href="/" className="text-slate-600 hover:text-slate-900 text-sm mb-4 inline-block transition-colors">
-            ← Back to Dashboard
-          </Link>
           <h1 className="text-4xl font-bold text-slate-900 mb-4">
             External Resources & Official Tools
           </h1>
