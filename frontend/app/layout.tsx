@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
+import Image from 'next/image'
 import './globals.css'
 import { MobileNav } from '@/components/mobile-nav'
 import { BackToTop } from '@/components/back-to-top'
@@ -8,7 +9,12 @@ import { StructuredData } from '@/components/structured-data'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ThemeToggle } from '@/components/theme-toggle'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+  variable: '--font-inter'
+})
 
 export const metadata: Metadata = {
   title: 'LA Healthcare Access Dashboard - Policy Recommendations & Analysis',
@@ -93,10 +99,13 @@ export default function RootLayout({
               <div className="flex items-center justify-between">
                 <div>
                   <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                    <img
+                    <Image
                       src="/logo.png"
                       alt="LA Healthcare Access Logo"
-                      className="w-12 h-12 object-contain"
+                      width={48}
+                      height={48}
+                      className="object-contain"
+                      priority
                     />
                     <div>
                       <h1 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">
@@ -168,11 +177,14 @@ export default function RootLayout({
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 px-8 py-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-full border-2 border-slate-300/60 dark:border-neon-cyan/30 shadow-md hover:shadow-xl dark:hover:shadow-neon-cyan hover:-translate-y-0.5 hover:border-slate-400/80 dark:hover:border-neon-cyan transition-all duration-300 no-underline"
               >
-                <img
+                <Image
                   src="/caleb-usc.jpg"
                   alt="Caleb Newton at USC"
-                  className="w-12 h-12 rounded-full object-cover border-2 border-slate-500 dark:border-neon-cyan shadow-lg"
+                  width={48}
+                  height={48}
+                  className="rounded-full object-cover border-2 border-slate-500 dark:border-neon-cyan shadow-lg"
                   style={{ objectPosition: 'center 30%' }}
+                  loading="lazy"
                 />
                 <div className="flex flex-col items-start gap-1">
                   <span className="text-xs text-slate-500 dark:text-dark-text-muted uppercase tracking-wider font-semibold">
