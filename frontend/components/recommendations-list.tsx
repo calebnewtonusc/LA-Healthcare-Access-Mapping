@@ -67,7 +67,8 @@ export function RecommendationsList({ recommendations: ssrRecommendations }: Rec
     setExpandedIndex(expandedIndex === index ? null : index)
   }
 
-  const isWebSocketEnabled = process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED !== 'false'
+  // Check if WebSocket is enabled - defaults to false for safety
+  const isWebSocketEnabled = process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED === 'true'
 
   return (
     <div className="relative group">

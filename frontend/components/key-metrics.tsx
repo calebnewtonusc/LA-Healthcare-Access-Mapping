@@ -27,6 +27,9 @@ export function KeyMetrics({ stats: ssrStats }: KeyMetricsProps) {
 
   // Merge SSR stats with real-time stats (real-time takes precedence)
   const stats = realtimeStats || ssrStats
+  // Check if WebSocket is enabled - defaults to false for safety
+  const isWebSocketEnabled = process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED === 'true'
+
   const metrics = [
     {
       label: 'Population Affected',
@@ -53,8 +56,6 @@ export function KeyMetrics({ stats: ssrStats }: KeyMetricsProps) {
       delay: 0.3
     },
   ]
-
-  const isWebSocketEnabled = process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED !== 'false'
 
   return (
     <div className="relative">

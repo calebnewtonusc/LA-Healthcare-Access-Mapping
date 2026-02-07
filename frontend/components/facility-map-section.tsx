@@ -43,7 +43,8 @@ export function FacilityMapSection({ facilities: ssrFacilities }: FacilityMapSec
     return { label: `${index + 1}th`, variant: 'low' as const }
   }
 
-  const isWebSocketEnabled = process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED !== 'false'
+  // Check if WebSocket is enabled - defaults to false for safety
+  const isWebSocketEnabled = process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED === 'true'
 
   return (
     <div className="relative group">
