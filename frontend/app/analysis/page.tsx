@@ -4,6 +4,7 @@ import { FacilityMapSection } from '@/components/facility-map-section'
 import { RegionalBreakdown } from '@/components/charts/regional-breakdown'
 import { ImpactComparison } from '@/components/charts/impact-comparison'
 import { LazyIframe } from '@/components/ui/lazy-iframe'
+import { ScrollReveal } from '@/components/scroll-reveal'
 import { BarChart3, MapPin, TrendingUp, Layers, Flame } from 'lucide-react'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
@@ -67,38 +68,45 @@ export default async function AnalysisPage() {
         </div>
 
         {/* Key Metrics Section */}
-        <section className="mb-12">
-          <div className="flex items-center gap-2 mb-4">
-            <BarChart3 className="w-5 h-5 text-blue-600 dark:text-neon-cyan" />
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Overview Metrics</h2>
-          </div>
-          <KeyMetrics stats={stats} />
-        </section>
+        <ScrollReveal>
+          <section className="mb-12">
+            <div className="flex items-center gap-2 mb-4">
+              <BarChart3 className="w-5 h-5 text-blue-600 dark:text-neon-cyan" />
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Overview Metrics</h2>
+            </div>
+            <KeyMetrics stats={stats} />
+          </section>
+        </ScrollReveal>
 
         {/* Regional Breakdown */}
-        <section className="mb-12">
-          <div className="flex items-center gap-2 mb-4">
-            <MapPin className="w-5 h-5 text-green-600 dark:text-neon-green" />
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Regional Analysis</h2>
-          </div>
-          <RegionalBreakdown />
-        </section>
+        <ScrollReveal delay={0.1}>
+          <section className="mb-12">
+            <div className="flex items-center gap-2 mb-4">
+              <MapPin className="w-5 h-5 text-green-600 dark:text-neon-green" />
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Regional Analysis</h2>
+            </div>
+            <RegionalBreakdown />
+          </section>
+        </ScrollReveal>
 
         {/* Impact Comparison */}
-        <section className="mb-12">
-          <div className="flex items-center gap-2 mb-4">
-            <TrendingUp className="w-5 h-5 text-purple-600 dark:text-neon-purple" />
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Impact Projections</h2>
-          </div>
-          <ImpactComparison />
-        </section>
+        <ScrollReveal delay={0.2}>
+          <section className="mb-12">
+            <div className="flex items-center gap-2 mb-4">
+              <TrendingUp className="w-5 h-5 text-purple-600 dark:text-neon-purple" />
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Impact Projections</h2>
+            </div>
+            <ImpactComparison />
+          </section>
+        </ScrollReveal>
 
         {/* Interactive Maps Section */}
-        <section className="mb-12" id="maps">
-          <div className="flex items-center gap-2 mb-4">
-            <Layers className="w-5 h-5 text-orange-600 dark:text-orange-400" />
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Interactive Maps</h2>
-          </div>
+        <ScrollReveal delay={0.3}>
+          <section className="mb-12" id="maps">
+            <div className="flex items-center gap-2 mb-4">
+              <Layers className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Interactive Maps</h2>
+            </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Facility Locations Map */}
@@ -134,10 +142,12 @@ export default async function AnalysisPage() {
               </div>
             </div>
           </div>
-        </section>
+          </section>
+        </ScrollReveal>
 
         {/* Data Summary */}
-        <section className="mt-12">
+        <ScrollReveal delay={0.4}>
+          <section className="mt-12">
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-neon-cyan/10 dark:via-neon-purple/10 dark:to-neon-pink/10 rounded-2xl blur-sm opacity-40 group-hover:opacity-60 transition-opacity"></div>
 
@@ -170,7 +180,8 @@ export default async function AnalysisPage() {
               </div>
             </div>
           </div>
-        </section>
+          </section>
+        </ScrollReveal>
       </div>
     </div>
   )

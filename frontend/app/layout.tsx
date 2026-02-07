@@ -113,37 +113,37 @@ export default function RootLayout({
                   <nav className="hidden md:flex items-center gap-5">
                     <Link
                       href="/"
-                      className="text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors"
+                      className="relative text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-all hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-slate-900 dark:after:bg-neon-cyan after:transition-all hover:after:w-full"
                     >
                       Home
                     </Link>
                     <Link
                       href="/analysis"
-                      className="text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors"
+                      className="relative text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-all hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-slate-900 dark:after:bg-neon-cyan after:transition-all hover:after:w-full"
                     >
                       Analysis
                     </Link>
                     <Link
                       href="/recommendations"
-                      className="text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors"
+                      className="relative text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-all hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-slate-900 dark:after:bg-neon-cyan after:transition-all hover:after:w-full"
                     >
                       Recommendations
                     </Link>
                     <Link
                       href="/methodology"
-                      className="text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors"
+                      className="relative text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-all hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-slate-900 dark:after:bg-neon-cyan after:transition-all hover:after:w-full"
                     >
                       Methodology
                     </Link>
                     <Link
                       href="/data"
-                      className="text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors"
+                      className="relative text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-all hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-slate-900 dark:after:bg-neon-cyan after:transition-all hover:after:w-full"
                     >
                       Data & API
                     </Link>
                     <Link
                       href="/resources"
-                      className="text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors"
+                      className="relative text-sm font-medium text-slate-700 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-all hover:scale-105 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-slate-900 dark:after:bg-neon-cyan after:transition-all hover:after:w-full"
                     >
                       Resources
                     </Link>

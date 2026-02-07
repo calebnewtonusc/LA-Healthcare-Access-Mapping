@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Building2, Bus, Scale, TrendingUp, ChevronDown, Users, DollarSign, Clock, Target } from 'lucide-react'
 import { NeonBadge } from './ui/neon-badge'
+import { cardHover, iconPulse } from '@/lib/animations'
 
 interface Recommendation {
   Priority?: string
@@ -74,17 +75,26 @@ export function RecommendationsList({ recommendations }: RecommendationsListProp
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
+                whileHover="hover"
                 transition={{ delay: index * 0.1 }}
                 className={`${priorityBorders[rec.Priority || 'Medium']} relative group/card`}
                 onClick={() => toggleExpand(index)}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-neon-cyan/5 dark:to-neon-purple/5 rounded-lg blur opacity-20 group-hover/card:opacity-40 transition-opacity"></div>
-                <div className="relative bg-white/60 dark:bg-dark-bg-tertiary/60 backdrop-blur-sm border border-white/40 dark:border-slate-700 rounded-lg p-4 shadow-sm hover:shadow-md dark:hover:shadow-neon-cyan/20 transition-all duration-300 cursor-pointer">
+                <motion.div
+                  variants={cardHover}
+                  className="relative bg-white/60 dark:bg-dark-bg-tertiary/60 backdrop-blur-sm border border-white/40 dark:border-slate-700 rounded-lg p-4 shadow-sm hover:shadow-md dark:hover:shadow-neon-cyan/20 transition-all duration-300 cursor-pointer"
+                >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3 flex-1">
-                      <div className="bg-slate-100/80 dark:bg-dark-bg-secondary backdrop-blur-sm p-2 rounded-lg">
+                      <motion.div
+                        className="bg-slate-100/80 dark:bg-dark-bg-secondary backdrop-blur-sm p-2 rounded-lg"
+                        whileHover="hover"
+                        initial="rest"
+                        variants={iconPulse}
+                      >
                         <CategoryIcon className="w-5 h-5 text-slate-700 dark:text-neon-cyan" />
-                      </div>
+                      </motion.div>
                       <h4 className="font-bold text-lg text-slate-900 dark:text-dark-text-primary flex-1">
                         {rec.Title}
                       </h4>
@@ -187,7 +197,7 @@ export function RecommendationsList({ recommendations }: RecommendationsListProp
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
+                </motion.div>
               </motion.div>
             )
           })}
