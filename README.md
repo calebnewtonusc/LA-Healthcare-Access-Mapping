@@ -138,11 +138,13 @@ pytest tests/ -v
 - **Performance**: Lazy loading, optimized rendering, responsive mobile-first design
 
 ### 🎨 Premium User Experience
+- **🌓 Dark Mode**: System-aware theme toggle with neon cyan/purple accents, smooth 300ms transitions
 - **Professional Branding**: Custom logo in header, favicons, and Apple touch icons
-- **Glassmorphic Design**: Frosted glass cards with backdrop blur throughout the interface
-- **Mobile Navigation**: Animated slide-out menu with smooth transitions and backdrop effects
+- **Glassmorphic Design**: Frosted glass cards with backdrop blur and neon glows in dark mode
+- **Mobile Navigation**: Animated slide-out menu with neon accents and smooth theme transitions
 - **Smart Navigation**: Auto-generating breadcrumbs and back-to-top button with scroll detection
 - **Smooth Animations**: Framer Motion for page transitions, hover effects, and component reveals
+- **Neon Visual Effects**: Cyan (#00f5ff), purple (#b537f2), pink (#ff2d95) accents in dark mode
 - **Comprehensive SEO**: Open Graph tags, Twitter Cards, JSON-LD structured data for rich search results
 - **Responsive Layout**: Mobile-first design with adaptive grids and touch-optimized controls
 - **Error Handling**: Custom 404 page, skeleton loading states, graceful degradation
