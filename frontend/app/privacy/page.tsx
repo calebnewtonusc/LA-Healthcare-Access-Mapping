@@ -21,31 +21,31 @@ export default function PrivacyPolicyPage() {
       </div>
 
       {/* Quick Summary */}
-      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-8">
+      <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 mb-8">
         <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-dark-text-primary flex items-center gap-2">
-          <Shield className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+          <Shield className="w-5 h-5 text-green-600 dark:text-green-400" />
           Privacy at a Glance
         </h2>
         <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
           <li className="flex items-start gap-2">
-            <span className="text-blue-600 dark:text-blue-400 mt-1">✓</span>
-            <span>We collect <strong>minimal analytics data</strong> to improve user experience</span>
+            <span className="text-green-600 dark:text-green-400 mt-1 font-bold">✓</span>
+            <span><strong>Zero analytics or tracking.</strong> This site collects NO user data whatsoever.</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-blue-600 dark:text-blue-400 mt-1">✓</span>
-            <span>We <strong>do NOT collect</strong> personal health information</span>
+            <span className="text-green-600 dark:text-green-400 mt-1 font-bold">✓</span>
+            <span><strong>No cookies.</strong> We only use localStorage for your theme preference (dark/light mode).</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-blue-600 dark:text-blue-400 mt-1">✓</span>
-            <span>We <strong>do NOT sell</strong> or share data with third parties</span>
+            <span className="text-green-600 dark:text-green-400 mt-1 font-bold">✓</span>
+            <span>We <strong>do NOT collect</strong> personal health information, IP addresses, or any personal data.</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-blue-600 dark:text-blue-400 mt-1">✓</span>
-            <span>No user accounts or registration required</span>
+            <span className="text-green-600 dark:text-green-400 mt-1 font-bold">✓</span>
+            <span>No user accounts, registration, or login required.</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-blue-600 dark:text-blue-400 mt-1">✓</span>
-            <span>You can opt out of analytics via "Do Not Track"</span>
+            <span className="text-green-600 dark:text-green-400 mt-1 font-bold">✓</span>
+            <span>This is a <strong>student educational project</strong>, not a commercial service.</span>
           </li>
         </ul>
       </div>
@@ -61,24 +61,27 @@ export default function PrivacyPolicyPage() {
           </h2>
 
           <p className="text-gray-700 dark:text-gray-300 mb-4">
-            The LA Healthcare Access Dashboard collects minimal information for analytical purposes only.
-            We prioritize your privacy and only collect what is necessary to improve the user experience.
+            <strong className="text-green-600 dark:text-green-400">This site collects ZERO user data.</strong> No analytics, no tracking, no cookies.
           </p>
 
           <h3 className="text-lg font-semibold mt-6 mb-3 text-gray-900 dark:text-dark-text-primary">
-            Analytics Data
+            What We Actually Store (Locally in Your Browser)
           </h3>
           <p className="text-gray-700 dark:text-gray-300 mb-2">
-            We use privacy-focused analytics (such as Plausible Analytics or similar tools) to understand
-            how users interact with the site. This includes:
+            The ONLY data stored is saved locally in your browser's localStorage and never leaves your device:
           </p>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
-            <li>Page views and navigation patterns</li>
-            <li>Referral sources (how you found our site)</li>
-            <li>General geographic location (city or region level only, not precise location)</li>
-            <li>Device type and browser information</li>
-            <li>Time spent on pages</li>
+            <li><strong>Theme Preference:</strong> Dark mode or light mode setting (key: <code className="text-xs bg-gray-100 dark:bg-gray-800 px-1 rounded">theme</code>)</li>
+            <li><strong>That's it.</strong> Literally nothing else is stored or collected.</li>
           </ul>
+
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mt-4">
+            <p className="text-sm text-blue-800 dark:text-blue-300">
+              <strong>Optional WebSocket Connection:</strong> If enabled in settings, the site can connect to a backend server
+              via WebSocket for real-time data updates. This connection is temporary, session-based, and transmits no personal information.
+              It is disabled by default and requires explicit opt-in.
+            </p>
+          </div>
 
           <h3 className="text-lg font-semibold mt-6 mb-3 text-gray-900 dark:text-dark-text-primary">
             What We Do NOT Collect
@@ -109,11 +112,13 @@ export default function PrivacyPolicyPage() {
           <h3 className="text-lg font-semibold mt-6 mb-3 text-gray-900 dark:text-dark-text-primary">
             Cookies
           </h3>
-          <p className="text-gray-700 dark:text-gray-300">
-            We use minimal session cookies for functionality purposes only (e.g., remembering your
-            dark mode preference). These cookies do not track you across websites and are stored
-            locally in your browser. You can disable cookies in your browser settings, though some
-            features may not work properly.
+          <p className="text-gray-700 dark:text-gray-300 font-semibold text-green-600 dark:text-green-400">
+            <strong>This site uses ZERO cookies.</strong>
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 mt-2">
+            Instead of cookies, we use browser localStorage (a client-side storage mechanism) to remember your theme preference.
+            localStorage data never leaves your device and is not accessible to other websites. You can clear it anytime via your
+            browser's developer tools or by clearing your browsing data.
           </p>
         </section>
 
@@ -124,19 +129,18 @@ export default function PrivacyPolicyPage() {
             How We Use Information
           </h2>
 
-          <p className="text-gray-700 dark:text-gray-300 mb-4">
-            Data collected is used exclusively to:
+          <p className="text-gray-700 dark:text-gray-300 mb-4 font-semibold">
+            Since we collect ZERO data, there is nothing to use, analyze, or process.
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
-            <li>Understand which features and visualizations are most useful to users</li>
-            <li>Identify technical issues, bugs, and performance problems</li>
-            <li>Improve user experience and site functionality</li>
-            <li>Understand general usage patterns and demographics (e.g., which regions access the site)</li>
-          </ul>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">
+            Your theme preference (dark/light mode) is stored locally in your browser solely for your convenience.
+            It is never transmitted to our servers or any third party.
+          </p>
 
           <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4 mt-4">
             <p className="text-sm text-green-800 dark:text-green-300 font-semibold">
-              We do NOT sell, share, rent, or disclose data to third parties except as required by law.
+              We do NOT sell, share, rent, or disclose data to third parties — because we have no data to share.
+              This is an educational student project, not a commercial operation.
             </p>
           </div>
         </section>
@@ -150,14 +154,13 @@ export default function PrivacyPolicyPage() {
           <h3 className="text-lg font-semibold mt-4 mb-3 text-gray-900 dark:text-dark-text-primary">
             Opt-Out of Analytics
           </h3>
-          <p className="text-gray-700 dark:text-gray-300">
-            You can opt out of analytics tracking by:
+          <p className="text-gray-700 dark:text-gray-300 font-semibold text-green-600 dark:text-green-400">
+            Not applicable — this site has ZERO analytics or tracking.
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4 mt-2">
-            <li>Enabling "Do Not Track" (DNT) in your browser settings</li>
-            <li>Using browser extensions that block analytics (e.g., uBlock Origin, Privacy Badger)</li>
-            <li>Disabling JavaScript in your browser (though this will limit site functionality)</li>
-          </ul>
+          <p className="text-gray-700 dark:text-gray-300 mt-2">
+            There is nothing to opt out of. Feel free to use privacy extensions if you'd like,
+            but they won't find any trackers or analytics scripts on this site.
+          </p>
 
           <h3 className="text-lg font-semibold mt-6 mb-3 text-gray-900 dark:text-dark-text-primary">
             Request Data Deletion

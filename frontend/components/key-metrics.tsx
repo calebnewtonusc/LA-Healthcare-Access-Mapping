@@ -80,9 +80,17 @@ export function KeyMetrics({ stats: ssrStats }: KeyMetricsProps) {
                 <div className="flex-1">
                   <p className="text-sm text-gray-600 dark:text-dark-text-secondary mb-2">{metric.label}</p>
                   {metric.value !== undefined ? (
-                    <p className="text-3xl font-bold text-gray-900 dark:text-dark-text-primary">
-                      <AnimatedNumber value={metric.value} />
-                    </p>
+                    <>
+                      <p className="text-3xl font-bold text-gray-900 dark:text-dark-text-primary">
+                        <AnimatedNumber value={metric.value} />
+                      </p>
+                      <p className="text-xs text-yellow-600 dark:text-yellow-500 mt-1 font-medium">
+                        Range: {Math.round(metric.value * 0.7).toLocaleString()} - {Math.round(metric.value * 1.3).toLocaleString()}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        (±30% uncertainty)
+                      </p>
+                    </>
                   ) : (
                     <p className="text-xl font-semibold text-gray-400 dark:text-dark-text-muted">
                       Data Unavailable

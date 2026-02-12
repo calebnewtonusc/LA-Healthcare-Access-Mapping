@@ -4,6 +4,7 @@ import { FacilityMapSection } from '@/components/facility-map-section'
 import { RegionalBreakdownLazy as RegionalBreakdown, ImpactComparisonLazy as ImpactComparison } from '@/components/charts/lazy-charts'
 import { LazyIframe } from '@/components/ui/lazy-iframe'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { DataTimestamp } from '@/components/ui/data-timestamp'
 import { BarChart3, MapPin, TrendingUp, Layers, Flame } from 'lucide-react'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
@@ -73,6 +74,44 @@ export default async function AnalysisPage() {
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <Breadcrumbs />
 
+        {/* Educational Disclaimer */}
+        <div className="mb-8 bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-400 dark:border-yellow-600 rounded-lg p-5">
+          <div className="flex gap-3">
+            <div className="text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5">⚠️</div>
+            <div className="text-sm text-yellow-800 dark:text-yellow-300">
+              <strong>Educational Analysis:</strong> This analysis uses simplified distance calculations and has ±30-50% uncertainty.
+              Data is from Oct 2024 (facilities) and 2020 Census (population).{' '}
+              <a href="/limitations" className="underline font-semibold hover:text-yellow-900 dark:hover:text-yellow-100">
+                See full limitations →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* API Error State */}
+        {(!stats || !facilities) && (
+          <div className="mb-8 bg-red-50 dark:bg-red-900/20 border-2 border-red-400 dark:border-red-600 rounded-lg p-5">
+            <div className="flex gap-3">
+              <div className="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5">❌</div>
+              <div>
+                <p className="text-sm font-semibold text-red-800 dark:text-red-300 mb-2">
+                  Data Temporarily Unavailable
+                </p>
+                <p className="text-sm text-red-700 dark:text-red-400">
+                  {!stats && !facilities && "Unable to load stats and facility data from the backend API. "}
+                  {!stats && facilities && "Unable to load statistics from the backend API. "}
+                  {stats && !facilities && "Unable to load facility data from the backend API. "}
+                  The API server may be offline or experiencing issues. Some visualizations may not display correctly.
+                </p>
+                <p className="text-xs text-red-600 dark:text-red-500 mt-2">
+                  This is a static demo site—the backend is not always running. Try refreshing in a few minutes or view the{' '}
+                  <a href="/methodology" className="underline font-semibold">methodology</a> for technical details.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-3">
@@ -88,6 +127,7 @@ export default async function AnalysisPage() {
               </p>
             </div>
           </div>
+          <DataTimestamp className="mt-3" />
         </div>
 
         {/* Key Metrics Section */}
@@ -108,6 +148,16 @@ export default async function AnalysisPage() {
               <MapPin className="w-5 h-5 text-green-600 dark:text-neon-green" />
               <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Regional Analysis</h2>
             </div>
+
+            {/* Statistical Significance Disclaimer */}
+            <div className="mb-4 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 rounded-lg p-4">
+              <p className="text-sm text-orange-800 dark:text-orange-300">
+                <strong>Note:</strong> Regional differences shown below have <strong>not been tested for statistical significance</strong>.
+                Observed variations may be due to random chance, small sample sizes, or data collection artifacts rather than true underlying differences.
+                A rigorous analysis would require hypothesis testing, confidence intervals, and controlling for confounding variables.
+              </p>
+            </div>
+
             <RegionalBreakdown />
           </section>
         </ScrollReveal>

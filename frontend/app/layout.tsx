@@ -10,7 +10,6 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { WebSocketProvider } from '@/components/providers/websocket-provider'
 import { ConnectionIndicator } from '@/components/ui/connection-indicator'
-import { CookieConsent } from '@/components/cookie-consent'
 import { ErrorBoundary } from '@/components/error-boundary'
 
 const inter = Inter({
@@ -21,16 +20,16 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'LA Healthcare Access Dashboard - Policy Recommendations & Analysis',
-  description: 'Interactive dashboard analyzing healthcare facility access across 2,498 LA County census tracts. Features policy recommendations, ROI analysis, and geospatial mapping serving 9.9M residents.',
-  keywords: 'healthcare access, Los Angeles County, policy recommendations, census data, healthcare facilities, HPSA, MUA, geospatial analysis, public health, healthcare equity',
+  title: 'LA Healthcare Access Dashboard - GIS Analysis & Educational Demo',
+  description: 'Educational geospatial analysis exploring healthcare facility access across 2,498 LA County census tracts. Interactive visualization project demonstrating GIS techniques and data science methods.',
+  keywords: 'healthcare access, Los Angeles County, GIS analysis, educational project, census data, healthcare facilities, geospatial analysis, data visualization, student research',
   authors: [{ name: 'Caleb Newton' }, { name: 'LA Healthcare Access Mapping Project' }],
   creator: 'Caleb Newton',
   publisher: 'LA Healthcare Access Mapping',
   metadataBase: new URL('https://la-healthcare-access-mapping.vercel.app'),
   openGraph: {
-    title: 'LA Healthcare Access Dashboard - Policy Recommendations & Analysis',
-    description: 'Comprehensive analysis of healthcare access gaps across Los Angeles County with evidence-based policy recommendations and $645M investment opportunity.',
+    title: 'LA Healthcare Access Dashboard - GIS Analysis & Educational Demo',
+    description: 'Educational geospatial analysis exploring healthcare access patterns across Los Angeles County. Interactive demonstration of GIS techniques and data visualization methods.',
     url: 'https://la-healthcare-access-mapping.vercel.app',
     siteName: 'LA Healthcare Access Mapping',
     locale: 'en_US',
@@ -46,8 +45,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'LA Healthcare Access Dashboard',
-    description: 'Analyzing healthcare facility access across 2,498 LA County census tracts serving 9.9M residents',
+    title: 'LA Healthcare Access Dashboard - Educational GIS Project',
+    description: 'Interactive geospatial analysis exploring healthcare access across 2,498 LA County census tracts | Educational Demo',
     images: ['/og-image.png'],
     creator: '@calebnewtonusc',
   },
@@ -124,7 +123,7 @@ export default function RootLayout({
                         LA Healthcare Access Dashboard
                       </h1>
                       <p className="text-xs text-gray-600 dark:text-gray-400">
-                        Policy Recommendations & Analysis
+                        GIS Analysis & Educational Demo
                       </p>
                     </div>
                   </Link>
@@ -138,45 +137,31 @@ export default function RootLayout({
                   <nav role="navigation" aria-label="Main navigation" className="hidden md:flex items-center gap-6">
                     <Link
                       href="/"
-                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors font-medium"
                       aria-label="Navigate to Home page"
                     >
                       Home
                     </Link>
                     <Link
                       href="/analysis"
-                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors font-medium"
                       aria-label="Navigate to Data Analysis page"
                     >
                       Analysis
                     </Link>
                     <Link
-                      href="/recommendations"
-                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-                      aria-label="Navigate to Policy Recommendations page"
-                    >
-                      Recommendations
-                    </Link>
-                    <Link
                       href="/methodology"
-                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors font-medium"
                       aria-label="Navigate to Methodology page"
                     >
                       Methodology
                     </Link>
                     <Link
-                      href="/data"
-                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-                      aria-label="Navigate to Data and API documentation page"
+                      href="/about"
+                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors font-medium"
+                      aria-label="Navigate to About page"
                     >
-                      Data & API
-                    </Link>
-                    <Link
-                      href="/resources"
-                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-                      aria-label="Navigate to External Resources page"
-                    >
-                      Resources
+                      About
                     </Link>
                   </nav>
                 <MobileNav />
@@ -252,6 +237,10 @@ export default function RootLayout({
                     About
                   </Link>
                   <span className="text-gray-400">•</span>
+                  <Link href="/limitations" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">
+                    Limitations
+                  </Link>
+                  <span className="text-gray-400">•</span>
                   <Link href="/methodology" className="text-blue-600 dark:text-blue-400 hover:underline">
                     Methodology
                   </Link>
@@ -288,7 +277,6 @@ export default function RootLayout({
           </footer>
 
           <BackToTop />
-          <CookieConsent />
           </WebSocketProvider>
         </ThemeProvider>
       </body>

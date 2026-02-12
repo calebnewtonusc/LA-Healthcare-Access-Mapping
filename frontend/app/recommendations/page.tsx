@@ -31,12 +31,12 @@ async function getRecommendations() {
 }
 
 export const metadata = {
-  title: 'Policy Recommendations & ROI Analysis | LA Healthcare Access Dashboard',
-  description: 'Evidence-based policy recommendations to improve healthcare access for 3M+ LA County residents. Includes implementation timeline, $645M investment analysis with 539% ROI, and priority matrix for policymakers and stakeholders.',
-  keywords: 'healthcare policy recommendations, LA County health policy, healthcare ROI analysis, implementation timeline, facility expansion, health equity policy, access desert solutions, healthcare investment, public health policy, evidence-based recommendations',
+  title: 'Hypothetical Scenarios & Analysis | LA Healthcare Access Dashboard',
+  description: 'Educational exploration of hypothetical healthcare improvement scenarios for LA County. Illustrative cost estimates and implementation examples for discussion purposes only. Not validated policy recommendations.',
+  keywords: 'healthcare scenarios, LA County health analysis, hypothetical interventions, educational examples, health equity discussion, healthcare access visualization, student research project, GIS analysis examples',
   openGraph: {
-    title: 'Healthcare Policy Recommendations for Los Angeles County',
-    description: 'Evidence-based recommendations with $645M investment plan, 539% ROI, and implementation roadmap to improve healthcare access for 3M+ residents.',
+    title: 'Hypothetical Healthcare Scenarios for Los Angeles County',
+    description: 'Educational exploration of hypothetical improvement scenarios. Illustrative examples for discussion - not validated policy recommendations.',
     type: 'website',
     url: 'https://la-healthcare-access-mapping.vercel.app/recommendations',
     images: [
@@ -44,14 +44,14 @@ export const metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Policy recommendations and ROI analysis for LA County healthcare access improvements',
+        alt: 'Hypothetical scenarios and cost estimates for LA County healthcare access',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'LA County Healthcare Policy Recommendations',
-    description: 'Evidence-based recommendations: $645M investment, 539% ROI, serving 3M+ residents',
+    title: 'LA County Healthcare Hypothetical Scenarios',
+    description: 'Educational exploration of hypothetical improvement scenarios | Illustrative examples only',
     images: ['/og-image.png'],
   },
   alternates: {
@@ -70,6 +70,26 @@ export default async function RecommendationsPage() {
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <Breadcrumbs />
 
+        {/* CRITICAL DISCLAIMER */}
+        <div className="mb-8 bg-red-50 dark:bg-red-900/20 border-2 border-red-400 dark:border-red-700 rounded-lg p-6">
+          <h2 className="text-xl font-bold text-red-900 dark:text-red-200 mb-3 flex items-center gap-2">
+            ⚠️ Important: These are Hypothetical Scenarios Only
+          </h2>
+          <div className="space-y-2 text-sm text-red-800 dark:text-red-300">
+            <p>
+              <strong>The cost estimates, ROI projections, and recommendations below are illustrative examples for educational discussion.</strong> They are NOT validated policy recommendations and should NOT be used for actual planning or funding decisions.
+            </p>
+            <p>
+              <strong>All financial figures have ±50% uncertainty</strong> and are based on simplified assumptions that don't account for real-world complexity, site-specific costs, regulatory requirements, or implementation barriers.
+            </p>
+            <p className="pt-2">
+              For actual healthcare planning, consult with public health experts, community stakeholders, and official agencies like{' '}
+              <a href="https://data.hrsa.gov/" target="_blank" rel="noopener noreferrer" className="underline font-semibold">HRSA</a> and{' '}
+              <a href="http://publichealth.lacounty.gov/" target="_blank" rel="noopener noreferrer" className="underline font-semibold">LA County DPH</a>.
+            </p>
+          </div>
+        </div>
+
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-3">
@@ -78,10 +98,10 @@ export default async function RecommendationsPage() {
             </div>
             <div>
               <h1 className="text-4xl font-bold text-slate-900 dark:text-dark-text-primary">
-                Policy Recommendations
+                Hypothetical Scenarios
               </h1>
               <p className="text-slate-700 dark:text-dark-text-secondary text-lg mt-1">
-                Evidence-based interventions to improve healthcare access for 3M+ LA County residents
+                Illustrative examples of potential interventions • For educational discussion only
               </p>
             </div>
           </div>
@@ -97,8 +117,12 @@ export default async function RecommendationsPage() {
                 <div className="bg-gradient-to-br from-green-500 to-blue-600 p-3 rounded-xl shadow-md">
                   <DollarSign className="w-6 h-6 text-white" />
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Financial Overview</h2>
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Hypothetical Cost Estimates</h2>
               </div>
+
+              <p className="text-sm text-yellow-700 dark:text-yellow-400 mb-4 font-semibold">
+                ⚠️ Illustrative figures only • ±50% uncertainty • Not validated by experts
+              </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="relative group/card">
@@ -113,10 +137,10 @@ export default async function RecommendationsPage() {
                       {stats?.total_investment || '$645M'}
                     </div>
                     <div className="text-sm text-slate-700 dark:text-dark-text-secondary font-medium">
-                      Total Investment Required
+                      Hypothetical Investment
                     </div>
-                    <div className="text-xs text-slate-600 dark:text-dark-text-secondary mt-2">
-                      10-year projection
+                    <div className="text-xs text-yellow-600 dark:text-yellow-500 mt-2 font-semibold">
+                      Illustrative estimate only
                     </div>
                   </div>
                 </div>
@@ -133,10 +157,10 @@ export default async function RecommendationsPage() {
                       {stats?.net_benefit || '$4.1B'}
                     </div>
                     <div className="text-sm text-slate-700 dark:text-dark-text-secondary font-medium">
-                      Estimated Savings
+                      Hypothetical Savings
                     </div>
-                    <div className="text-xs text-slate-600 dark:text-dark-text-secondary mt-2">
-                      over 10 years
+                    <div className="text-xs text-yellow-600 dark:text-yellow-500 mt-2 font-semibold">
+                      Not validated
                     </div>
                   </div>
                 </div>
@@ -153,9 +177,12 @@ export default async function RecommendationsPage() {
                       {stats?.roi || '539%'}
                     </div>
                     <div className="text-sm text-slate-700 dark:text-dark-text-secondary font-medium">
-                      Return on Investment
+                      Hypothetical ROI
                     </div>
-                    <div className="text-xs text-slate-600 dark:text-dark-text-secondary mt-2">
+                    <div className="text-xs text-yellow-600 dark:text-yellow-500 mt-2 font-semibold">
+                      ±50% uncertainty
+                    </div>
+                    <div className="text-xs text-slate-600 dark:text-dark-text-secondary mt-1">
                       10-year ROI
                     </div>
                   </div>

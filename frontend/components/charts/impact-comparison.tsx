@@ -42,20 +42,29 @@ const comparisonData = [
 ]
 
 const dataTable = {
-  headers: ['Metric', 'Current', 'Projected', 'Improvement'],
+  headers: ['Metric', 'Current', 'Hypothetical (±50%)', 'Change'],
   rows: comparisonData.map(d => [
     d.metric,
     `${d.current.toLocaleString()} ${d.unit}`,
-    `${d.projected.toLocaleString()} ${d.unit}`,
-    d.improvement
+    `~${d.projected.toLocaleString()}* ${d.unit}`,
+    `~${d.improvement}*`
   ])
 }
 
 export function ImpactComparison() {
   const chartContent = (
     <div className="bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded-lg p-6 shadow-sm">
-        <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Projected Impact Analysis</h3>
-        <p className="text-sm text-slate-600 dark:text-dark-text-secondary mb-6">Current State vs. Post-Implementation Projections</p>
+        <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Hypothetical Impact Analysis</h3>
+        <p className="text-sm text-slate-600 dark:text-dark-text-secondary mb-2">Current State vs. Post-Implementation Projections</p>
+
+        {/* Hypothetical Disclaimer */}
+        <div className="mb-6 bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-400 dark:border-yellow-600 rounded-lg p-4">
+          <p className="text-sm text-yellow-800 dark:text-yellow-300">
+            <strong>⚠️ HYPOTHETICAL PROJECTIONS</strong> - These estimates are <strong>unvalidated scenarios</strong>, not evidence-based predictions.
+            Actual outcomes could vary by <strong>±50% or more</strong>. Real-world implementation would require rigorous impact evaluation,
+            pilot testing, and community input before any claims could be validated.
+          </p>
+        </div>
 
         <ResponsiveContainer width="100%" height={350}>
           <BarChart
@@ -119,7 +128,7 @@ export function ImpactComparison() {
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-4 h-4 rounded bg-green-500"></div>
-                    <span className="text-slate-700 dark:text-dark-text-secondary">Projected (Post-Implementation)</span>
+                    <span className="text-slate-700 dark:text-dark-text-secondary">Hypothetical Projection* (±50%)</span>
                   </div>
                 </div>
               )}
@@ -142,7 +151,7 @@ export function ImpactComparison() {
 
         <div className="mt-4 bg-gray-50 dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded p-3">
           <p className="text-sm text-gray-700 dark:text-dark-text-secondary">
-            <span className="font-semibold text-gray-900 dark:text-dark-text-primary">Key Insight:</span> Implementation projected to reduce access desert population by <span className="font-semibold">57%</span>, decrease preventable ER visits by <span className="font-semibold">50%</span>, and improve facility density by <span className="font-semibold">60%</span>.
+            <span className="font-semibold text-gray-900 dark:text-dark-text-primary">Hypothetical Scenario:</span> In this <strong>unvalidated estimate</strong>, implementation might reduce access desert population by <span className="font-semibold">~57%*</span>, decrease preventable ER visits by <span className="font-semibold">~50%*</span>, and improve facility density by <span className="font-semibold">~60%*</span> (<strong>±50% uncertainty</strong>).
           </p>
         </div>
       </div>
@@ -150,10 +159,10 @@ export function ImpactComparison() {
 
   return (
     <AccessibleChartWrapper
-      title="Projected Impact Analysis"
-      description="Comparison bar chart showing current state versus projected post-implementation improvements across 5 key healthcare metrics. Access desert population would decrease 57%, preventable ER visits would drop 50%, and facility density would increase 60%."
+      title="Hypothetical Impact Analysis (Unvalidated Estimates ±50%)"
+      description="Comparison bar chart showing current state versus hypothetical post-implementation projections across 5 key healthcare metrics. WARNING: These are unvalidated estimates with ±50% uncertainty, not evidence-based predictions. Access desert population might decrease ~57%, preventable ER visits might drop ~50%, and facility density might increase ~60%."
       dataTable={dataTable}
-      ariaLabel="Grouped bar chart comparing current healthcare metrics with projected improvements. Five metrics shown: Access Desert Population (80,831 current to 35,000 projected, -57%), Average Distance to Facility (880m to 450m, -49%), Facility Density (4.5 to 7.2 per 10K, +60%), Preventable ER Visits (125,000 to 62,500 annual, -50%), and Healthcare Cost Per Capita ($3,200 to $2,400 per year, -25%)."
+      ariaLabel="Grouped bar chart comparing current healthcare metrics with hypothetical projected improvements. CAUTION: Unvalidated estimates. Five metrics shown: Access Desert Population (80,831 current to ~35,000 hypothetical, ~-57%), Average Distance to Facility (880m to ~450m, ~-49%), Facility Density (4.5 to ~7.2 per 10K, ~+60%), Preventable ER Visits (125,000 to ~62,500 annual, ~-50%), and Healthcare Cost Per Capita ($3,200 to ~$2,400 per year, ~-25%). All projections carry ±50% or greater uncertainty."
     >
       {chartContent}
     </AccessibleChartWrapper>
