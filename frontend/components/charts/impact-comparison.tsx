@@ -8,6 +8,8 @@ const comparisonData = [
     metric: 'Access Desert Population',
     current: 80831,
     projected: 35000,
+    currentNormalized: 100,
+    projectedNormalized: 43,
     unit: 'residents',
     improvement: '-57%',
   },
@@ -15,6 +17,8 @@ const comparisonData = [
     metric: 'Avg Distance to Facility',
     current: 880,
     projected: 450,
+    currentNormalized: 100,
+    projectedNormalized: 51,
     unit: 'meters',
     improvement: '-49%',
   },
@@ -22,6 +26,8 @@ const comparisonData = [
     metric: 'Facility Density',
     current: 4.5,
     projected: 7.2,
+    currentNormalized: 100,
+    projectedNormalized: 160,
     unit: 'per 10K',
     improvement: '+60%',
   },
@@ -29,6 +35,8 @@ const comparisonData = [
     metric: 'ER Visits (Preventable)',
     current: 125000,
     projected: 62500,
+    currentNormalized: 100,
+    projectedNormalized: 50,
     unit: 'annual',
     improvement: '-50%',
   },
@@ -36,6 +44,8 @@ const comparisonData = [
     metric: 'Healthcare Cost Per Capita',
     current: 3200,
     projected: 2400,
+    currentNormalized: 100,
+    projectedNormalized: 75,
     unit: '$/year',
     improvement: '-25%',
   },
@@ -85,7 +95,8 @@ export function ImpactComparison() {
             <YAxis
               stroke="#64748b"
               className="dark:stroke-slate-400"
-              label={{ value: 'Value (normalized)', angle: -90, position: 'insideLeft', style: { fill: '#64748b', fontWeight: 600 } }}
+              domain={[0, 180]}
+              label={{ value: 'Index (Current = 100)', angle: -90, position: 'insideLeft', style: { fill: '#64748b', fontWeight: 600, fontSize: 12 } }}
             />
             <Tooltip
               content={({ active, payload }) => {
@@ -133,8 +144,8 @@ export function ImpactComparison() {
                 </div>
               )}
             />
-            <Bar dataKey="current" fill="#ef4444" radius={[4, 4, 0, 0]} />
-            <Bar dataKey="projected" fill="#10b981" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="currentNormalized" fill="#ef4444" radius={[4, 4, 0, 0]} name="Current (100)" />
+            <Bar dataKey="projectedNormalized" fill="#10b981" radius={[4, 4, 0, 0]} name="Hypothetical" />
           </BarChart>
         </ResponsiveContainer>
 
