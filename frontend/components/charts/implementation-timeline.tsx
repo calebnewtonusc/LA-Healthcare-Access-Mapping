@@ -9,36 +9,36 @@ const phases = [
     duration: '0-12 months',
     status: 'ready',
     items: [
-      { name: 'Deploy 15 Mobile Health Units', cost: '$50M', impact: '75K residents' },
-      { name: 'Launch Telehealth Platform', cost: '$25M', impact: '200K residents' },
-      { name: 'Community Health Worker Training', cost: '$10M', impact: '50K residents' },
+      { name: 'Deploy 15 Mobile Health Units', cost: '~$50M*', impact: '~75K residents' },
+      { name: 'Launch Telehealth Platform', cost: '~$25M*', impact: '~200K residents' },
+      { name: 'Community Health Worker Training', cost: '~$10M*', impact: '~50K residents' },
     ],
-    totalCost: '$85M',
-    totalImpact: '325K residents',
+    totalCost: '~$85M (est.)',
+    totalImpact: '~325K residents',
   },
   {
     phase: 'Phase 2: Infrastructure Development',
     duration: '12-36 months',
     status: 'planning',
     items: [
-      { name: 'Build 6 Community Health Centers', cost: '$240M', impact: '500K residents' },
-      { name: 'Establish Transit Healthcare Routes', cost: '$80M', impact: '300K residents' },
-      { name: 'Expand Telehealth Services', cost: '$20M', impact: '400K residents' },
+      { name: 'Build 6 Community Health Centers', cost: '~$240M*', impact: '~500K residents' },
+      { name: 'Establish Transit Healthcare Routes', cost: '~$80M*', impact: '~300K residents' },
+      { name: 'Expand Telehealth Services', cost: '~$20M*', impact: '~400K residents' },
     ],
-    totalCost: '$340M',
-    totalImpact: '1.2M residents',
+    totalCost: '~$340M (est.)',
+    totalImpact: '~1.2M residents',
   },
   {
     phase: 'Phase 3: Long-term Expansion',
     duration: '36-60 months',
     status: 'future',
     items: [
-      { name: 'Build 4 Additional Health Centers', cost: '$160M', impact: '400K residents' },
-      { name: 'Complete Transit Network', cost: '$40M', impact: '200K residents' },
-      { name: 'Community Health Worker Expansion', cost: '$20M', impact: '100K residents' },
+      { name: 'Build 4 Additional Health Centers', cost: '~$160M*', impact: '~400K residents' },
+      { name: 'Complete Transit Network', cost: '~$40M*', impact: '~200K residents' },
+      { name: 'Community Health Worker Expansion', cost: '~$20M*', impact: '~100K residents' },
     ],
-    totalCost: '$220M',
-    totalImpact: '700K residents',
+    totalCost: '~$220M (est.)',
+    totalImpact: '~700K residents',
   },
 ]
 
@@ -63,8 +63,9 @@ const dataTable = {
 export function ImplementationTimeline() {
   const chartContent = (
     <div className="bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded-lg p-6 shadow-sm">
-        <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Implementation Timeline</h3>
-        <p className="text-sm text-slate-600 dark:text-dark-text-secondary mb-6">Phased 5-Year Deployment Strategy</p>
+        <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Hypothetical Implementation Timeline</h3>
+        <p className="text-sm text-yellow-700 dark:text-yellow-400 mb-2 font-semibold">⚠️ Illustrative scenario only - not a validated implementation plan</p>
+        <p className="text-sm text-slate-600 dark:text-dark-text-secondary mb-6">Phased 5-Year Deployment Strategy (Conceptual)</p>
 
         <div className="space-y-6">
           {phases.map((phase, idx) => {

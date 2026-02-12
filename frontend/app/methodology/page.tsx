@@ -403,7 +403,7 @@ export default function AboutPage() {
                   </ul>
                   <div className="mt-3 text-xs font-semibold text-amber-700">
                     5 recommendations<br/>
-                    539% ROI
+                    539% ROI (hypothetical)*
                   </div>
                 </div>
               </div>
@@ -440,6 +440,21 @@ export default function AboutPage() {
                   <li><strong>Population Weighting:</strong> Severity score = distance_km × population, prioritizing high-density underserved areas</li>
                   <li><strong>Data Source:</strong> Census tract centroids from TIGER/Line Shapefiles, facility coordinates from CA DHHS</li>
                 </ul>
+
+                {/* Warning: 5km threshold limitation */}
+                <div className="mt-4 bg-amber-50/90 dark:bg-amber-900/20 backdrop-blur-sm border-2 border-amber-400 dark:border-amber-600 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-amber-900 dark:text-amber-300 mb-1 text-sm">Limitation: Rural Threshold Applied to Urban Context</h4>
+                      <p className="text-xs text-amber-800 dark:text-amber-200">
+                        The 5km (3.1 mile) threshold comes from federal rural health research and may not be appropriate for urban LA County.
+                        In dense urban areas, even 1-2km could represent a significant access barrier due to traffic, public transit limitations,
+                        and walkability issues. This analysis may underestimate access challenges in urban neighborhoods.
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
                 {/* Access Desert Visual Metrics */}
                 <div className="mt-4 grid grid-cols-3 gap-3">
@@ -510,6 +525,24 @@ export default function AboutPage() {
                   <li><strong>Impact Calculation:</strong> Estimated people served = population_density × π × (5 km)² service radius</li>
                   <li><strong>Code Reference:</strong> <code className="text-slate-700 dark:text-dark-text-secondary text-xs bg-slate-100/80 px-1 rounded">src/analysis/calculate_access_metrics.py:254-318</code></li>
                 </ul>
+
+                {/* Warning: Arbitrary weight choices */}
+                <div className="mt-4 bg-orange-50/90 dark:bg-orange-900/20 backdrop-blur-sm border-2 border-orange-400 dark:border-orange-600 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <AlertTriangle className="w-5 h-5 text-orange-600 dark:text-orange-500 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-bold text-orange-900 dark:text-orange-300 mb-1 text-sm">Important: Access Score Weights Not Scientifically Validated</h4>
+                      <p className="text-xs text-orange-800 dark:text-orange-200 mb-2">
+                        The composite access score weights (50% distance, 30% facility density, 20% population density) are <strong>arbitrary choices
+                        for demonstration purposes</strong> and have NOT been scientifically validated or peer-reviewed.
+                      </p>
+                      <p className="text-xs text-orange-800 dark:text-orange-200">
+                        Different weighting schemes could produce significantly different results. A rigorous analysis would require expert consultation
+                        with public health professionals, community stakeholders, and validation against health outcomes data.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div>
@@ -589,16 +622,17 @@ export default function AboutPage() {
                   </ul>
 
                   {/* 10-Year ROI Visualization */}
-                  <div className="mt-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-4 border border-green-200">
+                  <div className="mt-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-4 border-2 border-yellow-400">
+                    <div className="text-xs text-yellow-800 font-semibold mb-2">⚠️ HYPOTHETICAL ESTIMATE - Not validated | ±50% uncertainty</div>
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="text-xs text-slate-600 dark:text-dark-text-secondary mb-1">10-Year Return on Investment</div>
-                        <div className="text-3xl font-bold text-green-700">539% ROI</div>
+                        <div className="text-xs text-slate-600 dark:text-dark-text-secondary mb-1">10-Year ROI (Illustrative)</div>
+                        <div className="text-3xl font-bold text-green-700">539%<span className="text-sm text-yellow-700">*</span></div>
                       </div>
                       <div className="text-right">
-                        <div className="text-xs text-slate-600 dark:text-dark-text-secondary">Total Savings</div>
-                        <div className="text-xl font-bold text-slate-900 dark:text-dark-text-primary">~$4.1B</div>
-                        <div className="text-xs text-slate-500">over 10 years</div>
+                        <div className="text-xs text-slate-600 dark:text-dark-text-secondary">Estimated Savings</div>
+                        <div className="text-xl font-bold text-slate-900 dark:text-dark-text-primary">~$4.1B<span className="text-sm text-yellow-700">*</span></div>
+                        <div className="text-xs text-slate-500">over 10 years (estimated)</div>
                       </div>
                     </div>
                   </div>
@@ -646,6 +680,32 @@ export default function AboutPage() {
                 <strong className="text-slate-900 dark:text-dark-text-primary">Facility Types:</strong> Analysis may not distinguish between different types of healthcare facilities
                 (urgent care vs. emergency rooms vs. clinics), which serve different needs.
               </p>
+
+              {/* Major Limitation: All facilities treated equally */}
+              <div className="mt-4 bg-red-50/90 dark:bg-red-900/20 backdrop-blur-sm border-2 border-red-400 dark:border-red-600 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-6 h-6 text-red-600 dark:text-red-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="font-bold text-red-900 dark:text-red-300 mb-1">Major Limitation: All Facilities Treated Equally</h4>
+                    <p className="text-sm text-red-800 dark:text-red-200 mb-2">
+                      This analysis makes <strong>no distinction between different facility types</strong> such as emergency rooms, urgent care centers,
+                      primary care clinics, specialty clinics, or community health centers. All facilities are weighted identically in distance and access calculations.
+                    </p>
+                    <p className="text-sm text-red-800 dark:text-red-200 mb-2">
+                      <strong>Why this matters:</strong>
+                    </p>
+                    <ul className="text-xs text-red-800 dark:text-red-200 list-disc list-inside space-y-1 ml-2">
+                      <li>A specialist office and a 24/7 emergency room serve fundamentally different healthcare needs</li>
+                      <li>Not all facilities accept all insurance types or provide services to uninsured patients</li>
+                      <li>Facility capacity, hours of operation, and wait times are not considered</li>
+                      <li>Access to a nearby dermatology clinic does not mean access to emergency or primary care</li>
+                    </ul>
+                    <p className="text-xs text-red-700 dark:text-red-300 mt-2 font-semibold">
+                      A comprehensive analysis would require facility classification, service type mapping, and capacity data—none of which are included in this study.
+                    </p>
+                  </div>
+                </div>
+              </div>
               <p>
                 <strong className="text-slate-900 dark:text-dark-text-primary">Financial Estimates:</strong> Cost-benefit calculations are approximations based on published averages.
                 Actual costs would require detailed site analysis, permits, land acquisition, and operational planning.
@@ -794,9 +854,9 @@ export default function AboutPage() {
                   <span className="text-xs font-bold text-green-800 uppercase">Total Investment</span>
                 </div>
                 <div className="text-center mt-2">
-                  <div className="text-3xl font-bold text-green-700 mb-1">$645M</div>
-                  <div className="text-xs text-slate-700 dark:text-dark-text-secondary mb-2">10-year projection</div>
-                  <div className="text-sm font-semibold text-green-800">539% ROI</div>
+                  <div className="text-3xl font-bold text-green-700 mb-1">$645M<span className="text-sm text-yellow-700">*</span></div>
+                  <div className="text-xs text-slate-700 dark:text-dark-text-secondary mb-2">10-year projection (hypothetical)</div>
+                  <div className="text-sm font-semibold text-yellow-700">539% ROI (not validated)</div>
                 </div>
               </div>
             </div>
@@ -1146,6 +1206,420 @@ export default function AboutPage() {
               <strong className="text-slate-800">Academic Context:</strong> This analysis complements official healthcare access assessments with
               granular, data-driven insights. It should be used alongside—not instead of—official HPSA/MUA designations and local health department guidance.
             </p>
+          </div>
+        </div>
+
+        {/* Bibliography & Citations */}
+        <div className="relative mb-8 group">
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
+          <div className="relative bg-white/70 dark:bg-dark-bg-secondary/70 backdrop-blur-md border border-white/50 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-md dark:shadow-neon-cyan/10 transition-colors duration-300">
+            <div className="flex items-center gap-3 mb-6">
+              <BookOpen className="w-6 h-6 text-indigo-600" />
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Bibliography & Citations</h2>
+            </div>
+
+            <p className="text-sm text-slate-700 dark:text-dark-text-secondary mb-6">
+              The following sources were used in the development of this analysis. All citations follow APA 7th edition format.
+            </p>
+
+            {/* Data Sources */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-dark-text-primary mb-4 flex items-center gap-2">
+                <Database className="w-5 h-5 text-blue-600" />
+                Data Sources
+              </h3>
+              <div className="space-y-4 ml-6">
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>U.S. Census Bureau.</strong> (2020). <em>2020 Decennial Census.</em> U.S. Department of Commerce.{' '}
+                    <a
+                      href="https://www.census.gov/programs-surveys/decennial-census/decade/2020/2020-census-main.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://www.census.gov/programs-surveys/decennial-census/decade/2020/2020-census-main.html
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Dataset:</strong> Population counts by census tract for Los Angeles County
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>U.S. Census Bureau.</strong> (2022). <em>American Community Survey 5-Year Estimates (2018-2022).</em> U.S. Department of Commerce.{' '}
+                    <a
+                      href="https://www.census.gov/programs-surveys/acs/technical-documentation/table-and-geography-changes/2022/5-year.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://www.census.gov/programs-surveys/acs
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Variables:</strong> B19013_001E (Median household income), B17001 (Poverty status), B08201 (Vehicle availability)
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>U.S. Census Bureau.</strong> (2020). <em>TIGER/Line Shapefiles: Census Tracts.</em> U.S. Department of Commerce.{' '}
+                    <a
+                      href="https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.2020.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Dataset:</strong> Geographic boundary files and centroids for census tracts
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>California Health and Human Services Agency.</strong> (n.d.). <em>Licensed Healthcare Facilities.</em> California Open Data Portal.{' '}
+                    <a
+                      href="https://data.chhs.ca.gov/dataset/healthcare-facility-locations"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://data.chhs.ca.gov
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Dataset:</strong> Current locations and facility types for 4,512 licensed healthcare facilities in LA County
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Methodology References */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-dark-text-primary mb-4 flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-purple-600" />
+                Methodology References
+              </h3>
+              <div className="space-y-4 ml-6">
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>Health Resources and Services Administration (HRSA).</strong> (2023). <em>Guidelines for Health Professional Shortage Area (HPSA) designation.</em> U.S. Department of Health and Human Services.{' '}
+                    <a
+                      href="https://bhw.hrsa.gov/workforce-shortage-areas/shortage-designation"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://bhw.hrsa.gov/workforce-shortage-areas/shortage-designation
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> 5km access desert threshold and healthcare access standards
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>Sinnott, R. W.</strong> (1984). Virtues of the Haversine. <em>Sky and Telescope, 68</em>(2), 159.
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> Great-circle distance formula for calculating distances between geographic coordinates
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>Bentley, J. L.</strong> (1975). Multidimensional binary search trees used for associative searching. <em>Communications of the ACM, 18</em>(9), 509-517.{' '}
+                    <a
+                      href="https://doi.org/10.1145/361002.361007"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://doi.org/10.1145/361002.361007
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> KD-tree spatial indexing algorithm for nearest facility search
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>Rural Health Information Hub.</strong> (2024). <em>Healthcare Access in Rural Communities.</em> Health Resources and Services Administration.{' '}
+                    <a
+                      href="https://www.ruralhealthinfo.org/topics/healthcare-access"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://www.ruralhealthinfo.org/topics/healthcare-access
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> Healthcare access standards and distance-based metrics
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Cost Estimation Sources */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-dark-text-primary mb-4 flex items-center gap-2">
+                <DollarSign className="w-5 h-5 text-green-600" />
+                Cost Estimation Sources
+              </h3>
+              <div className="space-y-4 ml-6">
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>RSMeans Data.</strong> (2024). <em>Building Construction Cost Data 2024.</em> Gordian.{' '}
+                    <a
+                      href="https://www.rsmeans.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://www.rsmeans.com
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> Healthcare facility construction cost estimates ($450/sq ft)
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>Becker&apos;s Hospital Review.</strong> (2023). <em>Hospital Construction Costs: What to Expect in 2023-2024.</em>{' '}
+                    <a
+                      href="https://www.beckershospitalreview.com/finance/hospital-construction-costs.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://www.beckershospitalreview.com/finance/hospital-construction-costs.html
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> Healthcare facility construction and equipment cost benchmarks
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>Agency for Healthcare Research and Quality (AHRQ).</strong> (2023). <em>National Healthcare Quality and Disparities Report.</em> U.S. Department of Health and Human Services.{' '}
+                    <a
+                      href="https://www.ahrq.gov/research/findings/nhqrdr/index.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://www.ahrq.gov/research/findings/nhqrdr/index.html
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> Healthcare cost savings estimates, preventable ER visit rates, and chronic disease management costs
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>Centers for Medicare & Medicaid Services (CMS).</strong> (2023). <em>Physician Fee Schedule.</em> U.S. Department of Health and Human Services.{' '}
+                    <a
+                      href="https://www.cms.gov/medicare/payment/fee-schedules/physician"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://www.cms.gov/medicare/payment/fee-schedules/physician
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> Healthcare service reimbursement rates and cost benchmarks
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Additional References */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-dark-text-primary mb-4 flex items-center gap-2">
+                <FileText className="w-5 h-5 text-orange-600" />
+                Additional References
+              </h3>
+              <div className="space-y-4 ml-6">
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>Centers for Disease Control and Prevention (CDC).</strong> (2023). <em>Health Equity Considerations and Racial and Ethnic Minority Groups.</em> U.S. Department of Health and Human Services.{' '}
+                    <a
+                      href="https://www.cdc.gov/healthequity"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://www.cdc.gov/healthequity
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> Health equity framework and social determinants of health context
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>LA County Department of Public Health.</strong> (2023). <em>Community Health Profiles.</em> Los Angeles County.{' '}
+                    <a
+                      href="https://apps.gis.lacounty.gov/static/DPH/community-profiles/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://apps.gis.lacounty.gov/static/DPH/community-profiles/
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> Local health context and validation of regional patterns
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>California Health Interview Survey (CHIS).</strong> (2022). <em>UCLA Center for Health Policy Research.</em> University of California, Los Angeles.{' '}
+                    <a
+                      href="https://healthpolicy.ucla.edu/our-work/california-health-interview-survey-chis"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://healthpolicy.ucla.edu/our-work/california-health-interview-survey-chis
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> California-specific health access and utilization patterns
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Software & Tools */}
+            <div className="mb-6">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-dark-text-primary mb-4 flex items-center gap-2">
+                <Zap className="w-5 h-5 text-amber-600" />
+                Software & Computational Tools
+              </h3>
+              <div className="space-y-4 ml-6">
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>Python Software Foundation.</strong> (2023). <em>Python 3.11</em> [Programming language].{' '}
+                    <a
+                      href="https://www.python.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://www.python.org
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> Data processing and analysis
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>McKinney, W.</strong> (2010). Data structures for statistical computing in Python. <em>Proceedings of the 9th Python in Science Conference, 56-61.</em>{' '}
+                    <a
+                      href="https://pandas.pydata.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://pandas.pydata.org
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> Data manipulation and statistical analysis (Pandas library)
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>Jordahl, K., Van den Bossche, J., Fleischmann, M., et al.</strong> (2020). geopandas/geopandas: v0.8.1. <em>Zenodo.</em>{' '}
+                    <a
+                      href="https://doi.org/10.5281/zenodo.3946761"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://doi.org/10.5281/zenodo.3946761
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> Geospatial data processing and analysis (GeoPandas library)
+                  </p>
+                </div>
+
+                <div className="bg-slate-50/80 backdrop-blur-sm rounded-lg p-4 border border-slate-200">
+                  <p className="text-sm text-slate-800 dark:text-dark-text-secondary mb-2">
+                    <strong>Virtanen, P., Gommers, R., Oliphant, T. E., et al.</strong> (2020). SciPy 1.0: Fundamental algorithms for scientific computing in Python. <em>Nature Methods, 17</em>, 261-272.{' '}
+                    <a
+                      href="https://doi.org/10.1038/s41592-019-0686-2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                    >
+                      https://doi.org/10.1038/s41592-019-0686-2
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </p>
+                  <p className="text-xs text-slate-600 dark:text-dark-text-secondary">
+                    <strong>Used for:</strong> KD-tree implementation for spatial nearest neighbor search (SciPy library)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Citation Notes */}
+            <div className="mt-6 p-4 bg-blue-50/80 rounded-lg border border-blue-200">
+              <p className="text-xs text-slate-700 dark:text-dark-text-secondary mb-2">
+                <strong className="text-slate-900 dark:text-dark-text-primary">Citation Format:</strong> All citations follow APA 7th edition style.
+              </p>
+              <p className="text-xs text-slate-700 dark:text-dark-text-secondary mb-2">
+                <strong className="text-slate-900 dark:text-dark-text-primary">Data Access:</strong> All datasets referenced are publicly available and were accessed between January 2024 and February 2025.
+              </p>
+              <p className="text-xs text-slate-700 dark:text-dark-text-secondary">
+                <strong className="text-slate-900 dark:text-dark-text-primary">Reproducibility:</strong> Complete methodology and source code are available at{' '}
+                <a
+                  href="https://github.com/calebnewtonusc/la-healthcare-access-mapping"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 hover:underline"
+                >
+                  https://github.com/calebnewtonusc/la-healthcare-access-mapping
+                </a>
+              </p>
+            </div>
           </div>
         </div>
 

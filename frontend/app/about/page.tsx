@@ -244,6 +244,19 @@ export default function AboutPage() {
       {/* Links to Additional Information */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Link
+          href="/limitations"
+          className="block p-6 bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-300 dark:border-yellow-700 rounded-lg hover:border-yellow-500 dark:hover:border-yellow-600 transition-colors"
+        >
+          <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-dark-text-primary flex items-center gap-2">
+            <AlertTriangle className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
+            What's Missing from This Analysis →
+          </h3>
+          <p className="text-sm text-gray-700 dark:text-dark-text-secondary">
+            Comprehensive list of limitations and gaps in this analysis
+          </p>
+        </Link>
+
+        <Link
           href="/methodology"
           className="block p-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg hover:border-blue-400 dark:hover:border-blue-600 transition-colors"
         >
@@ -252,18 +265,6 @@ export default function AboutPage() {
           </h3>
           <p className="text-sm text-gray-700 dark:text-dark-text-secondary">
             Learn about data processing, analysis techniques, and calculation methodologies
-          </p>
-        </Link>
-
-        <Link
-          href="/data-dictionary"
-          className="block p-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg hover:border-blue-400 dark:hover:border-blue-600 transition-colors"
-        >
-          <h3 className="font-semibold text-lg mb-2 text-gray-900 dark:text-dark-text-primary">
-            Data Dictionary →
-          </h3>
-          <p className="text-sm text-gray-700 dark:text-dark-text-secondary">
-            Comprehensive documentation of all data fields, sources, and caveats
           </p>
         </Link>
       </div>

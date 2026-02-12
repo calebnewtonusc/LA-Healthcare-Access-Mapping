@@ -2,11 +2,12 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, Home, BookOpen, ExternalLink } from 'lucide-react'
+import { Menu, X, Home, BookOpen, Info, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false)
+  const [showMore, setShowMore] = useState(false)
 
   return (
     <>
@@ -59,7 +60,8 @@ export function MobileNav() {
                 </div>
 
                 {/* Navigation Links */}
-                <nav className="flex-1 p-6 space-y-2">
+                <nav className="flex-1 p-6 space-y-2 overflow-y-auto">
+                  {/* Primary Navigation (4 items) */}
                   <Link
                     href="/"
                     onClick={() => setIsOpen(false)}
@@ -79,15 +81,6 @@ export function MobileNav() {
                   </Link>
 
                   <Link
-                    href="/recommendations"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 dark:hover:border-neon-cyan/50 border border-transparent transition-all group"
-                  >
-                    <BookOpen className="w-5 h-5 text-slate-600 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors" />
-                    <span className="font-medium text-slate-700 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors">Recommendations</span>
-                  </Link>
-
-                  <Link
                     href="/methodology"
                     onClick={() => setIsOpen(false)}
                     className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 dark:hover:border-neon-cyan/50 border border-transparent transition-all group"
@@ -97,22 +90,62 @@ export function MobileNav() {
                   </Link>
 
                   <Link
-                    href="/data"
+                    href="/about"
                     onClick={() => setIsOpen(false)}
                     className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 dark:hover:border-neon-cyan/50 border border-transparent transition-all group"
                   >
-                    <BookOpen className="w-5 h-5 text-slate-600 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors" />
-                    <span className="font-medium text-slate-700 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors">Data & API</span>
+                    <Info className="w-5 h-5 text-slate-600 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors" />
+                    <span className="font-medium text-slate-700 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors">About</span>
                   </Link>
 
-                  <Link
-                    href="/resources"
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 dark:hover:border-neon-cyan/50 border border-transparent transition-all group"
-                  >
-                    <ExternalLink className="w-5 h-5 text-slate-600 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors" />
-                    <span className="font-medium text-slate-700 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors">Resources</span>
-                  </Link>
+                  {/* More Section (Collapsible) */}
+                  <div className="border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
+                    <button
+                      onClick={() => setShowMore(!showMore)}
+                      className="flex items-center justify-between w-full px-4 py-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group"
+                    >
+                      <span className="font-medium text-slate-600 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors text-sm">
+                        More Pages
+                      </span>
+                      <ChevronDown className={`w-4 h-4 text-slate-600 dark:text-dark-text-secondary transition-transform ${showMore ? 'rotate-180' : ''}`} />
+                    </button>
+
+                    {showMore && (
+                      <div className="mt-2 space-y-1 pl-4">
+                        <Link
+                          href="/recommendations"
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group"
+                        >
+                          <span className="text-sm text-slate-600 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors">Recommendations</span>
+                        </Link>
+
+                        <Link
+                          href="/data"
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group"
+                        >
+                          <span className="text-sm text-slate-600 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors">Data & API</span>
+                        </Link>
+
+                        <Link
+                          href="/resources"
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group"
+                        >
+                          <span className="text-sm text-slate-600 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors">Resources</span>
+                        </Link>
+
+                        <Link
+                          href="/limitations"
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group"
+                        >
+                          <span className="text-sm text-slate-600 dark:text-dark-text-secondary group-hover:text-slate-900 dark:group-hover:text-neon-cyan transition-colors">Limitations</span>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                 </nav>
 
                 {/* Footer */}
