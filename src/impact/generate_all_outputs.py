@@ -125,13 +125,13 @@ def main():
     logger.info(f"✓ Total files generated: {len(output_files)}")
 
     logger.info("\n" + "="*80)
-    logger.info("✅ COMPLETE POLICY IMPACT PACKAGE GENERATED SUCCESSFULLY")
+    logger.info("[checkmark.circle] COMPLETE POLICY IMPACT PACKAGE GENERATED SUCCESSFULLY")
     logger.info("="*80)
 
     logger.info("\nOUTPUTS CREATED:")
     logger.info("-" * 80)
 
-    logger.info("\n📊 FOR POLICYMAKERS:")
+    logger.info("\n[chart.bar.fill] FOR POLICYMAKERS:")
     logger.info("  • EXECUTIVE_SUMMARY.txt - 1-page summary for decision makers")
     logger.info("  • recommendations.csv - Structured recommendations dataset")
     logger.info("  • COST_BENEFIT_ANALYSIS.txt - Detailed financial analysis with ROI")
