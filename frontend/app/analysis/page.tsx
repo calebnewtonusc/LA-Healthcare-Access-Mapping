@@ -5,7 +5,7 @@ import { RegionalBreakdownLazy as RegionalBreakdown, ImpactComparisonLazy as Imp
 import { LazyIframe } from '@/components/ui/lazy-iframe'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { DataTimestamp } from '@/components/ui/data-timestamp'
-import { BarChart3, MapPin, TrendingUp, Layers, Flame } from 'lucide-react'
+import { BarChart3, MapPin, TrendingUp, Layers, Flame, AlertTriangle, XCircle } from 'lucide-react'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
@@ -77,7 +77,7 @@ export default async function AnalysisPage() {
         {/* Educational Disclaimer */}
         <div className="mb-8 bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-400 dark:border-yellow-600 rounded-lg p-5">
           <div className="flex gap-3">
-            <div className="text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5">⚠️</div>
+            <AlertTriangle className="w-5 h-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
             <div className="text-sm text-yellow-800 dark:text-yellow-300">
               <strong>Educational Analysis:</strong> This analysis uses simplified distance calculations and has ±30-50% uncertainty.
               Data is from Oct 2024 (facilities) and 2020 Census (population).{' '}
@@ -92,7 +92,7 @@ export default async function AnalysisPage() {
         {(!stats || !facilities) && (
           <div className="mb-8 bg-red-50 dark:bg-red-900/20 border-2 border-red-400 dark:border-red-600 rounded-lg p-5">
             <div className="flex gap-3">
-              <div className="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5">❌</div>
+              <XCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
               <div>
                 <p className="text-sm font-semibold text-red-800 dark:text-red-300 mb-2">
                   Data Temporarily Unavailable

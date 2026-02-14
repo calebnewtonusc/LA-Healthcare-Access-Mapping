@@ -25,8 +25,8 @@ export default function LimitationsPage() {
 
       {/* Critical Disclaimer */}
       <div className="mb-8 bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700 rounded-lg p-6">
-        <h2 className="text-xl font-bold text-red-900 dark:text-red-200 mb-3">
-          ⚠️ Critical Limitation
+        <h2 className="text-xl font-bold text-red-900 dark:text-red-200 mb-3 flex items-center gap-2">
+          <AlertTriangle className="w-6 h-6" /> Critical Limitation
         </h2>
         <p className="text-red-800 dark:text-red-300 font-medium">
           This analysis measures ONLY straight-line distance to facilities. It does NOT measure actual healthcare access,

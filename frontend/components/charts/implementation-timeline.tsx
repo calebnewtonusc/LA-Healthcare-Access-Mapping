@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckCircle, Clock, AlertCircle } from 'lucide-react'
+import { CheckCircle, Clock, AlertCircle, AlertTriangle } from 'lucide-react'
 import { AccessibleChartWrapper } from './accessible-chart-wrapper'
 
 const phases = [
@@ -64,7 +64,9 @@ export function ImplementationTimeline() {
   const chartContent = (
     <div className="bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded-lg p-6 shadow-sm">
         <h3 className="text-xl font-bold text-slate-900 dark:text-dark-text-primary mb-2">Hypothetical Implementation Timeline</h3>
-        <p className="text-sm text-yellow-700 dark:text-yellow-400 mb-2 font-semibold">⚠️ Illustrative scenario only - not a validated implementation plan</p>
+        <p className="text-sm text-yellow-700 dark:text-yellow-400 mb-2 font-semibold flex items-center gap-2">
+          <AlertTriangle className="w-4 h-4" /> Illustrative scenario only - not a validated implementation plan
+        </p>
         <p className="text-sm text-slate-600 dark:text-dark-text-secondary mb-6">Phased 5-Year Deployment Strategy (Conceptual)</p>
 
         <div className="space-y-6">

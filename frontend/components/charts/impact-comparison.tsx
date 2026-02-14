@@ -2,6 +2,7 @@
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import { AccessibleChartWrapper } from './accessible-chart-wrapper'
+import { AlertTriangle } from 'lucide-react'
 
 const comparisonData = [
   {
@@ -69,10 +70,11 @@ export function ImpactComparison() {
 
         {/* Hypothetical Disclaimer */}
         <div className="mb-6 bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-400 dark:border-yellow-600 rounded-lg p-4">
-          <p className="text-sm text-yellow-800 dark:text-yellow-300">
-            <strong>⚠️ HYPOTHETICAL PROJECTIONS</strong> - These estimates are <strong>unvalidated scenarios</strong>, not evidence-based predictions.
+          <p className="text-sm text-yellow-800 dark:text-yellow-300 flex items-start gap-2">
+            <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+            <span><strong>HYPOTHETICAL PROJECTIONS</strong> - These estimates are <strong>unvalidated scenarios</strong>, not evidence-based predictions.
             Actual outcomes could vary by <strong>±50% or more</strong>. Real-world implementation would require rigorous impact evaluation,
-            pilot testing, and community input before any claims could be validated.
+            pilot testing, and community input before any claims could be validated.</span>
           </p>
         </div>
 

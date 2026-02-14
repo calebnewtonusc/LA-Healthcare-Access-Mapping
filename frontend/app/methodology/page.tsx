@@ -623,7 +623,9 @@ export default function AboutPage() {
 
                   {/* 10-Year ROI Visualization */}
                   <div className="mt-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-4 border-2 border-yellow-400">
-                    <div className="text-xs text-yellow-800 font-semibold mb-2">⚠️ HYPOTHETICAL ESTIMATE - Not validated | ±50% uncertainty</div>
+                    <div className="text-xs text-yellow-800 font-semibold mb-2 flex items-center gap-2">
+                      <AlertTriangle className="w-4 h-4" /> HYPOTHETICAL ESTIMATE - Not validated | ±50% uncertainty
+                    </div>
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="text-xs text-slate-600 dark:text-dark-text-secondary mb-1">10-Year ROI (Illustrative)</div>
