@@ -1,7 +1,7 @@
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { RecommendationsPageContent } from '@/components/recommendations-page-content'
 import { PriorityMatrixLazy as PriorityMatrix, ImplementationTimelineLazy as ImplementationTimeline } from '@/components/charts/lazy-charts'
-import { Lightbulb, DollarSign, TrendingUp, Percent, Clock, Target, BarChart3 } from 'lucide-react'
+import { Lightbulb, DollarSign, TrendingUp, Percent, Clock, Target, BarChart3, AlertTriangle } from 'lucide-react'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 
@@ -73,7 +73,7 @@ export default async function RecommendationsPage() {
         {/* CRITICAL DISCLAIMER */}
         <div className="mb-8 bg-red-50 dark:bg-red-900/20 border-2 border-red-400 dark:border-red-700 rounded-lg p-6">
           <h2 className="text-xl font-bold text-red-900 dark:text-red-200 mb-3 flex items-center gap-2">
-            ⚠️ Important: These are Hypothetical Scenarios Only
+            <AlertTriangle className="w-6 h-6" /> Important: These are Hypothetical Scenarios Only
           </h2>
           <div className="space-y-2 text-sm text-red-800 dark:text-red-300">
             <p>
@@ -120,8 +120,8 @@ export default async function RecommendationsPage() {
                 <h2 className="text-2xl font-bold text-slate-900 dark:text-dark-text-primary">Hypothetical Cost Estimates</h2>
               </div>
 
-              <p className="text-sm text-yellow-700 dark:text-yellow-400 mb-4 font-semibold">
-                ⚠️ Illustrative figures only • ±50% uncertainty • Not validated by experts
+              <p className="text-sm text-yellow-700 dark:text-yellow-400 mb-4 font-semibold flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4" /> Illustrative figures only • ±50% uncertainty • Not validated by experts
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

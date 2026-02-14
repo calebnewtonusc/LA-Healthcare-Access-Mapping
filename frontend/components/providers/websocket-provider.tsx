@@ -59,7 +59,7 @@ export function WebSocketProvider({ children, enabled = true }: WebSocketProvide
       return
     }
 
-    console.log('🚀 Initializing WebSocket connection...')
+    console.log('[Rocket] Initializing WebSocket connection...')
     isInitialized.current = true
 
     // Get socket client instance
@@ -73,23 +73,23 @@ export function WebSocketProvider({ children, enabled = true }: WebSocketProvide
 
     // Listen for connection status changes
     const unsubscribeStatus = socketClient.onStatusChange((status) => {
-      console.log('📡 Connection status:', status)
+      console.log('[Signal] Connection status:', status)
       setConnectionStatus(status, socketClient.getReconnectAttempts())
     })
 
     // Subscribe to data events
     socket.on('stats:update', (payload) => {
-      console.log('📊 Stats update received:', payload)
+      console.log('[BarChart] Stats update received:', payload)
       setStats(payload.data)
     })
 
     socket.on('recommendations:update', (payload) => {
-      console.log('📋 Recommendations update received:', payload)
+      console.log('[ClipboardList] Recommendations update received:', payload)
       updateRecommendations(payload.delta)
     })
 
     socket.on('facilities:update', (payload) => {
-      console.log('🏥 Facilities update received:', payload)
+      console.log('[Hospital] Facilities update received:', payload)
       updateFacilities(payload.delta)
     })
 
@@ -100,7 +100,7 @@ export function WebSocketProvider({ children, enabled = true }: WebSocketProvide
 
     // Once connected, subscribe to all data rooms
     socket.on('connect', () => {
-      console.log('✅ Connected to WebSocket server')
+      console.log('[Check] Connected to WebSocket server')
       socketClient.subscribe(['stats', 'recommendations', 'facilities'])
     })
 

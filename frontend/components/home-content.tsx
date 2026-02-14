@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { BarChart3, MapPin, Lightbulb, Database, ExternalLink, AlertTriangle, Clock, ArrowRight, Share2, BookOpen, Building2 } from 'lucide-react'
+import { BarChart3, MapPin, Lightbulb, Database, ExternalLink, AlertTriangle, Clock, ArrowRight, Share2, BookOpen, Building2, CheckCircle, X } from 'lucide-react'
 import { useRealtimeStats } from '@/lib/hooks/use-realtime-stats'
 
 interface Stats {
@@ -62,7 +62,7 @@ export function HomeContent({ stats: ssrStats }: { stats: Stats | null }) {
         <div className="grid md:grid-cols-2 gap-6 mb-4">
           <div>
             <h3 className="font-semibold text-green-800 dark:text-green-300 mb-2 flex items-center gap-2">
-              <span className="text-xl">✅</span> Great for:
+              <CheckCircle className="w-5 h-5" /> Great for:
             </h3>
             <ul className="text-sm text-blue-900 dark:text-blue-200 space-y-1.5">
               <li>• Learning GIS analysis techniques</li>
@@ -75,7 +75,7 @@ export function HomeContent({ stats: ssrStats }: { stats: Stats | null }) {
 
           <div>
             <h3 className="font-semibold text-red-800 dark:text-red-300 mb-2 flex items-center gap-2">
-              <span className="text-xl">❌</span> Not suitable for:
+              <X className="w-5 h-5" /> Not suitable for:
             </h3>
             <ul className="text-sm text-blue-900 dark:text-blue-200 space-y-1.5">
               <li>• Policy decisions or planning documents</li>
@@ -88,8 +88,8 @@ export function HomeContent({ stats: ssrStats }: { stats: Stats | null }) {
         </div>
 
         <div className="pt-4 border-t border-blue-200 dark:border-blue-700">
-          <p className="text-sm font-semibold text-blue-900 dark:text-blue-200 mb-2">
-            📍 For Official Data & Policy Recommendations:
+          <p className="text-sm font-semibold text-blue-900 dark:text-blue-200 mb-2 flex items-center gap-2">
+            <MapPin className="w-4 h-4" /> For Official Data & Policy Recommendations:
           </p>
           <div className="flex flex-wrap gap-3">
             <a
@@ -116,8 +116,8 @@ export function HomeContent({ stats: ssrStats }: { stats: Stats | null }) {
       {/* Key Findings - Simplified */}
       <div className="mb-12 bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded-lg p-6 shadow-sm">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 text-center">Key Findings</h2>
-        <p className="text-center text-sm text-yellow-700 dark:text-yellow-400 mb-6 font-medium">
-          ⚠️ These are illustrative estimates with ±30-50% uncertainty
+        <p className="text-center text-sm text-yellow-700 dark:text-yellow-400 mb-6 font-medium flex items-center justify-center gap-2">
+          <AlertTriangle className="w-4 h-4" /> These are illustrative estimates with ±30-50% uncertainty
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
