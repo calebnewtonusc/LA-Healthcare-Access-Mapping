@@ -15,26 +15,26 @@
 
 Engineered geospatial analysis pipeline serving **9.9 million residents** across **2,498 census tracts** with interactive dashboard, real-time metrics, and actionable policy recommendations.
 
-## [rocket.fill] Live Demo
+## Live Demo
 
-**[globe.americas] [View Live Dashboard](https://la-healthcare-access-mapping.vercel.app/)** - Interactive web application with real-time data visualization
+**[View Live Dashboard](https://la-healthcare-access-mapping.vercel.app/)** - Interactive web application with real-time data visualization
 
 The project is deployed as a production web application with **6 comprehensive sections**:
-- **[house.fill] Home** - Executive summary with key findings hero, quick stats, and navigation hub
-- **[chart.bar.fill] Analysis** - Complete data visualizations including regional breakdowns, impact comparisons, priority matrices, and interactive maps
-- **[lightbulb.fill] Recommendations** - All policy content with financial analysis, implementation timelines, and ROI breakdowns
-- **[flask.fill] Methodology** - Technical documentation covering algorithms, KD-tree implementation, and CRS transformations
-- **[books.vertical.fill] Data & API** - Complete data dictionary with 7 live RESTful API endpoints and integration guides
-- **[globe.americas] Resources** - 20+ curated external tools, HPSA/MUA finders, and facility locators
-- **[paintpalette.fill] Premium UX** - Glassmorphic design, mobile navigation, breadcrumbs, back-to-top, Framer Motion animations
-- **[arrow.triangle.2.circlepath] Auto-Updating** - Monthly data refresh via GitHub Actions automation
-- **[bolt.fill] Performance** - Lazy loading, server-side caching, comprehensive SEO (Open Graph, JSON-LD)
+- **Home** - Executive summary with key findings hero, quick stats, and navigation hub
+- **Analysis** - Complete data visualizations including regional breakdowns, impact comparisons, priority matrices, and interactive maps
+- **Recommendations** - All policy content with financial analysis, implementation timelines, and ROI breakdowns
+- **Methodology** - Technical documentation covering algorithms, KD-tree implementation, and CRS transformations
+- **Data & API** - Complete data dictionary with 7 live RESTful API endpoints and integration guides
+- **Resources** - 20+ curated external tools, HPSA/MUA finders, and facility locators
+- **Premium UX** - Glassmorphic design, mobile navigation, breadcrumbs, back-to-top, Framer Motion animations
+- **Auto-Updating** - Monthly data refresh via GitHub Actions automation
+- **Performance** - Lazy loading, server-side caching, comprehensive SEO (Open Graph, JSON-LD)
 
 **Tech Stack**: Next.js 16 (Vercel) + FastAPI (Railway) + Python 3.13 + GeoPandas + Framer Motion
 
 ---
 
-## [target] Project Overview
+## Project Overview
 
 ### Key Results
 
@@ -62,7 +62,7 @@ The project is deployed as a production web application with **6 comprehensive s
 
 ---
 
-## [globe.americas] Quick Start
+## Quick Start
 
 ### View the Dashboard (Recommended)
 
@@ -121,15 +121,15 @@ pytest tests/ -v
 
 ---
 
-## [chart.bar.fill] Key Features
+## Key Features
 
-### [flask.fill] Advanced Geospatial Analysis
+### Advanced Geospatial Analysis
 - **KD-tree Algorithm**: O(log n) nearest neighbor search for efficient distance calculations
 - **Proper CRS Projections**: CA State Plane Zone 5 (EPSG:2229) for accurate centroids
 - **Validated Data**: 4,512 facilities with 100% coordinate coverage
 - **Multiple Metrics**: Distance-based, density-based, and composite access scores
 
-### [map.fill] Interactive Visualizations
+### Interactive Visualizations
 - **Recharts Analytics**: Regional breakdown bar charts, priority scatter matrices, implementation timelines, impact comparisons
 - **Folium Maps**: Interactive facility locations with custom legends and fullscreen controls
 - **Heatmaps**: Access desert visualization across census tracts with neon styling
@@ -137,8 +137,8 @@ pytest tests/ -v
 - **6-Section Architecture**: Home, Analysis, Recommendations, Methodology, Data & API, Resources with breadcrumb navigation
 - **Performance**: Lazy loading, optimized rendering, responsive mobile-first design
 
-### [paintpalette.fill] Premium User Experience
-- **[moon.stars.fill] Dark Mode**: System-aware theme toggle with neon cyan/purple accents, smooth 300ms transitions
+### Premium User Experience
+- **Dark Mode**: System-aware theme toggle with neon cyan/purple accents, smooth 300ms transitions
 - **Professional Branding**: Custom logo in header, favicons, and Apple touch icons
 - **Glassmorphic Design**: Frosted glass cards with backdrop blur and neon glows in dark mode
 - **Mobile Navigation**: Animated slide-out menu with neon accents and smooth theme transitions
@@ -150,13 +150,13 @@ pytest tests/ -v
 - **Error Handling**: Custom 404 page, skeleton loading states, graceful degradation
 - **Accessibility**: ARIA labels, semantic HTML, keyboard navigation support
 
-### [lightbulb.fill] Policy Recommendations
+### Policy Recommendations
 - **5 Evidence-Based Interventions**: Infrastructure, transportation, equity, services
 - **Priority Ranking**: Critical/High/Medium based on urgency, cost, and impact
 - **Financial Analysis**: Cost estimates, ROI projections, implementation timelines
 - **Optimal Locations**: 10 priority sites for new facilities with geocoded coordinates
 
-### [bolt.fill] Production Infrastructure
+### Production Infrastructure
 - **Full-Stack Deployment**: Next.js (Vercel) + FastAPI (Railway)
 - **CI/CD Pipeline**: Automated testing, monthly data updates
 - **Comprehensive Testing**: 44 passing tests with pytest
@@ -166,7 +166,7 @@ pytest tests/ -v
 
 ---
 
-## [folder.fill] Project Structure
+## Project Structure
 
 ```
 la-healthcare-access-mapping/
@@ -234,7 +234,7 @@ la-healthcare-access-mapping/
 
 ---
 
-## [flask.fill] Testing & Quality
+## Testing & Quality
 
 ### Test Suite
 
@@ -276,7 +276,7 @@ pytest tests/test_analysis.py -v
 
 ---
 
-## [rocket.fill] Deployment
+## Deployment
 
 ### Architecture
 
@@ -331,7 +331,7 @@ See [DEPLOYMENT.md](DEPLOYMENT.md) for complete instructions.
 
 ---
 
-## [chart.line.uptrend.xyaxis] API Endpoints
+## API Endpoints
 
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -350,7 +350,7 @@ curl https://la-healthcare-access-mapping-production.up.railway.app/api/stats
 
 ---
 
-## [graduationcap.fill] Technical Highlights
+## Technical Highlights
 
 ### Algorithms & Methods
 
@@ -379,7 +379,7 @@ curl https://la-healthcare-access-mapping-production.up.railway.app/api/stats
 
 ---
 
-## [books.vertical.fill] Documentation
+## Documentation
 
 | Document | Description |
 |----------|-------------|
@@ -391,7 +391,7 @@ curl https://la-healthcare-access-mapping-production.up.railway.app/api/stats
 
 ---
 
-## [hand.wave.fill] Contributing
+## Contributing
 
 ```bash
 # 1. Create feature branch
@@ -418,7 +418,7 @@ git push origin feature/your-feature-name
 
 ---
 
-## [chart.bar.fill] Project Status
+## Project Status
 
 **Completion: 100% (Production Ready)**
 
@@ -435,7 +435,7 @@ git push origin feature/your-feature-name
 
 ---
 
-## [hands.clap.fill] Acknowledgments
+## Acknowledgments
 
 ### Data Sources
 - **California Department of Public Health** - Healthcare facility data
@@ -453,7 +453,7 @@ git push origin feature/your-feature-name
 
 ---
 
-## [doc.text.fill] Citation
+## Citation
 
 If you use this work, please cite:
 
@@ -469,13 +469,13 @@ If you use this work, please cite:
 
 ---
 
-## [doc.fill] License
+## License
 
 MIT License - See [LICENSE](LICENSE) for details.
 
 ---
 
-## [envelope.fill] Contact
+## Contact
 
 **Caleb Newton**
 - **Email**: calebnew@usc.edu
@@ -487,9 +487,9 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 **Built with Python, powered by open data, driven by the goal of improving healthcare access equity.**
 
-[cross.case.fill] **Live Dashboard**: [la-healthcare-access-mapping.vercel.app](https://la-healthcare-access-mapping.vercel.app/)
-[chart.bar.fill] **Impact**: Supporting 3M+ underserved LA County residents
-[target] **Status**: Production-ready, continuously improving
+**Live Dashboard**: [la-healthcare-access-mapping.vercel.app](https://la-healthcare-access-mapping.vercel.app/)
+**Impact**: Supporting 3M+ underserved LA County residents
+**Status**: Production-ready, continuously improving
 
 ---
 
