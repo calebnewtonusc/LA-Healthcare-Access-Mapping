@@ -56,7 +56,7 @@ class CommunityReportGenerator:
             lines.append("\n" + "=" * 80)
 
             # Introduction
-            lines.append("\n📋 WHAT IS THIS REPORT?")
+            lines.append("\n[pencil.circle] WHAT IS THIS REPORT?")
             lines.append("-" * 80)
             lines.append("""
 This report explains healthcare access in LA County in plain language. We analyzed
@@ -69,7 +69,7 @@ longest distances to travel for care.
 """)
 
             # Current situation
-            lines.append("\n📊 CURRENT SITUATION IN LA COUNTY")
+            lines.append("\n[chart.bar.fill] CURRENT SITUATION IN LA COUNTY")
             lines.append("-" * 80)
 
             total_pop = census_data['total_population'].sum()
@@ -80,13 +80,13 @@ longest distances to travel for care.
 
             lines.append(f"\n✓ Total LA County Residents: {total_pop:,.0f} people")
             lines.append(f"✓ Average Distance to Nearest Healthcare Facility: {avg_distance:.1f} kilometers ({avg_distance * 0.621371:.1f} miles)")
-            lines.append(f"\n⚠️  {len(access_deserts):,} neighborhoods ({len(access_deserts)/len(census_data)*100:.1f}%) are MORE THAN 5 KM (3.1 MILES) from healthcare")
+            lines.append(f"\n[exclamationmark.triangle]  {len(access_deserts):,} neighborhoods ({len(access_deserts)/len(census_data)*100:.1f}%) are MORE THAN 5 KM (3.1 MILES) from healthcare")
             lines.append(f"   → This affects {desert_pop:,.0f} residents ({desert_pop/total_pop*100:.1f}% of LA County)")
             lines.append(f"\n🚨 {len(extreme_deserts):,} neighborhoods are MORE THAN 10 KM (6.2 MILES) from healthcare")
             lines.append(f"   → This is a CRITICAL ACCESS PROBLEM affecting {extreme_deserts['total_population'].sum():,.0f} residents")
 
             # What this means in real terms
-            lines.append("\n\n💡 WHAT DOES THIS MEAN IN REAL LIFE?")
+            lines.append("\n\n[lightbulb.fill] WHAT DOES THIS MEAN IN REAL LIFE?")
             lines.append("-" * 80)
             lines.append("""
 When you live far from healthcare facilities:
@@ -105,7 +105,7 @@ This is especially difficult for:
 """)
 
             # Quick wins
-            lines.append("\n\n🎯 GOOD NEWS: QUICK SOLUTIONS ARE AVAILABLE!")
+            lines.append("\n\n[target] GOOD NEWS: QUICK SOLUTIONS ARE AVAILABLE!")
             lines.append("-" * 80)
             lines.append("""
 Our analysis found that some solutions can start RIGHT AWAY:
@@ -149,7 +149,7 @@ Our analysis found that some solutions can start RIGHT AWAY:
 
             # Recommendations
             if recommendations:
-                lines.append("\n\n📝 COMPLETE LIST OF RECOMMENDATIONS")
+                lines.append("\n\n[pencil.circle] COMPLETE LIST OF RECOMMENDATIONS")
                 lines.append("-" * 80)
 
                 for priority in ['Critical', 'High', 'Medium']:
