@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { scrollReveal } from '@/lib/animations'
 
@@ -17,15 +17,17 @@ export function ScrollReveal({ children, className = '', delay = 0 }: ScrollReve
   })
 
   return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={inView ? 'visible' : 'hidden'}
-      variants={scrollReveal}
-      transition={{ delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+    <LazyMotion features={domAnimation}>
+      <m.div
+        ref={ref}
+        initial="hidden"
+        animate={inView ? 'visible' : 'hidden'}
+        variants={scrollReveal}
+        transition={{ delay }}
+        className={className}
+      >
+        {children}
+      </m.div>
+    </LazyMotion>
   )
 }

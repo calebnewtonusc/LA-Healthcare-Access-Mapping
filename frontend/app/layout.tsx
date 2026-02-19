@@ -134,7 +134,7 @@ export default function RootLayout({
                     <ConnectionIndicator size="sm" className="hidden md:flex" />
                   )}
                   <ThemeToggle />
-                  <nav role="navigation" aria-label="Main navigation" className="hidden md:flex items-center gap-6">
+                  <nav aria-label="Main navigation" className="hidden md:flex items-center gap-6">
                     <Link
                       href="/"
                       className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors font-medium"

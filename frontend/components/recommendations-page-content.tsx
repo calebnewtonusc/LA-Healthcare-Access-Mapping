@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { RecommendationFilters, type FilterState } from './ui/recommendation-filters'
+import { RecommendationFilters, type ExternalFilterState as FilterState } from './ui/recommendation-filters'
 import { ExportMenu } from './ui/export-menu'
 import { RecommendationsList } from './recommendations-list'
 import { EmptyState } from './ui/error-state'
@@ -24,8 +24,8 @@ export function RecommendationsPageContent({ recommendations }: RecommendationsP
     search: '',
     priority: 'all',
     category: 'all',
-    sortBy: 'priority',
-    sortDirection: 'desc',
+    sortBy: 'priority' as const,
+    sortDirection: 'desc' as const,
   })
 
   // Filter and sort recommendations

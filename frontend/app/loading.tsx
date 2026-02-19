@@ -11,8 +11,8 @@ export default function Loading() {
       <div className="mb-10 bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl p-8">
         <div className="h-8 bg-slate-200 rounded-lg w-48 mb-6"></div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white/70 rounded-xl p-5 border border-slate-200">
+          {['finding-1', 'finding-2', 'finding-3'].map((id) => (
+            <div key={id} className="bg-white/70 rounded-xl p-5 border border-slate-200">
               <div className="h-6 bg-slate-200 rounded w-32 mb-3"></div>
               <div className="h-10 bg-slate-200 rounded w-24 mb-2"></div>
               <div className="h-4 bg-slate-200 rounded w-full"></div>
@@ -24,8 +24,8 @@ export default function Loading() {
       {/* Key Metrics Skeleton */}
       <div className="mb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-white/40">
+          {['metric-1', 'metric-2', 'metric-3', 'metric-4'].map((id) => (
+            <div key={id} className="bg-white/70 backdrop-blur-sm rounded-xl p-6 border border-white/40">
               <div className="h-6 bg-slate-200 rounded w-24 mb-3"></div>
               <div className="h-8 bg-slate-200 rounded w-32 mb-2"></div>
               <div className="h-4 bg-slate-200 rounded w-full"></div>
@@ -38,12 +38,12 @@ export default function Loading() {
       <div className="mb-10 bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl p-8">
         <div className="h-8 bg-slate-200 rounded-lg w-64 mb-6"></div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[1, 2].map((i) => (
-            <div key={i} className="bg-white/70 rounded-xl p-6 border border-slate-200">
+          {['comp-left', 'comp-right'].map((id) => (
+            <div key={id} className="bg-white/70 rounded-xl p-6 border border-slate-200">
               <div className="h-6 bg-slate-200 rounded w-40 mb-4"></div>
               <div className="space-y-3">
-                {[1, 2, 3, 4].map((j) => (
-                  <div key={j} className="flex items-start gap-3">
+                {['item-1', 'item-2', 'item-3', 'item-4'].map((jid) => (
+                  <div key={jid} className="flex items-start gap-3">
                     <div className="w-6 h-6 bg-slate-200 rounded-full"></div>
                     <div className="flex-1">
                       <div className="h-5 bg-slate-200 rounded w-32 mb-2"></div>
@@ -69,8 +69,8 @@ export default function Loading() {
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/40">
           <div className="h-7 bg-slate-200 rounded w-56 mb-4"></div>
           <div className="space-y-4">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white/60 rounded-lg p-4 border border-slate-200">
+            {['rec-1', 'rec-2', 'rec-3'].map((id) => (
+              <div key={id} className="bg-white/60 rounded-lg p-4 border border-slate-200">
                 <div className="h-6 bg-slate-200 rounded w-3/4 mb-2"></div>
                 <div className="h-4 bg-slate-200 rounded w-full mb-2"></div>
                 <div className="h-4 bg-slate-200 rounded w-5/6"></div>
@@ -84,8 +84,8 @@ export default function Loading() {
       <div className="bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl p-8">
         <div className="h-8 bg-slate-200 rounded-lg w-72 mb-6"></div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white/70 rounded-xl p-6 border border-slate-200 text-center">
+          {['fin-1', 'fin-2', 'fin-3'].map((id) => (
+            <div key={id} className="bg-white/70 rounded-xl p-6 border border-slate-200 text-center">
               <div className="h-12 bg-slate-200 rounded w-32 mx-auto mb-2"></div>
               <div className="h-4 bg-slate-200 rounded w-40 mx-auto"></div>
             </div>

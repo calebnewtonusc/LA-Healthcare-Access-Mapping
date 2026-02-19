@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { LazyMotion, domAnimation, m } from 'framer-motion'
 import { Users, Building2, FileText, MapPin, Clock } from 'lucide-react'
 import { AnimatedNumber } from './ui/animated-number'
 import { useRealtimeStats } from '@/lib/hooks/use-realtime-stats'
@@ -66,11 +66,12 @@ export function KeyMetrics({ stats: ssrStats }: KeyMetricsProps) {
         </div>
       )}
 
+      <LazyMotion features={domAnimation}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {metrics.map((metric, index) => {
+        {metrics.map((metric) => {
           return (
-            <motion.div
-              key={index}
+            <m.div
+              key={metric.label}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: metric.delay }}
@@ -101,10 +102,11 @@ export function KeyMetrics({ stats: ssrStats }: KeyMetricsProps) {
                   <metric.icon className="w-7 h-7 text-blue-600 dark:text-blue-400" />
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           )
         })}
       </div>
+      </LazyMotion>
 
       {/* Data Freshness Indicator */}
       <div className="mt-4 text-center text-xs text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2 flex-wrap">

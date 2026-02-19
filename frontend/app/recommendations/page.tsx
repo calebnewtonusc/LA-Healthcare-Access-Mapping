@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { RecommendationsPageContent } from '@/components/recommendations-page-content'
 import { PriorityMatrixLazy as PriorityMatrix, ImplementationTimelineLazy as ImplementationTimeline } from '@/components/charts/lazy-charts'
@@ -260,12 +261,12 @@ export default async function RecommendationsPage() {
           <p className="text-slate-700 dark:text-dark-text-secondary mb-6 max-w-2xl mx-auto">
             Learn about the algorithms and methodologies used to generate these recommendations.
           </p>
-          <a
+          <Link
             href="/methodology"
             className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all font-semibold shadow-md hover:shadow-lg"
           >
             View Methodology
-          </a>
+          </Link>
         </div>
       </div>
     </div>

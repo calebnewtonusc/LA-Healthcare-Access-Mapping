@@ -193,8 +193,8 @@ export default function APIDocsPage() {
 
         {/* Endpoints */}
         <div className="space-y-6">
-          {endpoints.map((endpoint, idx) => (
-            <div key={idx} className="relative group">
+          {endpoints.map((endpoint) => (
+            <div key={endpoint.path} className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl blur-sm opacity-30 group-hover:opacity-50 transition-opacity"></div>
 
               <div className="relative bg-white dark:bg-dark-bg-secondary/80 dark:bg-dark-bg-secondary/80 backdrop-blur-md border border-white/60 dark:border-neon-cyan/30 rounded-2xl p-6 shadow-lg dark:shadow-neon-cyan/20 transition-colors duration-300">

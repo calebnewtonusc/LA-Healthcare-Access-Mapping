@@ -7,7 +7,7 @@
  * Wraps the application to provide real-time data to all child components.
  */
 
-import { createContext, useContext, useEffect, useRef, ReactNode } from 'react'
+import { createContext, useEffect, useRef, ReactNode } from 'react'
 import { getSocketClient } from '@/lib/websocket/socket-client'
 import { useRealtimeStore } from '@/lib/stores/realtime-store'
 import type { Socket } from 'socket.io-client'
@@ -27,8 +27,6 @@ interface WebSocketContextValue {
 const WebSocketContext = createContext<WebSocketContextValue>({
   isEnabled: false,
 })
-
-export const useWebSocket = () => useContext(WebSocketContext)
 
 // ============================================================================
 // Provider Props
@@ -128,11 +126,3 @@ export function WebSocketProvider({ children, enabled = true }: WebSocketProvide
   )
 }
 
-// ============================================================================
-// Hook to access socket directly (if needed)
-// ============================================================================
-
-export function useSocketInstance() {
-  const socketClient = getSocketClient()
-  return socketClient.getSocket()
-}

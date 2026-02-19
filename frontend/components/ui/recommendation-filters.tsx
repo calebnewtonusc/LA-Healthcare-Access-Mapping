@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useReducer } from 'react'
 import { Search, X, SlidersHorizontal, ArrowUpDown } from 'lucide-react'
 
 export interface FilterState {
@@ -9,10 +9,50 @@ export interface FilterState {
   category: string
   sortBy: 'priority' | 'cost' | 'impact' | 'roi'
   sortDirection: 'asc' | 'desc'
+  showFilters: boolean
 }
 
+type FilterAction =
+  | { type: 'SET_SEARCH'; payload: string }
+  | { type: 'SET_PRIORITY'; payload: string }
+  | { type: 'SET_CATEGORY'; payload: string }
+  | { type: 'SET_SORT'; payload: { sortBy: FilterState['sortBy']; sortDirection: FilterState['sortDirection'] } }
+  | { type: 'TOGGLE_FILTERS' }
+  | { type: 'CLEAR_ALL' }
+
+const initialState: FilterState = {
+  search: '',
+  priority: 'all',
+  category: 'all',
+  sortBy: 'priority',
+  sortDirection: 'desc',
+  showFilters: false,
+}
+
+function filterReducer(state: FilterState, action: FilterAction): FilterState {
+  switch (action.type) {
+    case 'SET_SEARCH':
+      return { ...state, search: action.payload }
+    case 'SET_PRIORITY':
+      return { ...state, priority: action.payload }
+    case 'SET_CATEGORY':
+      return { ...state, category: action.payload }
+    case 'SET_SORT':
+      return { ...state, sortBy: action.payload.sortBy, sortDirection: action.payload.sortDirection }
+    case 'TOGGLE_FILTERS':
+      return { ...state, showFilters: !state.showFilters }
+    case 'CLEAR_ALL':
+      return { ...initialState, showFilters: state.showFilters }
+    default:
+      return state
+  }
+}
+
+// External FilterState excludes showFilters (internal UI state only)
+export type ExternalFilterState = Omit<FilterState, 'showFilters'>
+
 interface RecommendationFiltersProps {
-  onFilterChange: (filters: FilterState) => void
+  onFilterChange: (filters: ExternalFilterState) => void
   totalResults: number
   filteredResults: number
 }
@@ -22,60 +62,53 @@ export function RecommendationFilters({
   totalResults,
   filteredResults,
 }: RecommendationFiltersProps) {
-  const [search, setSearch] = useState('')
-  const [priority, setPriority] = useState('all')
-  const [category, setCategory] = useState('all')
-  const [sortBy, setSortBy] = useState<FilterState['sortBy']>('priority')
-  const [sortDirection, setSortDirection] = useState<FilterState['sortDirection']>('desc')
-  const [showFilters, setShowFilters] = useState(false)
+  const [state, dispatch] = useReducer(filterReducer, initialState)
 
-  const applyFilters = (updates: Partial<FilterState>) => {
-    const newFilters: FilterState = {
-      search: updates.search ?? search,
-      priority: updates.priority ?? priority,
-      category: updates.category ?? category,
-      sortBy: updates.sortBy ?? sortBy,
-      sortDirection: updates.sortDirection ?? sortDirection,
-    }
-    onFilterChange(newFilters)
+  const { search, priority, category, sortBy, sortDirection, showFilters } = state
+
+  const notify = (nextState: FilterState) => {
+    const { showFilters: _, ...external } = nextState
+    onFilterChange(external)
   }
 
   const handleSearchChange = (value: string) => {
-    setSearch(value)
-    applyFilters({ search: value })
+    const next = filterReducer(state, { type: 'SET_SEARCH', payload: value })
+    dispatch({ type: 'SET_SEARCH', payload: value })
+    notify(next)
   }
 
   const handlePriorityChange = (value: string) => {
-    setPriority(value)
-    applyFilters({ priority: value })
+    const next = filterReducer(state, { type: 'SET_PRIORITY', payload: value })
+    dispatch({ type: 'SET_PRIORITY', payload: value })
+    notify(next)
   }
 
   const handleCategoryChange = (value: string) => {
-    setCategory(value)
-    applyFilters({ category: value })
+    const next = filterReducer(state, { type: 'SET_CATEGORY', payload: value })
+    dispatch({ type: 'SET_CATEGORY', payload: value })
+    notify(next)
   }
 
   const handleSortChange = (newSortBy: FilterState['sortBy']) => {
-    // Toggle direction if clicking same sort field
-    const newDirection = sortBy === newSortBy && sortDirection === 'desc' ? 'asc' : 'desc'
-    setSortBy(newSortBy)
-    setSortDirection(newDirection)
-    applyFilters({ sortBy: newSortBy, sortDirection: newDirection })
+    const newDirection: 'asc' | 'desc' = sortBy === newSortBy && sortDirection === 'desc' ? 'asc' : 'desc'
+    const payload = { sortBy: newSortBy, sortDirection: newDirection }
+    const next = filterReducer(state, { type: 'SET_SORT', payload })
+    dispatch({ type: 'SET_SORT', payload })
+    notify(next)
+  }
+
+  const handleReverseOrder = () => {
+    const newDirection: 'asc' | 'desc' = sortDirection === 'desc' ? 'asc' : 'desc'
+    const payload = { sortBy, sortDirection: newDirection }
+    const next = filterReducer(state, { type: 'SET_SORT', payload })
+    dispatch({ type: 'SET_SORT', payload })
+    notify(next)
   }
 
   const clearAllFilters = () => {
-    setSearch('')
-    setPriority('all')
-    setCategory('all')
-    setSortBy('priority')
-    setSortDirection('desc')
-    onFilterChange({
-      search: '',
-      priority: 'all',
-      category: 'all',
-      sortBy: 'priority',
-      sortDirection: 'desc',
-    })
+    const next = filterReducer(state, { type: 'CLEAR_ALL' })
+    dispatch({ type: 'CLEAR_ALL' })
+    notify(next)
   }
 
   const hasActiveFilters = search !== '' || priority !== 'all' || category !== 'all'
@@ -119,7 +152,7 @@ export function RecommendationFilters({
       {/* Filter Toggle Button */}
       <div className="px-4 pb-4 flex items-center justify-between">
         <button
-          onClick={() => setShowFilters(!showFilters)}
+          onClick={() => dispatch({ type: 'TOGGLE_FILTERS' })}
           className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
           aria-expanded={showFilters}
           aria-controls="filter-panel"
@@ -202,79 +235,33 @@ export function RecommendationFilters({
 
           {/* Sort Options */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <p className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Sort By
-            </label>
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => handleSortChange('priority')}
-                className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  sortBy === 'priority'
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800'
-                }`}
-                aria-pressed={sortBy === 'priority'}
-              >
-                Priority
-                {sortBy === 'priority' && (
-                  <ArrowUpDown className="w-3.5 h-3.5" aria-hidden="true" />
-                )}
-              </button>
-
-              <button
-                onClick={() => handleSortChange('cost')}
-                className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  sortBy === 'cost'
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800'
-                }`}
-                aria-pressed={sortBy === 'cost'}
-              >
-                Cost
-                {sortBy === 'cost' && (
-                  <ArrowUpDown className="w-3.5 h-3.5" aria-hidden="true" />
-                )}
-              </button>
-
-              <button
-                onClick={() => handleSortChange('impact')}
-                className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  sortBy === 'impact'
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800'
-                }`}
-                aria-pressed={sortBy === 'impact'}
-              >
-                Impact
-                {sortBy === 'impact' && (
-                  <ArrowUpDown className="w-3.5 h-3.5" aria-hidden="true" />
-                )}
-              </button>
-
-              <button
-                onClick={() => handleSortChange('roi')}
-                className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  sortBy === 'roi'
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800'
-                }`}
-                aria-pressed={sortBy === 'roi'}
-              >
-                ROI
-                {sortBy === 'roi' && (
-                  <ArrowUpDown className="w-3.5 h-3.5" aria-hidden="true" />
-                )}
-              </button>
+            </p>
+            <div role="group" aria-label="Sort options" className="flex flex-wrap gap-2">
+              {(['priority', 'cost', 'impact', 'roi'] as const).map((field) => (
+                <button
+                  key={field}
+                  onClick={() => handleSortChange(field)}
+                  className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    sortBy === field
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  }`}
+                  aria-pressed={sortBy === field}
+                >
+                  {field.charAt(0).toUpperCase() + field.slice(1)}
+                  {sortBy === field && (
+                    <ArrowUpDown className="w-3.5 h-3.5" aria-hidden="true" />
+                  )}
+                </button>
+              ))}
             </div>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
               {sortDirection === 'desc' ? 'Highest to lowest' : 'Lowest to highest'}
               {' • '}
               <button
-                onClick={() => {
-                  const newDirection = sortDirection === 'desc' ? 'asc' : 'desc'
-                  setSortDirection(newDirection)
-                  applyFilters({ sortDirection: newDirection })
-                }}
+                onClick={handleReverseOrder}
                 className="text-blue-600 dark:text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
               >
                 Reverse order

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Building2, Bus, Scale, TrendingUp, ChevronDown, Users, DollarSign, Clock as ClockIcon, Target, AlertCircle, AlertTriangle, Info } from 'lucide-react'
 import { useRealtimeRecommendations } from '@/lib/hooks/use-realtime-recommendations'
 import { useTimeSinceUpdate } from '@/lib/stores/realtime-store'
@@ -79,9 +80,18 @@ export function RecommendationsList({ recommendations: ssrRecommendations }: Rec
 
             return (
               <div
-                key={index}
+                key={rec.Title || index}
                 className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-blue-300 dark:hover:border-blue-600 transition-colors cursor-pointer"
                 onClick={() => toggleExpand(index)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    toggleExpand(index)
+                  }
+                }}
+                aria-expanded={isExpanded}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3 flex-1">
@@ -188,9 +198,9 @@ export function RecommendationsList({ recommendations: ssrRecommendations }: Rec
                         <br/><br/>
                         <strong className="text-gray-900 dark:text-dark-text-primary">Timeline:</strong> Based on typical implementation phases: Immediate (0-6 months), Short-term (6-18 months), Medium-term (1.5-3 years), Long-term (3+ years).
                         <br/><br/>
-                        <a href="/about" className="text-blue-600 dark:text-blue-400 hover:underline text-xs">
+                        <Link href="/about" className="text-blue-600 dark:text-blue-400 hover:underline text-xs">
                           View full methodology & data sources →
-                        </a>
+                        </Link>
                       </p>
                     </div>
                   </div>

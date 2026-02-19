@@ -62,9 +62,9 @@ export function AccessibleChartWrapper({
             <caption className="sr-only">{title} - Data Table</caption>
             <thead className="bg-gray-50 dark:bg-gray-800">
               <tr>
-                {dataTable.headers.map((header, index) => (
+                {dataTable.headers.map((header) => (
                   <th
-                    key={index}
+                    key={header}
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider"
                   >
@@ -74,8 +74,8 @@ export function AccessibleChartWrapper({
               </tr>
             </thead>
             <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
-              {dataTable.rows.map((row, rowIndex) => (
-                <tr key={rowIndex}>
+              {dataTable.rows.map((row) => (
+                <tr key={String(row[0])}>
                   {row.map((cell, cellIndex) => (
                     <td
                       key={cellIndex}

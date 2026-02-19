@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X, Home, BookOpen, Info, ChevronDown } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion'
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false)
@@ -26,26 +26,27 @@ export function MobileNav() {
       </button>
 
       {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-slate-900/50 dark:bg-black/70 backdrop-blur-sm z-40 md:hidden"
-            />
+      <LazyMotion features={domAnimation}>
+        <AnimatePresence>
+          {isOpen && (
+            <>
+              {/* Backdrop */}
+              <m.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setIsOpen(false)}
+                className="fixed inset-0 bg-slate-900/50 dark:bg-black/70 backdrop-blur-sm z-40 md:hidden"
+              />
 
-            {/* Menu Panel */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 h-full w-64 bg-white/95 dark:bg-dark-bg-secondary/95 backdrop-blur-xl border-l border-slate-200 dark:border-neon-cyan/30 shadow-2xl dark:shadow-neon-cyan z-50 md:hidden"
-            >
+              {/* Menu Panel */}
+              <m.div
+                initial={{ x: '100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '100%' }}
+                transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+                className="fixed top-0 right-0 h-full w-64 bg-white/95 dark:bg-dark-bg-secondary/95 backdrop-blur-xl border-l border-slate-200 dark:border-neon-cyan/30 shadow-2xl dark:shadow-neon-cyan z-50 md:hidden"
+              >
               <div className="flex flex-col h-full">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-700">
@@ -158,10 +159,11 @@ export function MobileNav() {
                   </p>
                 </div>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+              </m.div>
+            </>
+          )}
+        </AnimatePresence>
+      </LazyMotion>
     </>
   )
 }

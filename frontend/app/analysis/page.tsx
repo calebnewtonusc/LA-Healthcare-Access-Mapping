@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Breadcrumbs } from '@/components/breadcrumbs'
 import { KeyMetrics } from '@/components/key-metrics'
 import { FacilityMapSection } from '@/components/facility-map-section'
@@ -81,9 +82,9 @@ export default async function AnalysisPage() {
             <div className="text-sm text-yellow-800 dark:text-yellow-300">
               <strong>Educational Analysis:</strong> This analysis uses simplified distance calculations and has ±30-50% uncertainty.
               Data is from Oct 2024 (facilities) and 2020 Census (population).{' '}
-              <a href="/limitations" className="underline font-semibold hover:text-yellow-900 dark:hover:text-yellow-100">
+              <Link href="/limitations" className="underline font-semibold hover:text-yellow-900 dark:hover:text-yellow-100">
                 See full limitations →
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -105,7 +106,7 @@ export default async function AnalysisPage() {
                 </p>
                 <p className="text-xs text-red-600 dark:text-red-500 mt-2">
                   This is a static demo site—the backend is not always running. Try refreshing in a few minutes or view the{' '}
-                  <a href="/methodology" className="underline font-semibold">methodology</a> for technical details.
+                  <Link href="/methodology" className="underline font-semibold">methodology</Link> for technical details.
                 </p>
               </div>
             </div>

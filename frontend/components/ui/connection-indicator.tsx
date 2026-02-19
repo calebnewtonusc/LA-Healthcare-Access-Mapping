@@ -7,7 +7,7 @@
  * Shows connection state: connected (green), reconnecting (yellow), disconnected/error (red)
  */
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion'
 import { Wifi, WifiOff, AlertCircle } from 'lucide-react'
 import { useRealtimeStore, selectConnectionStatus } from '@/lib/stores/realtime-store'
 import type { ConnectionStatus } from '@/lib/websocket/types'
@@ -36,60 +36,62 @@ export function ConnectionIndicator({
   const statusConfig = getStatusConfig(connectionStatus)
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className={`flex items-center gap-2 ${className}`}
-    >
-      {/* Pulsing dot indicator */}
-      <div className="relative flex items-center justify-center">
-        {/* Pulse ring */}
-        <AnimatePresence>
-          {connectionStatus === 'connected' && (
-            <motion.div
-              initial={{ scale: 1, opacity: 0.5 }}
-              animate={{ scale: 2, opacity: 0 }}
-              exit={{ scale: 1, opacity: 0 }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                ease: 'easeOut',
-              }}
-              className={`absolute ${sizeClasses[size]} rounded-full ${statusConfig.bgClass}`}
-            />
-          )}
-        </AnimatePresence>
+    <LazyMotion features={domAnimation}>
+      <m.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className={`flex items-center gap-2 ${className}`}
+      >
+        {/* Pulsing dot indicator */}
+        <div className="relative flex items-center justify-center">
+          {/* Pulse ring */}
+          <AnimatePresence>
+            {connectionStatus === 'connected' && (
+              <m.div
+                initial={{ scale: 1, opacity: 0.5 }}
+                animate={{ scale: 2, opacity: 0 }}
+                exit={{ scale: 1, opacity: 0 }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: 'easeOut',
+                }}
+                className={`absolute ${sizeClasses[size]} rounded-full ${statusConfig.bgClass}`}
+              />
+            )}
+          </AnimatePresence>
 
-        {/* Dot */}
-        <motion.div
-          animate={{
-            scale: connectionStatus === 'reconnecting' ? [1, 1.2, 1] : 1,
-          }}
-          transition={{
-            duration: 1,
-            repeat: connectionStatus === 'reconnecting' ? Infinity : 0,
-            ease: 'easeInOut',
-          }}
-          className={`${sizeClasses[size]} rounded-full ${statusConfig.bgClass}`}
+          {/* Dot */}
+          <m.div
+            animate={{
+              scale: connectionStatus === 'reconnecting' ? [1, 1.2, 1] : 1,
+            }}
+            transition={{
+              duration: 1,
+              repeat: connectionStatus === 'reconnecting' ? Infinity : 0,
+              ease: 'easeInOut',
+            }}
+            className={`${sizeClasses[size]} rounded-full ${statusConfig.bgClass}`}
+          />
+        </div>
+
+        {/* Icon */}
+        <statusConfig.Icon
+          className={`${size === 'sm' ? 'w-4 h-4' : size === 'md' ? 'w-5 h-5' : 'w-6 h-6'} ${statusConfig.textClass}`}
         />
-      </div>
 
-      {/* Icon */}
-      <statusConfig.Icon
-        className={`${size === 'sm' ? 'w-4 h-4' : size === 'md' ? 'w-5 h-5' : 'w-6 h-6'} ${statusConfig.textClass}`}
-      />
-
-      {/* Label */}
-      {showLabel && (
-        <span
-          className={`text-sm font-medium ${statusConfig.textClass} ${
-            size === 'sm' ? 'text-xs' : ''
-          }`}
-        >
-          {statusConfig.label}
-        </span>
-      )}
-    </motion.div>
+        {/* Label */}
+        {showLabel && (
+          <span
+            className={`text-sm font-medium ${statusConfig.textClass} ${
+              size === 'sm' ? 'text-xs' : ''
+            }`}
+          >
+            {statusConfig.label}
+          </span>
+        )}
+      </m.div>
+    </LazyMotion>
   )
 }
 
@@ -131,10 +133,3 @@ function getStatusConfig(status: ConnectionStatus) {
   }
 }
 
-// ============================================================================
-// Compact Variant (just the dot)
-// ============================================================================
-
-export function ConnectionIndicatorDot({ size = 'md' }: Pick<ConnectionIndicatorProps, 'size'>) {
-  return <ConnectionIndicator showLabel={false} size={size} />
-}

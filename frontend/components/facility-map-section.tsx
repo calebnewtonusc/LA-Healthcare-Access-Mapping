@@ -86,7 +86,7 @@ export function FacilityMapSection({ facilities: ssrFacilities }: FacilityMapSec
               const badge = getRankBadge(index)
               return (
                 <div
-                  key={index}
+                  key={facility.geoid || facility.tract_name || index}
                   className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-blue-300 dark:hover:border-blue-600 transition-colors"
                 >
                   <div className="flex items-start justify-between gap-4">

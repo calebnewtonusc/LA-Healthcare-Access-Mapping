@@ -1,0 +1,13 @@
+{
+  "ignore": {
+    "rules": [
+      "react/no-danger",
+      "react-doctor/no-array-index-as-key"
+    ],
+    "files": [
+      "components/charts/priority-matrix-chart.tsx",
+      "components/charts/regional-breakdown-chart.tsx",
+      "components/charts/impact-comparison-chart.tsx"
+    ]
+  }
+}

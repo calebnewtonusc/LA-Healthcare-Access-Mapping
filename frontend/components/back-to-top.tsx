@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { ArrowUp } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { LazyMotion, domAnimation, m, AnimatePresence } from 'framer-motion'
 
 export function BackToTop() {
   const [isVisible, setIsVisible] = useState(false)
@@ -16,7 +16,7 @@ export function BackToTop() {
       }
     }
 
-    window.addEventListener('scroll', toggleVisibility)
+    window.addEventListener('scroll', toggleVisibility, { passive: true })
     return () => window.removeEventListener('scroll', toggleVisibility)
   }, [])
 
@@ -28,22 +28,24 @@ export function BackToTop() {
   }
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 p-3 bg-gradient-to-br from-blue-600 to-purple-600 dark:from-neon-cyan dark:to-neon-purple text-white rounded-full shadow-lg hover:shadow-xl dark:hover:shadow-neon-cyan hover:from-blue-700 hover:to-purple-700 dark:hover:from-neon-cyan dark:hover:to-neon-purple transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-blue-400 dark:focus:ring-neon-cyan focus:ring-offset-2"
-          aria-label="Scroll to top of page"
-          title="Scroll to top"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <ArrowUp className="w-6 h-6 group-hover:-translate-y-0.5 transition-transform" />
-        </motion.button>
-      )}
-    </AnimatePresence>
+    <LazyMotion features={domAnimation}>
+      <AnimatePresence>
+        {isVisible && (
+          <m.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 z-40 p-3 bg-gradient-to-br from-blue-600 to-purple-600 dark:from-neon-cyan dark:to-neon-purple text-white rounded-full shadow-lg hover:shadow-xl dark:hover:shadow-neon-cyan hover:from-blue-700 hover:to-purple-700 dark:hover:from-neon-cyan dark:hover:to-neon-purple transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-blue-400 dark:focus:ring-neon-cyan focus:ring-offset-2"
+            aria-label="Scroll to top of page"
+            title="Scroll to top"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ArrowUp className="w-6 h-6 group-hover:-translate-y-0.5 transition-transform" />
+          </m.button>
+        )}
+      </AnimatePresence>
+    </LazyMotion>
   )
 }

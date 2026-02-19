@@ -75,7 +75,7 @@ export function ImplementationTimeline() {
             const statusColor = statusConfig[phase.status as keyof typeof statusConfig].color
 
             return (
-              <div key={idx} className="relative">
+              <div key={phase.phase} className="relative">
                 {/* Timeline connector */}
                 {idx < phases.length - 1 && (
                   <div className="absolute left-5 top-14 bottom-0 w-0.5 bg-gradient-to-b from-slate-300 dark:from-slate-600 to-transparent"></div>
@@ -102,8 +102,8 @@ export function ImplementationTimeline() {
 
                   {/* Phase Items */}
                   <div className="space-y-2 mb-3 ml-14">
-                    {phase.items.map((item, itemIdx) => (
-                      <div key={itemIdx} className="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-dark-bg-secondary rounded">
+                    {phase.items.map((item) => (
+                      <div key={item.name} className="flex items-center justify-between py-2 px-3 bg-gray-50 dark:bg-dark-bg-secondary rounded">
                         <div className="flex-1">
                           <p className="text-sm text-gray-900 dark:text-dark-text-primary">{item.name}</p>
                         </div>
