@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { BarChart3, MapPin, Lightbulb, Database, ExternalLink, AlertTriangle, Clock, ArrowRight, Share2, BookOpen, Building2, CheckCircle, X } from 'lucide-react'
 import { useRealtimeStats } from '@/lib/hooks/use-realtime-stats'
@@ -17,11 +18,33 @@ interface Stats {
 // ---- Sub-components ----
 
 function ResearchDisclaimer() {
+  const [dismissed, setDismissed] = useState(false)
+
+  // On mount check if user already dismissed in this session
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem('disclaimer-dismissed') === '1') {
+        setDismissed(true)
+      }
+    } catch { /* sessionStorage may be blocked */ }
+  }, [])
+
+  const dismiss = () => {
+    setDismissed(true)
+    try { sessionStorage.setItem('disclaimer-dismissed', '1') } catch { /* ignore */ }
+  }
+
+  if (dismissed) return null
+
   return (
-    <div className="mb-10 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded">
+    <div
+      className="mb-10 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 rounded-lg"
+      role="note"
+      aria-label="Educational research disclaimer"
+    >
       <div className="flex gap-3">
-        <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
-        <div>
+        <AlertTriangle className="h-5 w-5 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
+        <div className="flex-1">
           <h3 className="font-semibold text-yellow-900 dark:text-yellow-200 mb-1">
             Educational Research Project
           </h3>
@@ -30,10 +53,17 @@ function ResearchDisclaimer() {
             It has not been peer-reviewed or validated by public health experts.
             Data estimates have <strong>±30-50% uncertainty</strong>.{' '}
             <Link href="/limitations" className="underline hover:text-yellow-900 dark:hover:text-yellow-100 font-semibold">
-              See full list of limitations →
+              See full list of limitations
             </Link>
           </p>
         </div>
+        <button
+          onClick={dismiss}
+          aria-label="Dismiss disclaimer"
+          className="text-yellow-600 dark:text-yellow-400 hover:text-yellow-800 dark:hover:text-yellow-200 transition-colors p-0.5 rounded focus-visible:ring-2 focus-visible:ring-yellow-500"
+        >
+          <X className="h-4 w-4" aria-hidden="true" />
+        </button>
       </div>
     </div>
   )
@@ -42,16 +72,20 @@ function ResearchDisclaimer() {
 function DashboardTitle() {
   return (
     <div className="mb-12 text-center">
-      <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-3">
+      <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-full text-xs font-semibold text-blue-700 dark:text-blue-300 mb-4 uppercase tracking-wider">
+        Educational Research Project
+      </div>
+      <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">
         LA Healthcare Access Dashboard
       </h1>
-      <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-2">
-        GIS Analysis & Visualization Project | Educational Demo
+      <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-3">
+        GIS Analysis &amp; Visualization Project — Interactive Educational Demo
       </p>
-      <p className="text-base text-gray-500 dark:text-gray-500 max-w-3xl mx-auto">
-        Interactive geospatial analysis exploring healthcare facility access across Los Angeles County&apos;s{' '}
-        <span className="font-semibold text-gray-700 dark:text-gray-300">2,498 census tracts</span>, serving{' '}
-        <span className="font-semibold text-gray-700 dark:text-gray-300">9.9 million residents</span>
+      <p className="text-base text-gray-500 dark:text-gray-500 max-w-3xl mx-auto leading-relaxed">
+        Geospatial analysis exploring healthcare facility access across Los Angeles County&apos;s{' '}
+        <span className="font-semibold text-blue-700 dark:text-blue-400 tabular-nums">2,498 census tracts</span>,
+        serving an estimated{' '}
+        <span className="font-semibold text-blue-700 dark:text-blue-400">9.9 million residents</span>
       </p>
     </div>
   )
@@ -127,37 +161,38 @@ function KeyFindings({ stats }: { stats: Stats | null }) {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-        <div className="text-center p-4 bg-gray-50 dark:bg-dark-bg-tertiary rounded border border-gray-200 dark:border-gray-700">
-          <div className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Healthcare Facilities Analyzed</div>
-          <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+        <div className="text-center p-5 bg-blue-50 dark:bg-blue-900/10 rounded-lg border border-blue-200 dark:border-blue-800 hover:shadow-sm transition-shadow">
+          <div className="text-sm font-medium text-blue-700 dark:text-blue-400 mb-1">Healthcare Facilities Analyzed</div>
+          <div className="text-3xl font-bold text-blue-900 dark:text-blue-200 mb-1 tabular-nums">
             {(stats?.total_facilities || 4512).toLocaleString()}
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-500">Across LA County (Oct 2024 data)</div>
+          <div className="text-xs text-blue-600/70 dark:text-blue-400/70">Across LA County (Oct 2024 data)</div>
         </div>
 
-        <div className="text-center p-4 bg-gray-50 dark:bg-dark-bg-tertiary rounded border border-gray-200 dark:border-gray-700">
-          <div className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Potential Access Gaps</div>
-          <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+        <div className="text-center p-5 bg-red-50 dark:bg-red-900/10 rounded-lg border border-red-200 dark:border-red-800 hover:shadow-sm transition-shadow">
+          <div className="text-sm font-medium text-red-700 dark:text-red-400 mb-1">Potential Access Gaps</div>
+          <div className="text-3xl font-bold text-red-900 dark:text-red-200 mb-1 tabular-nums">
             {(stats?.access_desert_population || 80831).toLocaleString()}
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-500">Residents living &gt;5km from nearest facility</div>
+          <div className="text-xs text-red-600/70 dark:text-red-400/70">Residents living &gt;5km from nearest facility</div>
         </div>
 
-        <div className="text-center p-4 bg-gray-50 dark:bg-dark-bg-tertiary rounded border border-gray-200 dark:border-gray-700">
-          <div className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">Average Distance</div>
-          <div className="text-3xl font-bold text-gray-900 dark:text-white mb-1">
+        <div className="text-center p-5 bg-green-50 dark:bg-green-900/10 rounded-lg border border-green-200 dark:border-green-800 hover:shadow-sm transition-shadow">
+          <div className="text-sm font-medium text-green-700 dark:text-green-400 mb-1">Average Distance</div>
+          <div className="text-3xl font-bold text-green-900 dark:text-green-200 mb-1 tabular-nums">
             {(stats?.avg_distance_km || 0.88).toFixed(2)} km
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-500">Straight-line distance (not travel time)</div>
+          <div className="text-xs text-green-600/70 dark:text-green-400/70">Straight-line distance (not travel time)</div>
         </div>
       </div>
 
       <div className="text-center">
         <Link
           href="/analysis"
-          className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded font-medium transition-colors"
+          className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white px-6 py-2.5 rounded-lg font-semibold transition-colors shadow-sm hover:shadow-md focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
         >
-          Explore Full Analysis →
+          Explore Full Analysis
+          <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </Link>
       </div>
     </div>
@@ -165,35 +200,80 @@ function KeyFindings({ stats }: { stats: Stats | null }) {
 }
 
 function QuickStats({ stats }: { stats: Stats | null }) {
+  const items = [
+    { value: (stats?.total_facilities || 4512).toLocaleString(), label: 'Healthcare Facilities', color: 'text-blue-600 dark:text-blue-400' },
+    { value: (stats?.census_tracts || 2498).toLocaleString(), label: 'Census Tracts', color: 'text-purple-600 dark:text-purple-400' },
+    { value: `${(stats?.avg_distance_km || 0.88).toFixed(2)} km`, label: 'Avg Distance', color: 'text-green-600 dark:text-green-400' },
+    { value: (stats?.facility_density || 4.5).toFixed(1), label: 'Per 10K Residents', color: 'text-orange-600 dark:text-orange-400' },
+  ]
+
   return (
-    <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div className="text-center p-3 bg-gray-50 dark:bg-dark-bg-tertiary rounded border border-gray-200 dark:border-gray-700">
-        <div className="text-2xl font-bold text-gray-900 dark:text-white">
-          {(stats?.total_facilities || 4512).toLocaleString()}
+    <div className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-4" aria-label="Quick statistics overview">
+      {items.map((item) => (
+        <div
+          key={item.label}
+          className="text-center p-4 bg-gray-50 dark:bg-dark-bg-tertiary rounded-lg border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-sm transition-all duration-200"
+        >
+          <div className={`text-2xl font-bold tabular-nums ${item.color}`}>
+            {item.value}
+          </div>
+          <div className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">{item.label}</div>
         </div>
-        <div className="text-xs text-gray-600 dark:text-gray-400">Healthcare Facilities</div>
-      </div>
-      <div className="text-center p-3 bg-gray-50 dark:bg-dark-bg-tertiary rounded border border-gray-200 dark:border-gray-700">
-        <div className="text-2xl font-bold text-gray-900 dark:text-white">
-          {(stats?.census_tracts || 2498).toLocaleString()}
-        </div>
-        <div className="text-xs text-gray-600 dark:text-gray-400">Census Tracts</div>
-      </div>
-      <div className="text-center p-3 bg-gray-50 dark:bg-dark-bg-tertiary rounded border border-gray-200 dark:border-gray-700">
-        <div className="text-2xl font-bold text-gray-900 dark:text-white">
-          {(stats?.avg_distance_km || 0.88).toFixed(2)} km
-        </div>
-        <div className="text-xs text-gray-600 dark:text-gray-400">Avg Distance</div>
-      </div>
-      <div className="text-center p-3 bg-gray-50 dark:bg-dark-bg-tertiary rounded border border-gray-200 dark:border-gray-700">
-        <div className="text-2xl font-bold text-gray-900 dark:text-white">
-          {(stats?.facility_density || 4.5).toFixed(1)}
-        </div>
-        <div className="text-xs text-gray-600 dark:text-gray-400">Per 10K Residents</div>
-      </div>
+      ))}
     </div>
   )
 }
+
+const navItems = [
+  {
+    href: '/analysis',
+    icon: BarChart3,
+    iconColor: 'text-blue-600 dark:text-blue-400',
+    iconBg: 'bg-blue-50 dark:bg-blue-900/20',
+    label: 'Data Analysis',
+    desc: 'Interactive charts and regional breakdowns',
+  },
+  {
+    href: '/recommendations',
+    icon: Lightbulb,
+    iconColor: 'text-amber-600 dark:text-amber-400',
+    iconBg: 'bg-amber-50 dark:bg-amber-900/20',
+    label: 'Policy Recommendations',
+    desc: 'Evidence-based interventions and ROI analysis',
+  },
+  {
+    href: '/methodology',
+    icon: Database,
+    iconColor: 'text-purple-600 dark:text-purple-400',
+    iconBg: 'bg-purple-50 dark:bg-purple-900/20',
+    label: 'Methodology',
+    desc: 'Technical implementation details',
+  },
+  {
+    href: '/data',
+    icon: Database,
+    iconColor: 'text-teal-600 dark:text-teal-400',
+    iconBg: 'bg-teal-50 dark:bg-teal-900/20',
+    label: 'Data & API',
+    desc: 'Complete data dictionary and API docs',
+  },
+  {
+    href: '/resources',
+    icon: ExternalLink,
+    iconColor: 'text-green-600 dark:text-green-400',
+    iconBg: 'bg-green-50 dark:bg-green-900/20',
+    label: 'External Resources',
+    desc: 'Curated tools and facility locators',
+  },
+  {
+    href: '/analysis#maps',
+    icon: MapPin,
+    iconColor: 'text-red-600 dark:text-red-400',
+    iconBg: 'bg-red-50 dark:bg-red-900/20',
+    label: 'Interactive Maps',
+    desc: 'Facility locations and access heatmaps',
+  },
+]
 
 function DashboardNav() {
   return (
@@ -201,65 +281,27 @@ function DashboardNav() {
       <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Explore the Dashboard</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <Link href="/analysis" className="block p-4 bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded hover:border-gray-300 dark:hover:border-gray-600 transition-colors">
-          <div className="flex items-start gap-3">
-            <BarChart3 className="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" />
-            <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Data Analysis</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Interactive charts and regional breakdowns</p>
-            </div>
-          </div>
-        </Link>
-
-        <Link href="/recommendations" className="block p-4 bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded hover:border-gray-300 dark:hover:border-gray-600 transition-colors">
-          <div className="flex items-start gap-3">
-            <Lightbulb className="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" />
-            <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Policy Recommendations</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Evidence-based interventions and ROI analysis</p>
-            </div>
-          </div>
-        </Link>
-
-        <Link href="/methodology" className="block p-4 bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded hover:border-gray-300 dark:hover:border-gray-600 transition-colors">
-          <div className="flex items-start gap-3">
-            <Database className="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" />
-            <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Methodology</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Technical implementation details</p>
-            </div>
-          </div>
-        </Link>
-
-        <Link href="/data" className="block p-4 bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded hover:border-gray-300 dark:hover:border-gray-600 transition-colors">
-          <div className="flex items-start gap-3">
-            <Database className="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" />
-            <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Data & API</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Complete data dictionary and API docs</p>
-            </div>
-          </div>
-        </Link>
-
-        <Link href="/resources" className="block p-4 bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded hover:border-gray-300 dark:hover:border-gray-600 transition-colors">
-          <div className="flex items-start gap-3">
-            <ExternalLink className="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" />
-            <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">External Resources</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Curated tools and facility locators</p>
-            </div>
-          </div>
-        </Link>
-
-        <Link href="/analysis#maps" className="block p-4 bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded hover:border-gray-300 dark:hover:border-gray-600 transition-colors">
-          <div className="flex items-start gap-3">
-            <MapPin className="w-5 h-5 text-gray-600 dark:text-gray-400 flex-shrink-0 mt-0.5" />
-            <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Interactive Maps</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">Facility locations and access heatmaps</p>
-            </div>
-          </div>
-        </Link>
+        {navItems.map((item) => {
+          const Icon = item.icon
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="group block p-4 bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-gray-700 rounded-lg hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md dark:hover:shadow-blue-900/20 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              aria-label={`Navigate to ${item.label}`}
+            >
+              <div className="flex items-start gap-3">
+                <div className={`${item.iconBg} p-2 rounded-lg shrink-0 group-hover:scale-110 transition-transform duration-200`}>
+                  <Icon className={`w-4 h-4 ${item.iconColor}`} aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{item.label}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-snug">{item.desc}</p>
+                </div>
+              </div>
+            </Link>
+          )
+        })}
       </div>
     </div>
   )

@@ -141,14 +141,33 @@ export default function ImpactComparisonChart() {
         </ResponsiveContainer>
 
         <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-3">
-          {comparisonData.map((item) => (
-            <div key={item.metric} className="bg-slate-50 dark:bg-dark-bg-secondary border border-slate-200 dark:border-slate-700 rounded-lg p-3 transition-colors duration-300">
-              <p className="text-xs text-slate-600 dark:text-dark-text-muted mb-1">{item.metric}</p>
-              <p className={`text-lg font-bold ${item.improvement.startsWith('-') && item.metric !== 'Facility Density' ? 'text-green-600 dark:text-neon-green' : item.improvement.startsWith('+') ? 'text-green-600 dark:text-neon-green' : 'text-red-600 dark:text-neon-pink'}`}>
-                {item.improvement}
-              </p>
-            </div>
-          ))}
+          {comparisonData.map((item) => {
+            // Determine if the improvement is a "good" direction
+            // For Facility Density, higher is better (+). For all others, lower is better (-).
+            const isFacilityDensity = item.metric === 'Facility Density'
+            const isPositive = isFacilityDensity
+              ? item.improvement.startsWith('+')
+              : item.improvement.startsWith('-')
+
+            return (
+              <div
+                key={item.metric}
+                className={`border rounded-lg p-3 transition-colors duration-300 ${
+                  isPositive
+                    ? 'bg-green-50 dark:bg-green-900/10 border-green-200 dark:border-green-800'
+                    : 'bg-red-50 dark:bg-red-900/10 border-red-200 dark:border-red-800'
+                }`}
+              >
+                <p className="text-xs text-slate-600 dark:text-dark-text-muted mb-1 leading-snug">{item.metric}</p>
+                <p className={`text-lg font-bold tabular-nums ${isPositive ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'}`}>
+                  {item.improvement}
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  {item.current.toLocaleString()} → {item.projected.toLocaleString()} {item.unit}
+                </p>
+              </div>
+            )
+          })}
         </div>
 
         <div className="mt-4 bg-gray-50 dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded p-3">

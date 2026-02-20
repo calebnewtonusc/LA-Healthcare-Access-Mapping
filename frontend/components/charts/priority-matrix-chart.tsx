@@ -1,6 +1,6 @@
 'use client'
 
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Legend } from 'recharts'
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Legend, ReferenceLine } from 'recharts'
 
 interface Recommendation {
   id: string
@@ -89,37 +89,37 @@ export default function PriorityMatrixChart() {
                 </div>
               )}
             />
+            {/* Quadrant dividers */}
+            <ReferenceLine x={50} stroke="#cbd5e1" strokeDasharray="5 5" strokeWidth={1} />
+            <ReferenceLine y={50} stroke="#cbd5e1" strokeDasharray="5 5" strokeWidth={1} />
             <Scatter name="Recommendations" data={recommendations}>
               {recommendations.map((entry) => (
                 <Cell
                   key={`cell-${entry.id}`}
                   fill={PRIORITY_COLORS[entry.priority as keyof typeof PRIORITY_COLORS]}
-                  r={12}
+                  r={14}
                 />
               ))}
             </Scatter>
-            {/* Quadrant lines */}
-            <line x1="50%" y1="0%" x2="50%" y2="100%" stroke="#cbd5e1" strokeWidth={1} strokeDasharray="5 5" />
-            <line x1="0%" y1="50%" x2="100%" y2="50%" stroke="#cbd5e1" strokeWidth={1} strokeDasharray="5 5" />
           </ScatterChart>
         </ResponsiveContainer>
 
         <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
-          <div className="bg-gray-50 dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded p-2">
-            <p className="font-semibold text-gray-900 dark:text-dark-text-primary">High Urgency + High Impact</p>
-            <p className="text-gray-600 dark:text-dark-text-secondary">Immediate action required</p>
+          <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded p-2">
+            <p className="font-semibold text-red-800 dark:text-red-300">High Urgency + High Impact</p>
+            <p className="text-red-700 dark:text-red-400">Act immediately</p>
+          </div>
+          <div className="bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800 rounded p-2">
+            <p className="font-semibold text-amber-800 dark:text-amber-300">High Urgency + Low Impact</p>
+            <p className="text-amber-700 dark:text-amber-400">Quick wins, address soon</p>
+          </div>
+          <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 rounded p-2">
+            <p className="font-semibold text-blue-800 dark:text-blue-300">Low Urgency + High Impact</p>
+            <p className="text-blue-700 dark:text-blue-400">Strategic, long-term planning</p>
           </div>
           <div className="bg-gray-50 dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded p-2">
-            <p className="font-semibold text-gray-900 dark:text-dark-text-primary">High Urgency + Low Impact</p>
-            <p className="text-gray-600 dark:text-dark-text-secondary">Quick wins, address soon</p>
-          </div>
-          <div className="bg-gray-50 dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded p-2">
-            <p className="font-semibold text-gray-900 dark:text-dark-text-primary">Low Urgency + High Impact</p>
-            <p className="text-gray-600 dark:text-dark-text-secondary">Strategic planning needed</p>
-          </div>
-          <div className="bg-gray-50 dark:bg-dark-bg-tertiary border border-gray-200 dark:border-gray-700 rounded p-2">
-            <p className="font-semibold text-gray-900 dark:text-dark-text-primary">Low Urgency + Low Impact</p>
-            <p className="text-gray-600 dark:text-dark-text-secondary">Monitor and review</p>
+            <p className="font-semibold text-gray-700 dark:text-dark-text-primary">Low Urgency + Low Impact</p>
+            <p className="text-gray-500 dark:text-dark-text-secondary">Monitor and review</p>
           </div>
         </div>
       </div>

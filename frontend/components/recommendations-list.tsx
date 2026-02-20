@@ -81,7 +81,7 @@ export function RecommendationsList({ recommendations: ssrRecommendations }: Rec
             return (
               <div
                 key={rec.Title || index}
-                className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-blue-300 dark:hover:border-blue-600 transition-colors cursor-pointer"
+                className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-sm transition-all duration-200 cursor-pointer focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none"
                 onClick={() => toggleExpand(index)}
                 role="button"
                 tabIndex={0}
@@ -92,6 +92,7 @@ export function RecommendationsList({ recommendations: ssrRecommendations }: Rec
                   }
                 }}
                 aria-expanded={isExpanded}
+                aria-label={`${isExpanded ? 'Collapse' : 'Expand'} recommendation: ${rec.Title}`}
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3 flex-1">

@@ -27,27 +27,30 @@ export function Breadcrumbs() {
 
   return (
     <nav aria-label="Breadcrumb" className="mb-6">
-      <ol className="flex items-center gap-2 text-sm">
+      <ol className="flex items-center gap-1.5 text-sm flex-wrap">
         {breadcrumbs.map((crumb, index) => {
           const isLast = index === breadcrumbs.length - 1
           const Icon = crumb.icon
 
           return (
-            <li key={crumb.href} className="flex items-center gap-2">
+            <li key={crumb.href} className="flex items-center gap-1.5">
               {index > 0 && (
-                <ChevronRight className="w-4 h-4 text-slate-400 dark:text-dark-text-muted" />
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400 dark:text-dark-text-muted shrink-0" aria-hidden="true" />
               )}
               {isLast ? (
-                <span className="text-slate-900 dark:text-dark-text-primary font-medium flex items-center gap-1.5">
-                  {Icon && <Icon className="w-4 h-4" />}
+                <span
+                  className="text-slate-900 dark:text-dark-text-primary font-semibold flex items-center gap-1.5"
+                  aria-current="page"
+                >
+                  {Icon && <Icon className="w-3.5 h-3.5" aria-hidden="true" />}
                   {crumb.name}
                 </span>
               ) : (
                 <Link
                   href={crumb.href}
-                  className="text-slate-600 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-neon-cyan transition-colors flex items-center gap-1.5"
+                  className="text-slate-500 dark:text-dark-text-secondary hover:text-slate-900 dark:hover:text-dark-text-primary transition-colors flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
                 >
-                  {Icon && <Icon className="w-4 h-4" />}
+                  {Icon && <Icon className="w-3.5 h-3.5" aria-hidden="true" />}
                   {crumb.name}
                 </Link>
               )}

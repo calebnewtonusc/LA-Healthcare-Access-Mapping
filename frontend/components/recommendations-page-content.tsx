@@ -142,7 +142,7 @@ export function RecommendationsPageContent({ recommendations }: RecommendationsP
       <EmptyState
         title="Unable to load recommendations"
         message="There was an error loading the policy recommendations. Please try again later."
-        icon={<FileQuestion className="w-16 h-16 text-red-400 mb-4" />}
+        icon={<FileQuestion className="w-10 h-10 text-red-400" />}
       />
     )
   }
@@ -174,7 +174,7 @@ export function RecommendationsPageContent({ recommendations }: RecommendationsP
         <EmptyState
           title="No recommendations match your filters"
           message="Try adjusting your search terms or filters to see more results."
-          icon={<FileQuestion className="w-16 h-16 text-gray-400 mb-4" />}
+          icon={<FileQuestion className="w-10 h-10 text-gray-400" />}
         />
       )}
     </div>

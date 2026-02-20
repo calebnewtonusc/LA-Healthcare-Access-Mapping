@@ -1,6 +1,6 @@
 'use client'
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from 'recharts'
 
 const regionalData = [
   { region: 'Central LA', tracts: 412, accessDeserts: 18500, avgDistance: 1.2, facilityDensity: 6.2, score: 72 },
@@ -11,6 +11,12 @@ const regionalData = [
   { region: 'San Gabriel Valley', tracts: 386, accessDeserts: 4100, avgDistance: 0.9, facilityDensity: 5.9, score: 74 },
   { region: 'South Bay', tracts: 172, accessDeserts: 1630, avgDistance: 0.8, facilityDensity: 6.7, score: 79 },
 ]
+
+// LA County weighted average score across all 7 regions
+const COUNTY_AVERAGE = Math.round(
+  regionalData.reduce((sum, r) => sum + r.score * r.tracts, 0) /
+  regionalData.reduce((sum, r) => sum + r.tracts, 0)
+)
 
 const getScorePattern = (score: number) => {
   if (score >= 75) return 'url(#pattern-excellent)'
@@ -84,6 +90,17 @@ export default function RegionalBreakdownChart() {
                   )
                 }
                 return null
+              }}
+            />
+            <ReferenceLine
+              y={COUNTY_AVERAGE}
+              stroke="#6b7280"
+              strokeDasharray="6 3"
+              strokeWidth={1.5}
+              label={{
+                value: `County avg: ${COUNTY_AVERAGE}`,
+                position: 'insideTopRight',
+                style: { fill: '#6b7280', fontSize: 11, fontWeight: 600 },
               }}
             />
             <Bar dataKey="score" radius={[8, 8, 0, 0]}>

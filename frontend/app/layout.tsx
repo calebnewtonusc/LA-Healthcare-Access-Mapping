@@ -11,6 +11,8 @@ import { ThemeToggle } from '@/components/theme-toggle'
 import { WebSocketProvider } from '@/components/providers/websocket-provider'
 import { ConnectionIndicator } from '@/components/ui/connection-indicator'
 import { ErrorBoundary } from '@/components/error-boundary'
+import { ScrollProgress } from '@/components/scroll-progress'
+import { ActiveNavLink } from '@/components/active-nav-link'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -99,6 +101,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-dark-bg-primary dark:via-dark-bg-secondary dark:to-dark-bg-primary transition-colors duration-300`}>
         <ThemeProvider>
           <WebSocketProvider enabled={isWebSocketEnabled}>
+            <ScrollProgress />
             <a href="#main-content" className="skip-to-content">
               Skip to main content
             </a>
@@ -109,21 +112,25 @@ export default function RootLayout({
             <div className="container mx-auto px-4 py-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <Link href="/" className="flex items-center gap-3" aria-label="LA Healthcare Access Dashboard - Home">
+                  <Link
+                    href="/"
+                    className="flex items-center gap-3 group rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                    aria-label="LA Healthcare Access Dashboard - Home"
+                  >
                     <Image
                       src="/logo.png"
                       alt="LA Healthcare Access Logo"
                       width={40}
                       height={40}
-                      className="object-contain"
+                      className="object-contain group-hover:scale-105 transition-transform duration-200"
                       priority
                     />
                     <div>
-                      <h1 className="text-lg font-bold text-gray-900 dark:text-white">
+                      <h1 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
                         LA Healthcare Access Dashboard
                       </h1>
                       <p className="text-xs text-gray-600 dark:text-gray-400">
-                        GIS Analysis & Educational Demo
+                        GIS Analysis &amp; Educational Demo
                       </p>
                     </div>
                   </Link>
@@ -135,34 +142,22 @@ export default function RootLayout({
                   )}
                   <ThemeToggle />
                   <nav aria-label="Main navigation" className="hidden md:flex items-center gap-6">
-                    <Link
-                      href="/"
-                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors font-medium"
-                      aria-label="Navigate to Home page"
-                    >
-                      Home
-                    </Link>
-                    <Link
-                      href="/analysis"
-                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors font-medium"
-                      aria-label="Navigate to Data Analysis page"
-                    >
-                      Analysis
-                    </Link>
-                    <Link
-                      href="/methodology"
-                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors font-medium"
-                      aria-label="Navigate to Methodology page"
-                    >
-                      Methodology
-                    </Link>
-                    <Link
-                      href="/about"
-                      className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors font-medium"
-                      aria-label="Navigate to About page"
-                    >
-                      About
-                    </Link>
+                    {[
+                      { href: '/', label: 'Home' },
+                      { href: '/analysis', label: 'Analysis' },
+                      { href: '/methodology', label: 'Methodology' },
+                      { href: '/about', label: 'About' },
+                    ].map(({ href, label }) => (
+                      <ActiveNavLink
+                        key={href}
+                        href={href}
+                        aria-label={`Navigate to ${label} page`}
+                        className="relative text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors font-medium py-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-blue-600 dark:after:bg-blue-400 hover:after:w-full after:transition-all after:duration-200"
+                        activeClassName="text-blue-600 dark:text-blue-400 after:!w-full"
+                      >
+                        {label}
+                      </ActiveNavLink>
+                    ))}
                   </nav>
                 <MobileNav />
               </div>
