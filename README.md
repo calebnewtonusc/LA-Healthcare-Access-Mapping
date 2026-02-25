@@ -17,12 +17,12 @@ Geospatial data science platform that maps healthcare facility access gaps acros
 
 ## Features
 
-- **KD-tree spatial analysis** — O(log n) nearest-neighbor search across 4,512 validated facility locations using CA State Plane (EPSG:2229) and CA Albers (EPSG:3310) projections for metric accuracy
-- **Access desert identification** — 80,831 residents flagged as living in underserved tracts, with geocoded priority sites for 10 new facilities
-- **Interactive maps** — Folium-based facility location and access desert heatmaps served via FastAPI, with fullscreen controls
-- **Policy recommendation engine** — 5 evidence-based interventions ranked by urgency, cost, and ROI (projected 539.9% return on $645M investment over 10 years)
-- **6-section web app** — Home, Analysis, Recommendations, Methodology, Data & API, and Resources with Framer Motion animations and a green Apple design theme
-- **Auto-updating pipeline** — GitHub Actions triggers monthly data collection and re-analysis, committing updated outputs and redeploying automatically
+- **KD-tree spatial analysis**: O(log n) nearest-neighbor search across 4,512 validated facility locations using CA State Plane (EPSG:2229) and CA Albers (EPSG:3310) projections for metric accuracy
+- **Access desert identification**: 80,831 residents flagged as living in underserved tracts, with geocoded priority sites for 10 new facilities
+- **Interactive maps**: Folium-based facility location and access desert heatmaps served via FastAPI, with fullscreen controls
+- **Policy recommendation engine**: 5 evidence-based interventions ranked by urgency, cost, and ROI (projected 539.9% return on $645M investment over 10 years)
+- **6-section web app**: Home, Analysis, Recommendations, Methodology, Data & API, and Resources with Framer Motion animations and a green Apple design theme
+- **Auto-updating pipeline**: GitHub Actions triggers monthly data collection and re-analysis, committing updated outputs and redeploying automatically
 
 ## Key Stats
 
@@ -88,7 +88,7 @@ la-healthcare-access-mapping/
 ├── frontend/              # Next.js 16 app (6-section architecture)
 │   ├── app/               # App Router: home, analysis, recommendations, methodology, data, resources
 │   └── components/        # Charts (Recharts), maps, breadcrumbs, mobile nav, SEO
-├── backend/               # FastAPI — 7 REST endpoints, serves maps and analysis outputs
+├── backend/               # FastAPI: 7 REST endpoints, serves maps and analysis outputs
 ├── src/
 │   ├── data_collection/   # Census API + CDPH scraper with retry logic
 │   ├── data_processing/   # Merging, validation, coordinate checks
@@ -115,4 +115,4 @@ la-healthcare-access-mapping/
 
 ## Author
 
-**Caleb Newton** — [calebnewton.me](https://calebnewton.me) | [GitHub](https://github.com/calebnewtonusc)
+**Caleb Newton** | [calebnewton.me](https://calebnewton.me) | [GitHub](https://github.com/calebnewtonusc)
