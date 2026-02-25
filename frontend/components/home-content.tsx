@@ -1,9 +1,24 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { BarChart3, MapPin, Lightbulb, Database, ExternalLink, AlertTriangle, Clock, ArrowRight, Share2, BookOpen, Building2, CheckCircle, X } from 'lucide-react'
+import { motion, useInView, animate } from 'framer-motion'
+import {
+  BarChart3,
+  MapPin,
+  Lightbulb,
+  Database,
+  ExternalLink,
+  ArrowRight,
+  X,
+  Users,
+  DollarSign,
+  Map,
+  BookOpen,
+} from 'lucide-react'
 import { useRealtimeStats } from '@/lib/hooks/use-realtime-stats'
+
+// ---- Types ----
 
 interface Stats {
   total_facilities?: number
@@ -15,396 +30,126 @@ interface Stats {
   roi?: string
 }
 
-// ---- Shared style tokens ----
+// ---- Animation constants ----
 
-const cardBase: React.CSSProperties = {
-  background: '#ffffff',
-  borderRadius: '16px',
-  boxShadow: '0 1px 6px rgba(0,0,0,0.07)',
-  border: 'none',
+const EASE_APPLE = [0.25, 0.46, 0.45, 0.94] as const
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+  },
 }
 
-const cardHover = {
-  ...cardBase,
-  transition: 'box-shadow 0.2s ease, transform 0.2s ease',
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: EASE_APPLE },
+  },
 }
 
-// ---- Sub-components ----
+// ---- Animated counter hook ----
 
-function ResearchDisclaimer() {
-  const [dismissed, setDismissed] = useState(false)
-
+function useCountUp(target: number, duration = 1.6, enabled = true) {
+  const [display, setDisplay] = useState(0)
   useEffect(() => {
-    try {
-      if (sessionStorage.getItem('disclaimer-dismissed') === '1') {
-        setDismissed(true)
-      }
-    } catch { /* sessionStorage may be blocked */ }
-  }, [])
-
-  const dismiss = () => {
-    setDismissed(true)
-    try { sessionStorage.setItem('disclaimer-dismissed', '1') } catch { /* ignore */ }
-  }
-
-  if (dismissed) return null
-
-  return (
-    <div
-      style={{
-        ...cardBase,
-        marginBottom: '32px',
-        padding: '16px 20px',
-        background: 'rgba(52, 199, 89, 0.06)',
-        border: '1px solid rgba(52, 199, 89, 0.22)',
-      }}
-      role="note"
-      aria-label="Educational research disclaimer"
-    >
-      <div className="flex gap-3">
-        <AlertTriangle
-          className="h-5 w-5 flex-shrink-0 mt-0.5"
-          style={{ color: '#34C759' }}
-          aria-hidden="true"
-        />
-        <div className="flex-1">
-          <h3
-            style={{
-              fontWeight: 700,
-              fontSize: '14px',
-              color: '#1c1c1e',
-              marginBottom: '4px',
-              letterSpacing: '-0.1px',
-            }}
-          >
-            Educational Research Project
-          </h3>
-          <p style={{ fontSize: '13px', color: '#3a3a3c', lineHeight: 1.5, margin: 0 }}>
-            This dashboard represents <strong>independent student research</strong> for educational purposes.
-            It has not been peer-reviewed or validated by public health experts.
-            Data estimates have <strong>&plusmn;30&ndash;50% uncertainty</strong>.{' '}
-            <Link
-              href="/limitations"
-              style={{ color: '#007AFF', textDecoration: 'underline', fontWeight: 600 }}
-            >
-              See full list of limitations
-            </Link>
-          </p>
-        </div>
-        <button
-          onClick={dismiss}
-          aria-label="Dismiss disclaimer"
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            color: '#8e8e93',
-            padding: '2px',
-            borderRadius: '6px',
-            lineHeight: 1,
-          }}
-          className="hover:opacity-60 transition-opacity focus-visible:ring-2 focus-visible:ring-offset-1"
-        >
-          <X className="h-4 w-4" aria-hidden="true" />
-        </button>
-      </div>
-    </div>
-  )
+    if (!enabled) return
+    const controls = animate(0, target, {
+      duration,
+      ease: 'easeOut',
+      onUpdate(v) {
+        setDisplay(Math.round(v))
+      },
+    })
+    return () => controls.stop()
+  }, [target, duration, enabled])
+  return display
 }
 
-function DashboardTitle() {
+// ---- Hero Section ----
+
+function Hero() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-50px' })
+
   return (
-    <div className="mb-12 text-center">
-      {/* Section pill label */}
-      <div
+    <section
+      ref={ref}
+      style={{
+        minHeight: '70vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: '80px 24px 64px',
+      }}
+    >
+      {/* Location label */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, ease: EASE_APPLE }}
         style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-          padding: '4px 14px',
-          background: 'rgba(0, 122, 255, 0.08)',
-          border: '1px solid rgba(0, 122, 255, 0.2)',
-          borderRadius: '999px',
-          fontSize: '11px',
-          fontWeight: 700,
-          color: '#007AFF',
-          letterSpacing: '0.5px',
-          textTransform: 'uppercase' as const,
-          marginBottom: '16px',
+          fontSize: '12px',
+          fontWeight: 600,
+          letterSpacing: '1px',
+          color: '#8e8e93',
+          textTransform: 'uppercase',
+          marginBottom: '24px',
         }}
       >
-        Educational Research Project
-      </div>
+        Los Angeles County &middot; 2024
+      </motion.div>
 
-      <h1
-        style={{
-          fontSize: 'clamp(2.2rem, 5vw, 3.2rem)',
-          fontWeight: 800,
-          color: '#1c1c1e',
-          letterSpacing: '-0.5px',
-          lineHeight: 1.1,
-          marginBottom: '12px',
-        }}
+      {/* Giant title */}
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.65, ease: EASE_APPLE, delay: 0.1 }}
+        style={{ marginBottom: '28px' }}
       >
-        LA Healthcare Access Dashboard
-      </h1>
+        <h1
+          style={{
+            fontSize: 'clamp(44px, 7vw, 68px)',
+            fontWeight: 900,
+            letterSpacing: '-2px',
+            lineHeight: 1.0,
+            margin: 0,
+          }}
+        >
+          <span style={{ color: '#34C759', display: 'block' }}>Healthcare Access</span>
+          <span style={{ color: '#1c1c1e', display: 'block' }}>in Los Angeles</span>
+        </h1>
+      </motion.div>
 
-      <p
+      {/* Subtitle */}
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, ease: EASE_APPLE, delay: 0.22 }}
         style={{
           fontSize: '17px',
           color: '#3a3a3c',
-          maxWidth: '560px',
-          margin: '0 auto 10px',
-          lineHeight: 1.5,
-        }}
-      >
-        GIS Analysis &amp; Visualization Project &mdash; Interactive Educational Demo
-      </p>
-
-      <p
-        style={{
-          fontSize: '15px',
-          color: '#8e8e93',
-          maxWidth: '680px',
-          margin: '0 auto',
           lineHeight: 1.6,
+          maxWidth: '520px',
+          margin: '0 auto 40px',
+          fontWeight: 400,
         }}
       >
-        Geospatial analysis exploring healthcare facility access across Los Angeles County&apos;s{' '}
-        <span style={{ fontWeight: 700, color: '#007AFF', fontVariantNumeric: 'tabular-nums' }}>
-          2,498 census tracts
-        </span>
-        , serving an estimated{' '}
-        <span style={{ fontWeight: 700, color: '#007AFF' }}>9.9 million residents</span>
-      </p>
-    </div>
-  )
-}
+        Geospatial analysis of 2,498 census tracts covering 9.9M residents. Identifying healthcare
+        deserts and $645M investment opportunities.
+      </motion.p>
 
-function UsageGuide() {
-  return (
-    <div
-      style={{
-        ...cardBase,
-        marginBottom: '40px',
-        padding: '28px',
-      }}
-    >
-      <h2
-        style={{
-          fontSize: '20px',
-          fontWeight: 700,
-          color: '#1c1c1e',
-          letterSpacing: '-0.3px',
-          marginBottom: '20px',
-        }}
+      {/* CTA buttons */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.55, ease: EASE_APPLE, delay: 0.34 }}
+        style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '52px' }}
       >
-        How to Use This Dashboard
-      </h2>
-
-      <div className="grid md:grid-cols-2 gap-6 mb-5">
-        <div>
-          <h3
-            style={{
-              fontWeight: 700,
-              fontSize: '13px',
-              color: '#34C759',
-              marginBottom: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              textTransform: 'uppercase' as const,
-              letterSpacing: '0.4px',
-            }}
-          >
-            <CheckCircle className="w-4 h-4" /> Great for
-          </h3>
-          <ul style={{ fontSize: '13px', color: '#3a3a3c', lineHeight: 1.7, listStyle: 'none', padding: 0, margin: 0 }}>
-            {[
-              'Learning GIS analysis techniques',
-              'Exploring visualization methods',
-              'Understanding spatial access concepts',
-              'Educational discussions about healthcare equity',
-              'Portfolio demonstration of technical skills',
-            ].map((item) => (
-              <li key={item} style={{ paddingLeft: '16px', position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 0, color: '#34C759', fontWeight: 700 }}>+</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3
-            style={{
-              fontWeight: 700,
-              fontSize: '13px',
-              color: '#FF3B30',
-              marginBottom: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              textTransform: 'uppercase' as const,
-              letterSpacing: '0.4px',
-            }}
-          >
-            <X className="w-4 h-4" /> Not suitable for
-          </h3>
-          <ul style={{ fontSize: '13px', color: '#3a3a3c', lineHeight: 1.7, listStyle: 'none', padding: 0, margin: 0 }}>
-            {[
-              'Policy decisions or planning documents',
-              'Grant applications or funding requests',
-              'Official healthcare access assessments',
-              'Real-world investment decisions',
-              'Replacing community engagement',
-            ].map((item) => (
-              <li key={item} style={{ paddingLeft: '16px', position: 'relative' }}>
-                <span style={{ position: 'absolute', left: 0, color: '#FF3B30', fontWeight: 700 }}>&minus;</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      <div
-        style={{
-          paddingTop: '16px',
-          borderTop: '0.5px solid rgba(60,60,67,0.12)',
-        }}
-      >
-        <p
-          style={{
-            fontSize: '12px',
-            fontWeight: 700,
-            color: '#8e8e93',
-            textTransform: 'uppercase' as const,
-            letterSpacing: '0.5px',
-            marginBottom: '10px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-          }}
-        >
-          <MapPin className="w-3 h-3" /> For Official Data &amp; Policy Recommendations
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <a
-            href="https://data.hrsa.gov/tools/shortage-area/hpsa-find"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ fontSize: '13px', color: '#007AFF', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}
-            className="hover:underline"
-          >
-            HRSA HPSA Finder <ExternalLink className="w-3 h-3" />
-          </a>
-          <span style={{ color: 'rgba(60,60,67,0.25)' }}>&bull;</span>
-          <a
-            href="http://publichealth.lacounty.gov/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ fontSize: '13px', color: '#007AFF', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px' }}
-            className="hover:underline"
-          >
-            LA County Department of Public Health <ExternalLink className="w-3 h-3" />
-          </a>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function KeyFindings({ stats }: { stats: Stats | null }) {
-  const statCards = [
-    {
-      label: 'Healthcare Facilities Analyzed',
-      value: (stats?.total_facilities || 4512).toLocaleString(),
-      sub: 'Across LA County (Oct 2024 data)',
-      accent: '#007AFF',
-      accentBg: 'rgba(0, 122, 255, 0.07)',
-    },
-    {
-      label: 'Potential Access Gaps',
-      value: (stats?.access_desert_population || 80831).toLocaleString(),
-      sub: 'Residents living >5km from nearest facility',
-      accent: '#FF3B30',
-      accentBg: 'rgba(255, 59, 48, 0.07)',
-    },
-    {
-      label: 'Average Distance',
-      value: `${(stats?.avg_distance_km || 0.88).toFixed(2)} km`,
-      sub: 'Straight-line distance (not travel time)',
-      accent: '#34C759',
-      accentBg: 'rgba(52, 199, 89, 0.07)',
-    },
-  ]
-
-  return (
-    <div style={{ ...cardBase, marginBottom: '40px', padding: '28px' }}>
-      <h2
-        style={{
-          fontSize: '22px',
-          fontWeight: 700,
-          color: '#1c1c1e',
-          letterSpacing: '-0.3px',
-          textAlign: 'center',
-          marginBottom: '6px',
-        }}
-      >
-        Key Findings
-      </h2>
-      <p
-        style={{
-          textAlign: 'center',
-          fontSize: '12px',
-          color: '#FF9500',
-          fontWeight: 600,
-          marginBottom: '24px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '6px',
-        }}
-      >
-        <AlertTriangle className="w-3.5 h-3.5" /> Illustrative estimates &mdash; &plusmn;30&ndash;50% uncertainty
-      </p>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-7">
-        {statCards.map((card) => (
-          <div
-            key={card.label}
-            style={{
-              background: card.accentBg,
-              borderRadius: '12px',
-              padding: '20px',
-              textAlign: 'center',
-              transition: 'transform 0.15s ease',
-            }}
-            className="hover:-translate-y-0.5"
-          >
-            <div style={{ fontSize: '12px', fontWeight: 600, color: card.accent, marginBottom: '6px', letterSpacing: '0.1px' }}>
-              {card.label}
-            </div>
-            <div
-              style={{
-                fontSize: '32px',
-                fontWeight: 800,
-                color: card.accent,
-                letterSpacing: '-0.5px',
-                lineHeight: 1,
-                marginBottom: '6px',
-                fontVariantNumeric: 'tabular-nums',
-              }}
-            >
-              {card.value}
-            </div>
-            <div style={{ fontSize: '11px', color: '#8e8e93' }}>{card.sub}</div>
-          </div>
-        ))}
-      </div>
-
-      <div className="text-center">
         <Link
           href="/analysis"
           style={{
@@ -413,75 +158,360 @@ function KeyFindings({ stats }: { stats: Stats | null }) {
             gap: '8px',
             background: '#34C759',
             color: '#ffffff',
-            padding: '10px 22px',
-            borderRadius: '10px',
+            padding: '14px 28px',
+            borderRadius: '999px',
             fontWeight: 700,
-            fontSize: '14px',
+            fontSize: '16px',
             textDecoration: 'none',
-            letterSpacing: '-0.1px',
-            boxShadow: '0 2px 12px rgba(52,199,89,0.30)',
-            transition: 'opacity 0.15s ease',
+            letterSpacing: '-0.2px',
+            boxShadow: '0 4px 20px rgba(52,199,89,0.38)',
+            transition: 'opacity 0.15s ease, transform 0.15s ease',
           }}
-          className="hover:opacity-90 active:opacity-80"
+          onMouseEnter={(e) => {
+            ;(e.currentTarget as HTMLElement).style.opacity = '0.88'
+            ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'
+          }}
+          onMouseLeave={(e) => {
+            ;(e.currentTarget as HTMLElement).style.opacity = '1'
+            ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+          }}
         >
-          Explore Full Analysis
-          <ArrowRight className="w-4 h-4" aria-hidden="true" />
+          Explore Analysis
+          <ArrowRight style={{ width: '16px', height: '16px' }} />
         </Link>
-      </div>
-    </div>
+        <Link
+          href="/methodology"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: 'transparent',
+            color: '#1c1c1e',
+            padding: '14px 28px',
+            borderRadius: '999px',
+            fontWeight: 700,
+            fontSize: '16px',
+            textDecoration: 'none',
+            letterSpacing: '-0.2px',
+            border: '1.5px solid rgba(60,60,67,0.22)',
+            transition: 'opacity 0.15s ease, transform 0.15s ease',
+          }}
+          onMouseEnter={(e) => {
+            ;(e.currentTarget as HTMLElement).style.opacity = '0.72'
+            ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'
+          }}
+          onMouseLeave={(e) => {
+            ;(e.currentTarget as HTMLElement).style.opacity = '1'
+            ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+          }}
+        >
+          View Methodology
+        </Link>
+      </motion.div>
+
+      {/* Key numbers strip */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.6, ease: EASE_APPLE, delay: 0.46 }}
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: '8px',
+          justifyContent: 'center',
+        }}
+      >
+        {[
+          '2,498 Tracts',
+          '9.9M Residents',
+          '80,831 Desert Population',
+          '$645M Opportunity',
+        ].map((pill) => (
+          <span
+            key={pill}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              padding: '6px 14px',
+              borderRadius: '999px',
+              background: 'rgba(60,60,67,0.06)',
+              border: '0.5px solid rgba(60,60,67,0.12)',
+              fontSize: '13px',
+              fontWeight: 600,
+              color: '#3a3a3c',
+              letterSpacing: '-0.1px',
+            }}
+          >
+            {pill}
+          </span>
+        ))}
+      </motion.div>
+    </section>
   )
 }
 
-function QuickStats({ stats }: { stats: Stats | null }) {
-  const items = [
-    { value: (stats?.total_facilities || 4512).toLocaleString(), label: 'Healthcare Facilities', accent: '#007AFF' },
-    { value: (stats?.census_tracts || 2498).toLocaleString(), label: 'Census Tracts', accent: '#AF52DE' },
-    { value: `${(stats?.avg_distance_km || 0.88).toFixed(2)} km`, label: 'Avg Distance', accent: '#34C759' },
-    { value: (stats?.facility_density || 4.5).toFixed(1), label: 'Per 10K Residents', accent: '#FF9500' },
+// ---- Animated Stat Number ----
+
+function AnimatedStat({
+  value,
+  prefix = '',
+  suffix = '',
+  color,
+}: {
+  value: number
+  prefix?: string
+  suffix?: string
+  color: string
+}) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+  const count = useCountUp(value, 1.4, inView)
+
+  return (
+    <span
+      ref={ref}
+      style={{
+        fontSize: '52px',
+        fontWeight: 800,
+        letterSpacing: '-2px',
+        color,
+        lineHeight: 1,
+        fontVariantNumeric: 'tabular-nums',
+        display: 'block',
+      }}
+    >
+      {prefix}
+      {count.toLocaleString()}
+      {suffix}
+    </span>
+  )
+}
+
+// ---- Key Findings ----
+
+function KeyFindings({ stats }: { stats: Stats | null }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-50px' })
+
+  const cards = [
+    {
+      stat: stats?.census_tracts || 2498,
+      prefix: '',
+      suffix: '',
+      label: 'Census Tracts Analyzed',
+      description: 'Complete coverage of Los Angeles County',
+      accent: '#007AFF',
+      icon: MapPin,
+    },
+    {
+      stat: stats?.access_desert_population || 80831,
+      prefix: '',
+      suffix: '',
+      label: 'Access Desert Residents',
+      description: 'Living more than 5km from nearest facility',
+      accent: '#FF3B30',
+      icon: Users,
+    },
+    {
+      stat: 645,
+      prefix: '$',
+      suffix: 'M',
+      label: 'Investment Opportunity',
+      description: 'Estimated ROI from targeted clinic placement',
+      accent: '#34C759',
+      icon: DollarSign,
+    },
   ]
 
   return (
-    <div
-      className="mb-8 grid grid-cols-2 md:grid-cols-4 gap-3"
-      aria-label="Quick statistics overview"
-    >
-      {items.map((item) => (
-        <div
-          key={item.label}
+    <section ref={ref} style={{ marginBottom: '64px' }}>
+      {/* Section label */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, ease: EASE_APPLE }}
+        style={{ marginBottom: '32px', textAlign: 'center' }}
+      >
+        <span
           style={{
-            ...cardBase,
-            padding: '16px',
-            textAlign: 'center',
-            transition: 'transform 0.15s ease',
+            fontSize: '12px',
+            fontWeight: 600,
+            letterSpacing: '1px',
+            color: '#8e8e93',
+            textTransform: 'uppercase',
           }}
-          className="hover:-translate-y-0.5"
         >
-          <div
-            style={{
-              fontSize: '26px',
-              fontWeight: 800,
-              letterSpacing: '-0.5px',
-              color: item.accent,
-              fontVariantNumeric: 'tabular-nums',
-              lineHeight: 1,
-              marginBottom: '6px',
-            }}
-          >
-            {item.value}
-          </div>
-          <div style={{ fontSize: '11px', color: '#8e8e93', fontWeight: 500 }}>{item.label}</div>
-        </div>
-      ))}
-    </div>
+          Key Findings
+        </span>
+      </motion.div>
+
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate={inView ? 'visible' : 'hidden'}
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: '16px',
+        }}
+      >
+        {cards.map((card) => {
+          const Icon = card.icon
+          return (
+            <motion.div
+              key={card.label}
+              variants={cardVariants}
+              style={{
+                background: '#ffffff',
+                borderRadius: '20px',
+                padding: '32px 28px',
+                border: '0.5px solid rgba(60,60,67,0.1)',
+                boxShadow: '0 2px 16px rgba(0,0,0,0.08)',
+                borderTop: `3px solid ${card.accent}`,
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
+              {/* Icon badge */}
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '12px',
+                  background: `${card.accent}14`,
+                  marginBottom: '20px',
+                }}
+              >
+                <Icon style={{ width: '20px', height: '20px', color: card.accent }} />
+              </div>
+
+              {/* Animated number */}
+              <AnimatedStat
+                value={card.stat}
+                prefix={card.prefix}
+                suffix={card.suffix}
+                color={card.accent}
+              />
+
+              {/* Label */}
+              <div
+                style={{
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  color: '#1c1c1e',
+                  marginTop: '10px',
+                  marginBottom: '6px',
+                  letterSpacing: '-0.1px',
+                }}
+              >
+                {card.label}
+              </div>
+              <div style={{ fontSize: '13px', color: '#8e8e93', lineHeight: 1.5 }}>
+                {card.description}
+              </div>
+            </motion.div>
+          )
+        })}
+      </motion.div>
+    </section>
   )
 }
+
+// ---- Quick Stats ----
+
+function QuickStats({ stats }: { stats: Stats | null }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-50px' })
+
+  const items = [
+    {
+      rawValue: stats?.total_facilities || 4512,
+      display: (stats?.total_facilities || 4512).toLocaleString(),
+      label: 'Healthcare Facilities',
+      accent: '#007AFF',
+    },
+    {
+      rawValue: stats?.census_tracts || 2498,
+      display: (stats?.census_tracts || 2498).toLocaleString(),
+      label: 'Census Tracts',
+      accent: '#AF52DE',
+    },
+    {
+      rawValue: null,
+      display: `${(stats?.avg_distance_km || 0.88).toFixed(2)} km`,
+      label: 'Avg Facility Distance',
+      accent: '#34C759',
+    },
+    {
+      rawValue: null,
+      display: (stats?.facility_density || 4.5).toFixed(1),
+      label: 'Facilities per 10K',
+      accent: '#FF9500',
+    },
+  ]
+
+  return (
+    <section ref={ref} style={{ marginBottom: '64px' }}>
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate={inView ? 'visible' : 'hidden'}
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: '12px',
+        }}
+        className="md:grid-cols-4"
+      >
+        {items.map((item) => (
+          <motion.div
+            key={item.label}
+            variants={cardVariants}
+            whileHover={{ y: -2, boxShadow: '0 6px 24px rgba(0,0,0,0.10)' }}
+            style={{
+              background: '#ffffff',
+              borderRadius: '16px',
+              padding: '22px 18px',
+              border: '0.5px solid rgba(60,60,67,0.1)',
+              boxShadow: '0 2px 16px rgba(0,0,0,0.08)',
+              textAlign: 'center',
+              transition: 'box-shadow 0.2s ease',
+            }}
+          >
+            <div
+              style={{
+                fontSize: '32px',
+                fontWeight: 800,
+                letterSpacing: '-1px',
+                color: item.accent,
+                fontVariantNumeric: 'tabular-nums',
+                lineHeight: 1,
+                marginBottom: '8px',
+              }}
+            >
+              {item.display}
+            </div>
+            <div style={{ fontSize: '13px', color: '#8e8e93', fontWeight: 500 }}>
+              {item.label}
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
+  )
+}
+
+// ---- Dashboard Nav ----
 
 const navItems = [
   {
     href: '/analysis',
     icon: BarChart3,
     accent: '#007AFF',
-    accentBg: 'rgba(0, 122, 255, 0.08)',
+    accentBg: 'rgba(0, 122, 255, 0.10)',
     label: 'Data Analysis',
     desc: 'Interactive charts and regional breakdowns',
   },
@@ -489,421 +519,250 @@ const navItems = [
     href: '/recommendations',
     icon: Lightbulb,
     accent: '#FF9500',
-    accentBg: 'rgba(255, 149, 0, 0.08)',
+    accentBg: 'rgba(255, 149, 0, 0.10)',
     label: 'Policy Recommendations',
     desc: 'Evidence-based interventions and ROI analysis',
   },
   {
     href: '/methodology',
-    icon: Database,
+    icon: BookOpen,
     accent: '#AF52DE',
-    accentBg: 'rgba(175, 82, 222, 0.08)',
+    accentBg: 'rgba(175, 82, 222, 0.10)',
     label: 'Methodology',
-    desc: 'Technical implementation details',
+    desc: 'Technical implementation and data sources',
   },
   {
     href: '/data',
     icon: Database,
     accent: '#32ADE6',
-    accentBg: 'rgba(50, 173, 230, 0.08)',
+    accentBg: 'rgba(50, 173, 230, 0.10)',
     label: 'Data & API',
-    desc: 'Complete data dictionary and API docs',
+    desc: 'Complete data dictionary and API documentation',
   },
   {
     href: '/resources',
     icon: ExternalLink,
     accent: '#34C759',
-    accentBg: 'rgba(52, 199, 89, 0.08)',
+    accentBg: 'rgba(52, 199, 89, 0.10)',
     label: 'External Resources',
-    desc: 'Curated tools and facility locators',
+    desc: 'Curated tools and official facility locators',
   },
   {
     href: '/analysis#maps',
-    icon: MapPin,
+    icon: Map,
     accent: '#FF3B30',
-    accentBg: 'rgba(255, 59, 48, 0.08)',
+    accentBg: 'rgba(255, 59, 48, 0.10)',
     label: 'Interactive Maps',
     desc: 'Facility locations and access heatmaps',
   },
 ]
 
 function DashboardNav() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-50px' })
+
   return (
-    <div>
-      <h2
+    <section ref={ref} style={{ marginBottom: '80px' }}>
+      {/* Section header */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.5, ease: EASE_APPLE }}
+        style={{ marginBottom: '8px' }}
+      >
+        <span
+          style={{
+            fontSize: '12px',
+            fontWeight: 600,
+            letterSpacing: '1px',
+            color: '#8e8e93',
+            textTransform: 'uppercase',
+          }}
+        >
+          Dashboard
+        </span>
+      </motion.div>
+      <motion.h2
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.55, ease: EASE_APPLE, delay: 0.06 }}
         style={{
-          fontSize: '20px',
-          fontWeight: 700,
+          fontSize: 'clamp(28px, 4vw, 40px)',
+          fontWeight: 800,
           color: '#1c1c1e',
-          letterSpacing: '-0.3px',
-          marginBottom: '16px',
+          letterSpacing: '-1px',
+          lineHeight: 1.1,
+          marginBottom: '32px',
         }}
       >
         Explore the Dashboard
-      </h2>
+      </motion.h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      {/* 3x2 grid */}
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate={inView ? 'visible' : 'hidden'}
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '12px',
+        }}
+      >
         {navItems.map((item) => {
           const Icon = item.icon
           return (
-            <Link
+            <motion.div
               key={item.href}
-              href={item.href}
-              className="group block transition-all duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-offset-2"
-              style={{
-                ...cardBase,
-                padding: '18px',
-                textDecoration: 'none',
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 24px rgba(0,0,0,0.10)'
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 6px rgba(0,0,0,0.07)'
-              }}
-              aria-label={`Navigate to ${item.label}`}
+              variants={cardVariants}
+              whileHover={{ y: -3, boxShadow: '0 8px 32px rgba(0,0,0,0.11)' }}
+              style={{ transition: 'box-shadow 0.2s ease' }}
             >
-              <div className="flex items-start gap-3">
+              <Link
+                href={item.href}
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '16px',
+                  background: '#ffffff',
+                  borderRadius: '20px',
+                  padding: '24px',
+                  border: '0.5px solid rgba(60,60,67,0.1)',
+                  boxShadow: '0 2px 16px rgba(0,0,0,0.08)',
+                  textDecoration: 'none',
+                  height: '100%',
+                }}
+              >
+                {/* Icon circle */}
                 <div
                   style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '44px',
+                    height: '44px',
+                    minWidth: '44px',
+                    borderRadius: '12px',
                     background: item.accentBg,
-                    borderRadius: '10px',
-                    padding: '8px',
-                    flexShrink: 0,
-                    transition: 'transform 0.2s ease',
                   }}
-                  className="group-hover:scale-110"
                 >
-                  <Icon style={{ width: '16px', height: '16px', color: item.accent }} aria-hidden="true" />
+                  <Icon style={{ width: '20px', height: '20px', color: item.accent }} />
                 </div>
-                <div className="min-w-0">
-                  <h3
+
+                {/* Text */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div
                     style={{
+                      fontSize: '17px',
                       fontWeight: 700,
-                      fontSize: '14px',
                       color: '#1c1c1e',
-                      letterSpacing: '-0.1px',
-                      marginBottom: '3px',
+                      letterSpacing: '-0.3px',
+                      marginBottom: '4px',
                     }}
-                    className="group-hover:opacity-80 transition-opacity"
                   >
                     {item.label}
-                  </h3>
-                  <p style={{ fontSize: '12px', color: '#8e8e93', lineHeight: 1.4, margin: 0 }}>
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#8e8e93', lineHeight: 1.45 }}>
                     {item.desc}
-                  </p>
+                  </div>
                 </div>
-              </div>
-            </Link>
+
+                {/* Arrow */}
+                <ArrowRight
+                  style={{
+                    width: '16px',
+                    height: '16px',
+                    color: item.accent,
+                    flexShrink: 0,
+                    marginTop: '2px',
+                  }}
+                />
+              </Link>
+            </motion.div>
           )
         })}
-      </div>
-    </div>
+      </motion.div>
+    </section>
   )
 }
 
-function NextSteps() {
-  const cards = [
-    {
-      icon: BarChart3,
-      accent: '#007AFF',
-      accentBg: 'rgba(0, 122, 255, 0.08)',
-      title: 'Explore the Analysis',
-      desc: 'Dive into interactive visualizations, regional breakdowns, and discover which areas face the greatest access challenges.',
-      actions: (
-        <Link
-          href="/analysis"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            background: '#007AFF',
-            color: '#fff',
-            padding: '9px 18px',
-            borderRadius: '10px',
-            fontWeight: 700,
-            fontSize: '13px',
-            textDecoration: 'none',
-            boxShadow: '0 2px 10px rgba(0,122,255,0.25)',
-          }}
-          className="hover:opacity-90 transition-opacity"
-        >
-          View Analysis <ArrowRight className="w-4 h-4" />
-        </Link>
-      ),
-    },
-    {
-      icon: BookOpen,
-      accent: '#AF52DE',
-      accentBg: 'rgba(175, 82, 222, 0.08)',
-      title: 'Learn GIS Techniques',
-      desc: 'Understand the methodology behind spatial access analysis, including data sources, calculations, and limitations.',
-      actions: (
-        <Link
-          href="/methodology"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            background: '#AF52DE',
-            color: '#fff',
-            padding: '9px 18px',
-            borderRadius: '10px',
-            fontWeight: 700,
-            fontSize: '13px',
-            textDecoration: 'none',
-            boxShadow: '0 2px 10px rgba(175,82,222,0.25)',
-          }}
-          className="hover:opacity-90 transition-opacity"
-        >
-          View Methodology <ArrowRight className="w-4 h-4" />
-        </Link>
-      ),
-    },
-    {
-      icon: Share2,
-      accent: '#34C759',
-      accentBg: 'rgba(52, 199, 89, 0.08)',
-      title: 'Share with Educators',
-      desc: 'Perfect for GIS courses, public health education, or data visualization workshops. All code and data sources are documented.',
-      actions: (
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="mailto:?subject=LA Healthcare Access Dashboard&body=Check out this educational GIS analysis project: [URL]"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: '#34C759',
-              color: '#fff',
-              padding: '9px 18px',
-              borderRadius: '10px',
-              fontWeight: 700,
-              fontSize: '13px',
-              textDecoration: 'none',
-              boxShadow: '0 2px 10px rgba(52,199,89,0.25)',
-            }}
-            className="hover:opacity-90 transition-opacity"
-          >
-            Share via Email <Share2 className="w-4 h-4" />
-          </a>
-          <Link
-            href="/data"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: 'rgba(52, 199, 89, 0.1)',
-              color: '#1c7a38',
-              padding: '9px 18px',
-              borderRadius: '10px',
-              fontWeight: 700,
-              fontSize: '13px',
-              textDecoration: 'none',
-            }}
-            className="hover:opacity-80 transition-opacity"
-          >
-            View API Docs
-          </Link>
-        </div>
-      ),
-    },
-    {
-      icon: Building2,
-      accent: '#FF9500',
-      accentBg: 'rgba(255, 149, 0, 0.08)',
-      title: 'Official Resources',
-      desc: 'For real-world healthcare decisions, consult validated data from HRSA, LA County DPH, and other official agencies.',
-      actions: (
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="https://data.hrsa.gov/tools/shortage-area/hpsa-find"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: '#FF9500',
-              color: '#fff',
-              padding: '9px 18px',
-              borderRadius: '10px',
-              fontWeight: 700,
-              fontSize: '13px',
-              textDecoration: 'none',
-              boxShadow: '0 2px 10px rgba(255,149,0,0.25)',
-            }}
-            className="hover:opacity-90 transition-opacity"
-          >
-            HRSA HPSA Finder <ExternalLink className="w-4 h-4" />
-          </a>
-          <a
-            href="http://publichealth.lacounty.gov/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: 'rgba(255, 149, 0, 0.10)',
-              color: '#8a4f00',
-              padding: '9px 18px',
-              borderRadius: '10px',
-              fontWeight: 700,
-              fontSize: '13px',
-              textDecoration: 'none',
-            }}
-            className="hover:opacity-80 transition-opacity"
-          >
-            LA County DPH <ExternalLink className="w-4 h-4" />
-          </a>
-        </div>
-      ),
-    },
-  ]
+// ---- Dismissible Disclaimer Bar ----
+
+function DisclaimerBar() {
+  const [dismissed, setDismissed] = useState(false)
+
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem('disclaimer-dismissed') === '1') {
+        setDismissed(true)
+      }
+    } catch {
+      /* sessionStorage may be blocked */
+    }
+  }, [])
+
+  const dismiss = () => {
+    setDismissed(true)
+    try {
+      sessionStorage.setItem('disclaimer-dismissed', '1')
+    } catch {
+      /* ignore */
+    }
+  }
+
+  if (dismissed) return null
 
   return (
-    <div style={{ marginTop: '64px' }}>
-      <div className="text-center mb-8">
-        <h2
-          style={{
-            fontSize: '28px',
-            fontWeight: 800,
-            color: '#1c1c1e',
-            letterSpacing: '-0.5px',
-            marginBottom: '10px',
-          }}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.4, ease: EASE_APPLE }}
+      style={{
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 40,
+        background: '#ffffff',
+        borderTop: '0.5px solid rgba(60,60,67,0.12)',
+        padding: '12px 24px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '12px',
+      }}
+      role="note"
+      aria-label="Educational research disclaimer"
+    >
+      <span style={{ fontSize: '12px', color: '#8e8e93', fontWeight: 500 }}>
+        Educational research &middot; Data uncertainty &plusmn;30&ndash;50% &middot;{' '}
+        <Link
+          href="/limitations"
+          style={{ color: '#007AFF', textDecoration: 'underline', fontWeight: 600 }}
         >
-          What&apos;s Next?
-        </h2>
-        <p style={{ fontSize: '15px', color: '#8e8e93', maxWidth: '480px', margin: '0 auto' }}>
-          You&apos;ve explored the data. Here&apos;s how you can dive deeper or share this work.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        {cards.map((card) => {
-          const Icon = card.icon
-          return (
-            <div
-              key={card.title}
-              style={{
-                ...cardBase,
-                padding: '24px',
-                transition: 'box-shadow 0.2s ease, transform 0.2s ease',
-              }}
-              className="hover:-translate-y-0.5 hover:shadow-md"
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 24px rgba(0,0,0,0.10)'
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 1px 6px rgba(0,0,0,0.07)'
-              }}
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <div
-                  style={{
-                    background: card.accentBg,
-                    borderRadius: '10px',
-                    padding: '10px',
-                    flexShrink: 0,
-                  }}
-                >
-                  <Icon style={{ width: '20px', height: '20px', color: card.accent }} />
-                </div>
-                <h3
-                  style={{
-                    fontSize: '17px',
-                    fontWeight: 700,
-                    color: '#1c1c1e',
-                    letterSpacing: '-0.2px',
-                    margin: 0,
-                  }}
-                >
-                  {card.title}
-                </h3>
-              </div>
-              <p style={{ fontSize: '13px', color: '#3a3a3c', lineHeight: 1.55, marginBottom: '16px' }}>
-                {card.desc}
-              </p>
-              {card.actions}
-            </div>
-          )
-        })}
-      </div>
-
-      {/* CTA block */}
-      <div
+          See limitations
+        </Link>
+      </span>
+      <button
+        onClick={dismiss}
+        aria-label="Dismiss disclaimer"
         style={{
-          ...cardBase,
-          padding: '40px 32px',
-          textAlign: 'center',
-          background: 'rgba(52, 199, 89, 0.04)',
-          border: '1px dashed rgba(52, 199, 89, 0.30)',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          color: '#8e8e93',
+          padding: '4px',
+          borderRadius: '6px',
+          display: 'flex',
+          alignItems: 'center',
+          lineHeight: 1,
+          flexShrink: 0,
         }}
       >
-        <h3
-          style={{
-            fontSize: '20px',
-            fontWeight: 700,
-            color: '#1c1c1e',
-            letterSpacing: '-0.3px',
-            marginBottom: '8px',
-          }}
-        >
-          Ready to Explore?
-        </h3>
-        <p style={{ fontSize: '14px', color: '#8e8e93', marginBottom: '24px' }}>
-          Start with the interactive analysis or jump straight to the methodology.
-        </p>
-        <div className="flex flex-wrap gap-4 justify-center">
-          <Link
-            href="/analysis"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: '#34C759',
-              color: '#fff',
-              padding: '12px 24px',
-              borderRadius: '12px',
-              fontWeight: 700,
-              fontSize: '15px',
-              textDecoration: 'none',
-              letterSpacing: '-0.2px',
-              boxShadow: '0 2px 14px rgba(52,199,89,0.30)',
-            }}
-            className="hover:opacity-90 transition-opacity"
-          >
-            <BarChart3 className="w-4 h-4" />
-            Start Exploring
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-          <Link
-            href="/recommendations"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: '#ffffff',
-              color: '#1c1c1e',
-              padding: '12px 24px',
-              borderRadius: '12px',
-              fontWeight: 700,
-              fontSize: '15px',
-              textDecoration: 'none',
-              letterSpacing: '-0.2px',
-              boxShadow: '0 1px 6px rgba(0,0,0,0.07)',
-              border: '0.5px solid rgba(60,60,67,0.15)',
-            }}
-            className="hover:opacity-80 transition-opacity"
-          >
-            <Lightbulb className="w-4 h-4" />
-            View Recommendations
-          </Link>
-        </div>
-      </div>
-    </div>
+        <X style={{ width: '14px', height: '14px' }} aria-hidden="true" />
+      </button>
+    </motion.div>
   )
 }
 
@@ -914,28 +773,21 @@ export function HomeContent({ stats: ssrStats }: { stats: Stats | null }) {
   const stats = realtimeStats || ssrStats
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-5xl">
-      <ResearchDisclaimer />
-      <DashboardTitle />
-      <UsageGuide />
-      <KeyFindings stats={stats} />
-      <QuickStats stats={stats} />
-
-      {/* Data timestamp */}
+    <>
       <div
-        className="mb-10 flex items-center justify-center gap-2 flex-wrap"
-        style={{ fontSize: '11px', color: '#8e8e93' }}
+        className="container mx-auto px-4 max-w-5xl"
+        style={{ paddingBottom: '100px' /* room for disclaimer bar */ }}
       >
-        <Clock className="w-3 h-3" />
-        <span>Data: 2020 Census &bull; Oct 2024 Facility Data</span>
-        <span style={{ color: 'rgba(60,60,67,0.25)' }}>&bull;</span>
-        <span>Last updated: {new Date().toLocaleDateString()}</span>
-        <span style={{ color: 'rgba(60,60,67,0.25)' }}>&bull;</span>
-        <span style={{ color: '#FF9500', fontWeight: 600 }}>&plusmn;30% uncertainty</span>
+        <Hero />
+
+        <KeyFindings stats={stats} />
+
+        <QuickStats stats={stats} />
+
+        <DashboardNav />
       </div>
 
-      <DashboardNav />
-      <NextSteps />
-    </div>
+      <DisclaimerBar />
+    </>
   )
 }
