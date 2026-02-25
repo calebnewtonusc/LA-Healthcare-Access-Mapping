@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Comprehensive directory of government healthcare mapping tools, datasets, and healthcare access resources for Los Angeles County. Includes HRSA Health Finder, LA County Public Health maps, CHHS data portal, federal HPSA designations, and more authoritative sources for healthcare access research.',
   keywords: 'healthcare resources, LA County health maps, HRSA finder, HPSA designation, MUA data, public health tools, government health data, census healthcare data, official health maps, healthcare facility finder',
   openGraph: {
-    title: 'Healthcare Resources & Official Tools - Los Angeles County',
+    title: 'Healthcare Resources & Official Tools: Los Angeles County',
     description: 'Directory of government healthcare maps, datasets, and official tools for LA County health research and facility finding.',
     type: 'website',
     url: 'https://la-healthcare-access-mapping.vercel.app/resources',

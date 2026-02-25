@@ -40,7 +40,7 @@ export const metadata = {
   description: 'Interactive data visualizations analyzing healthcare facility distribution, access gaps, and regional disparities across 2,498 census tracts in Los Angeles County. Explore maps, charts, and statistical breakdowns covering 9.9M residents.',
   keywords: 'healthcare data analysis, LA County health statistics, facility distribution charts, access desert maps, regional health disparities, census tract analysis, geospatial healthcare data, public health visualization',
   openGraph: {
-    title: 'Healthcare Access Analysis - Los Angeles County Data Visualizations',
+    title: 'Healthcare Access Analysis: Los Angeles County Data Visualizations',
     description: 'Explore interactive maps and charts analyzing healthcare facility distribution and access gaps across 2,498 LA County census tracts.',
     type: 'website',
     url: 'https://la-healthcare-access-mapping.vercel.app/analysis',
@@ -105,7 +105,7 @@ export default async function AnalysisPage() {
                   The API server may be offline or experiencing issues. Some visualizations may not display correctly.
                 </p>
                 <p className="text-xs text-red-600 dark:text-red-500 mt-2">
-                  This is a static demo site—the backend is not always running. Try refreshing in a few minutes or view the{' '}
+                  This is a static demo site. The backend is not always running. Try refreshing in a few minutes or view the{' '}
                   <Link href="/methodology" className="underline font-semibold">methodology</Link> for technical details.
                 </p>
               </div>

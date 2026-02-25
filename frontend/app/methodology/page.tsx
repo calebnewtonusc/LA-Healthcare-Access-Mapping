@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'Comprehensive methodology documentation for LA County healthcare access analysis. Includes data sources (2020 Census, DHHS facilities), Haversine formula calculations, KD-tree spatial analysis, ROI modeling, and validation methods with detailed limitations and uncertainty estimates.',
   keywords: 'healthcare analysis methodology, Haversine formula, spatial analysis, KD-tree algorithm, census tract analysis, healthcare data sources, ROI calculation, access score methodology, geospatial analysis methods, public health research methods',
   openGraph: {
-    title: 'Methodology & Data Sources - LA Healthcare Access Analysis',
+    title: 'Methodology & Data Sources: LA Healthcare Access Analysis',
     description: 'Detailed methodology documentation including data sources, spatial analysis algorithms, ROI modeling, and validation methods for LA County healthcare access research.',
     type: 'article',
     url: 'https://la-healthcare-access-mapping.vercel.app/methodology',
@@ -242,7 +242,7 @@ function DataSourcesSection() {
           <div>
             <h3 className="font-bold text-slate-900 dark:text-dark-text-primary mb-1">Healthcare Facility Locations</h3>
             <p className="text-slate-600 dark:text-dark-text-secondary">
-              California Health and Human Services Open Data Portal - Licensed Healthcare Facilities
+              California Health and Human Services Open Data Portal: Licensed Healthcare Facilities
             </p>
             <a
               href="https://data.chhs.ca.gov/"
@@ -610,7 +610,7 @@ function MethodologySection() {
 
               <div className="mt-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-4 border-2 border-yellow-400">
                 <div className="text-xs text-yellow-800 font-semibold mb-2 flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4" /> HYPOTHETICAL ESTIMATE - Not validated | ±50% uncertainty
+                  <AlertTriangle className="w-4 h-4" /> HYPOTHETICAL ESTIMATE: Not validated | ±50% uncertainty
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
@@ -691,7 +691,7 @@ function LimitationsSection() {
                   <li>Access to a nearby dermatology clinic does not mean access to emergency or primary care</li>
                 </ul>
                 <p className="text-xs text-red-700 dark:text-red-300 mt-2 font-semibold">
-                  A comprehensive analysis would require facility classification, service type mapping, and capacity data—none of which are included in this study.
+                  A comprehensive analysis would require facility classification, service type mapping, and capacity data. None of which are included in this study.
                 </p>
               </div>
             </div>
@@ -1153,7 +1153,7 @@ function AboutAnalysisSection() {
         </p>
         <p className="text-xs text-slate-600 dark:text-dark-text-secondary p-3 bg-slate-50/80 rounded border border-slate-200">
           <strong className="text-slate-800">Academic Context:</strong> This analysis complements official healthcare access assessments with
-          granular, data-driven insights. It should be used alongside—not instead of—official HPSA/MUA designations and local health department guidance.
+          granular, data-driven insights. It should be used alongside, not instead of, official HPSA/MUA designations and local health department guidance.
         </p>
       </div>
     </div>

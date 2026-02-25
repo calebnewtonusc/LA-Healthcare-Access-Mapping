@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { AlertTriangle, ExternalLink } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Limitations & What\'s Missing - LA Healthcare Access Dashboard',
+  title: 'Limitations & What\'s Missing | LA Healthcare Access Dashboard',
   description: 'Honest assessment of what this analysis does NOT include and its limitations for decision-making.',
 }
 
@@ -89,10 +89,10 @@ function CommunityContextSection() {
               <ExternalLink className="w-4 h-4" /><span>LA County DHS Community Health Centers</span>
             </a>
             <a href="http://findahealthcenter.hrsa.gov/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline">
-              <ExternalLink className="w-4 h-4" /><span>HRSA Health Center Locator - Find FQHCs & CHCs</span>
+              <ExternalLink className="w-4 h-4" /><span>HRSA Health Center Locator: Find FQHCs & CHCs</span>
             </a>
             <a href="https://211la.org/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline">
-              <ExternalLink className="w-4 h-4" /><span>211 LA - Community Services Navigator</span>
+              <ExternalLink className="w-4 h-4" /><span>211 LA: Community Services Navigator</span>
             </a>
           </div>
         </div>
@@ -144,10 +144,10 @@ export default function LimitationsPage() {
         <h2 className="text-xl font-bold text-green-900 dark:text-green-200 mb-4">For More Comprehensive Analysis, Use These Official Resources:</h2>
         <div className="space-y-3">
           <a href="https://data.hrsa.gov/tools/shortage-area/hpsa-find" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-green-700 dark:text-green-300 hover:underline">
-            <ExternalLink className="w-4 h-4" /><span><strong>HRSA HPSA Finder</strong> - Official federal Health Professional Shortage Area designations</span>
+            <ExternalLink className="w-4 h-4" /><span><strong>HRSA HPSA Finder:</strong> Official federal Health Professional Shortage Area designations</span>
           </a>
           <a href="http://publichealth.lacounty.gov/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-green-700 dark:text-green-300 hover:underline">
-            <ExternalLink className="w-4 h-4" /><span><strong>LA County Department of Public Health</strong> - Official county health data and planning</span>
+            <ExternalLink className="w-4 h-4" /><span><strong>LA County Department of Public Health:</strong> Official county health data and planning</span>
           </a>
         </div>
       </div>

@@ -85,7 +85,7 @@ function DataUseSection() {
       <p className="text-gray-700 dark:text-gray-300 mb-4">Your theme preference (dark/light mode) is stored locally in your browser solely for your convenience. It is never transmitted to our servers or any third party.</p>
       <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4 mt-4">
         <p className="text-sm text-green-800 dark:text-green-300 font-semibold">
-          We do NOT sell, share, rent, or disclose data to third parties — because we have no data to share. This is an educational student project, not a commercial operation.
+          We do NOT sell, share, rent, or disclose data to third parties. We have no data to share. This is an educational student project, not a commercial operation.
         </p>
       </div>
     </section>
@@ -97,7 +97,7 @@ function PrivacyRightsSection() {
     <section className="border-l-4 border-purple-500 pl-6">
       <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-dark-text-primary">Your Privacy Rights</h2>
       <h3 className="text-lg font-semibold mt-4 mb-3 text-gray-900 dark:text-dark-text-primary">Opt-Out of Analytics</h3>
-      <p className="text-gray-700 dark:text-gray-300 font-semibold text-green-600 dark:text-green-400">Not applicable — this site has ZERO analytics or tracking.</p>
+      <p className="text-gray-700 dark:text-gray-300 font-semibold text-green-600 dark:text-green-400">Not applicable. This site has ZERO analytics or tracking.</p>
       <p className="text-gray-700 dark:text-gray-300 mt-2">There is nothing to opt out of.</p>
       <h3 className="text-lg font-semibold mt-6 mb-3 text-gray-900 dark:text-dark-text-primary">Request Data Deletion</h3>
       <p className="text-gray-700 dark:text-gray-300">

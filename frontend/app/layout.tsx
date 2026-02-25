@@ -15,7 +15,7 @@ import { ActiveNavLink } from '@/components/active-nav-link'
 import { SiteFooter } from '@/components/site-footer'
 
 export const metadata: Metadata = {
-  title: 'LA Healthcare Access Dashboard - GIS Analysis & Educational Demo',
+  title: 'LA Healthcare Access Dashboard: GIS Analysis & Educational Demo',
   description:
     'Educational geospatial analysis exploring healthcare facility access across 2,498 LA County census tracts. Interactive visualization project demonstrating GIS techniques and data science methods.',
   keywords:
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   publisher: 'LA Healthcare Access Mapping',
   metadataBase: new URL('https://la-healthcare-access-mapping.vercel.app'),
   openGraph: {
-    title: 'LA Healthcare Access Dashboard - GIS Analysis & Educational Demo',
+    title: 'LA Healthcare Access Dashboard: GIS Analysis & Educational Demo',
     description:
       'Educational geospatial analysis exploring healthcare access patterns across Los Angeles County. Interactive demonstration of GIS techniques and data visualization methods.',
     url: 'https://la-healthcare-access-mapping.vercel.app',
@@ -37,13 +37,13 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'LA Healthcare Access Dashboard - Interactive maps and policy recommendations',
+        alt: 'LA Healthcare Access Dashboard: Interactive maps and policy recommendations',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'LA Healthcare Access Dashboard - Educational GIS Project',
+    title: 'LA Healthcare Access Dashboard: Educational GIS Project',
     description:
       'Interactive geospatial analysis exploring healthcare access across 2,498 LA County census tracts | Educational Demo',
     images: ['/og-image.png'],

@@ -6,7 +6,7 @@ export const metadata = {
   description: 'Live REST API documentation with endpoints for healthcare statistics, facility locations, policy recommendations, and census tract data. Free public access to LA County healthcare data covering 2,498 census tracts and 4,512 facilities. Includes JSON response examples and usage instructions.',
   keywords: 'healthcare API, REST API documentation, public health data API, facility location API, healthcare statistics API, JSON API, census tract data, LA County health data, open data API, healthcare data access',
   openGraph: {
-    title: 'API Documentation - LA County Healthcare Data Access',
+    title: 'API Documentation: LA County Healthcare Data Access',
     description: 'Free REST API with healthcare statistics, facility locations, and policy recommendations for LA County. JSON endpoints with live data.',
     type: 'website',
     url: 'https://la-healthcare-access-mapping.vercel.app/data',
@@ -267,15 +267,15 @@ export default function APIDocsPage() {
                 <ul className="space-y-2 text-sm text-slate-700 dark:text-dark-text-secondary">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span><strong>FastAPI</strong> - High-performance Python framework</span>
+                    <span><strong>FastAPI:</strong> High-performance Python framework</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span><strong>Uvicorn</strong> - ASGI server</span>
+                    <span><strong>Uvicorn:</strong> ASGI server</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span><strong>Pydantic</strong> - Data validation</span>
+                    <span><strong>Pydantic:</strong> Data validation</span>
                   </li>
                 </ul>
               </div>

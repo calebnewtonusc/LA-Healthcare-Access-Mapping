@@ -37,7 +37,7 @@ export const metadata = {
   keywords: 'healthcare scenarios, LA County health analysis, hypothetical interventions, educational examples, health equity discussion, healthcare access visualization, student research project, GIS analysis examples',
   openGraph: {
     title: 'Hypothetical Healthcare Scenarios for Los Angeles County',
-    description: 'Educational exploration of hypothetical improvement scenarios. Illustrative examples for discussion - not validated policy recommendations.',
+    description: 'Educational exploration of hypothetical improvement scenarios. Illustrative examples for discussion, not validated policy recommendations.',
     type: 'website',
     url: 'https://la-healthcare-access-mapping.vercel.app/recommendations',
     images: [
