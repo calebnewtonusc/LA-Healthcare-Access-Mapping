@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import Image from 'next/image'
 import './globals.css'
@@ -13,13 +12,6 @@ import { ConnectionIndicator } from '@/components/ui/connection-indicator'
 import { ErrorBoundary } from '@/components/error-boundary'
 import { ScrollProgress } from '@/components/scroll-progress'
 import { ActiveNavLink } from '@/components/active-nav-link'
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  preload: true,
-  variable: '--font-inter'
-})
 
 export const metadata: Metadata = {
   title: 'LA Healthcare Access Dashboard - GIS Analysis & Educational Demo',
@@ -69,7 +61,7 @@ export const viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#f8fafc', // slate-50
+  themeColor: '#f2f2f7',
 }
 
 export default function RootLayout({
@@ -77,7 +69,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Check WebSocket enabled status - defaults to false for safety
   const isWebSocketEnabled = process.env.NEXT_PUBLIC_WEBSOCKET_ENABLED === 'true'
 
   return (
@@ -94,11 +85,14 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="LA Healthcare Access" />
-
-        {/* Additional Performance Hints */}
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className={`${inter.className} bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-dark-bg-primary dark:via-dark-bg-secondary dark:to-dark-bg-primary transition-colors duration-300`}>
+      <body
+        style={{
+          fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif",
+          background: '#f2f2f7',
+          color: '#1c1c1e',
+        }}
+      >
         <ThemeProvider>
           <WebSocketProvider enabled={isWebSocketEnabled}>
             <ScrollProgress />
@@ -107,171 +101,272 @@ export default function RootLayout({
             </a>
             <StructuredData />
 
-          {/* Header */}
-          <header role="banner" className="sticky top-0 z-50 bg-white dark:bg-dark-bg-secondary border-b border-gray-200 dark:border-gray-700 shadow-sm">
-            <div className="container mx-auto px-4 py-4">
-              <div className="flex items-center justify-between">
-                <div>
+            {/* Header — frosted glass navbar */}
+            <header
+              role="banner"
+              style={{
+                position: 'sticky',
+                top: 0,
+                zIndex: 50,
+                background: 'rgba(242, 242, 247, 0.88)',
+                backdropFilter: 'blur(20px) saturate(1.8)',
+                WebkitBackdropFilter: 'blur(20px) saturate(1.8)',
+                borderBottom: '0.5px solid rgba(60, 60, 67, 0.15)',
+              }}
+            >
+              <div className="container mx-auto px-4 py-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Link
+                      href="/"
+                      className="flex items-center gap-3 group rounded-lg focus-visible:ring-2 focus-visible:ring-offset-2"
+                      style={{ outline: 'none' }}
+                      aria-label="LA Healthcare Access Dashboard - Home"
+                    >
+                      <Image
+                        src="/logo.png"
+                        alt="LA Healthcare Access Logo"
+                        width={36}
+                        height={36}
+                        className="object-contain group-hover:scale-105 transition-transform duration-200"
+                        priority
+                      />
+                      <div>
+                        <h1
+                          style={{
+                            fontSize: '16px',
+                            fontWeight: 800,
+                            letterSpacing: '-0.4px',
+                            color: '#1c1c1e',
+                            lineHeight: 1.2,
+                            margin: 0,
+                          }}
+                        >
+                          LA Healthcare Access
+                        </h1>
+                        <p
+                          style={{
+                            fontSize: '11px',
+                            color: '#8e8e93',
+                            margin: 0,
+                            letterSpacing: '0.1px',
+                          }}
+                        >
+                          GIS Analysis &amp; Educational Demo
+                        </p>
+                      </div>
+                    </Link>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    {isWebSocketEnabled && (
+                      <ConnectionIndicator size="sm" className="hidden md:flex" />
+                    )}
+                    <ThemeToggle />
+                    <nav aria-label="Main navigation" className="hidden md:flex items-center gap-1">
+                      {[
+                        { href: '/', label: 'Home' },
+                        { href: '/analysis', label: 'Analysis' },
+                        { href: '/methodology', label: 'Methodology' },
+                        { href: '/about', label: 'About' },
+                      ].map(({ href, label }) => (
+                        <ActiveNavLink
+                          key={href}
+                          href={href}
+                          aria-label={`Navigate to ${label} page`}
+                          className="px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-150"
+                          style={{
+                            color: '#3a3a3c',
+                            textDecoration: 'none',
+                          }}
+                          activeClassName="text-green-600 font-semibold"
+                        >
+                          {label}
+                        </ActiveNavLink>
+                      ))}
+                    </nav>
+                    <MobileNav />
+                  </div>
+                </div>
+              </div>
+            </header>
+
+            {/* Main content */}
+            <main id="main-content" role="main" aria-label="Main content" className="min-h-screen" tabIndex={-1}>
+              <ErrorBoundary>
+                {children}
+              </ErrorBoundary>
+            </main>
+
+            {/* Footer — clean white on #f2f2f7 */}
+            <footer
+              role="contentinfo"
+              aria-label="Site footer"
+              style={{
+                marginTop: '80px',
+                paddingTop: '48px',
+                paddingBottom: '48px',
+                background: '#ffffff',
+                borderTop: '0.5px solid rgba(60, 60, 67, 0.12)',
+              }}
+            >
+              <div className="container mx-auto px-4 flex flex-col items-center gap-6">
+                {/* Academic Research Badge */}
+                <div
+                  style={{
+                    background: 'rgba(52, 199, 89, 0.08)',
+                    border: '1px solid rgba(52, 199, 89, 0.25)',
+                    borderRadius: '999px',
+                    padding: '6px 18px',
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: '12px',
+                      fontWeight: 600,
+                      color: '#1c7a38',
+                      margin: 0,
+                      letterSpacing: '0.3px',
+                    }}
+                  >
+                    Academic Research Project &bull; Educational Purposes
+                  </p>
+                </div>
+
+                {/* USC Affiliation & Author */}
+                <div className="flex flex-col items-center gap-4">
                   <Link
-                    href="/"
-                    className="flex items-center gap-3 group rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    aria-label="LA Healthcare Access Dashboard - Home"
+                    href="/about"
+                    className="flex items-center gap-4 no-underline transition-all duration-200 hover:-translate-y-0.5"
+                    style={{
+                      padding: '16px 28px',
+                      background: '#ffffff',
+                      border: '0.5px solid rgba(60, 60, 67, 0.18)',
+                      borderRadius: '999px',
+                      boxShadow: '0 1px 6px rgba(0,0,0,0.07)',
+                    }}
                   >
                     <Image
-                      src="/logo.png"
-                      alt="LA Healthcare Access Logo"
-                      width={40}
-                      height={40}
-                      className="object-contain group-hover:scale-105 transition-transform duration-200"
-                      priority
+                      src="/caleb-usc.jpg"
+                      alt="Caleb Newton at USC"
+                      width={44}
+                      height={44}
+                      className="rounded-full object-cover"
+                      style={{ objectPosition: 'center 30%', border: '2px solid #34C759' }}
+                      loading="lazy"
                     />
-                    <div>
-                      <h1 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-                        LA Healthcare Access Dashboard
-                      </h1>
-                      <p className="text-xs text-gray-600 dark:text-gray-400">
-                        GIS Analysis &amp; Educational Demo
-                      </p>
+                    <div className="flex flex-col items-start gap-0.5">
+                      <span
+                        style={{
+                          fontSize: '11px',
+                          color: '#8e8e93',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                          fontWeight: 600,
+                        }}
+                      >
+                        Student Researcher
+                      </span>
+                      <span
+                        style={{
+                          fontSize: '15px',
+                          color: '#1c1c1e',
+                          fontWeight: 700,
+                          letterSpacing: '-0.2px',
+                        }}
+                      >
+                        Caleb Newton
+                      </span>
+                      <span
+                        style={{
+                          fontSize: '12px',
+                          color: '#007AFF',
+                          fontWeight: 500,
+                        }}
+                      >
+                        University of Southern California
+                      </span>
                     </div>
                   </Link>
+                  <a
+                    href="https://calebnewton.me"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontSize: '13px',
+                      color: '#007AFF',
+                      textDecoration: 'none',
+                    }}
+                    className="hover:underline"
+                  >
+                    Visit personal website &rarr;
+                  </a>
                 </div>
-                <div className="flex items-center gap-4">
-                  {/* Connection Indicator - only show when WebSocket is enabled */}
-                  {isWebSocketEnabled && (
-                    <ConnectionIndicator size="sm" className="hidden md:flex" />
-                  )}
-                  <ThemeToggle />
-                  <nav aria-label="Main navigation" className="hidden md:flex items-center gap-6">
+
+                {/* Project Info */}
+                <div className="text-center max-w-2xl">
+                  <p
+                    style={{
+                      fontSize: '14px',
+                      fontWeight: 700,
+                      color: '#1c1c1e',
+                      marginBottom: '6px',
+                      letterSpacing: '-0.2px',
+                    }}
+                  >
+                    LA Healthcare Access Mapping
+                  </p>
+                  <p
+                    style={{
+                      fontSize: '12px',
+                      color: '#8e8e93',
+                      marginBottom: '14px',
+                    }}
+                  >
+                    Independent research analyzing healthcare facility access across Los Angeles County
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
                     {[
-                      { href: '/', label: 'Home' },
-                      { href: '/analysis', label: 'Analysis' },
-                      { href: '/methodology', label: 'Methodology' },
                       { href: '/about', label: 'About' },
-                    ].map(({ href, label }) => (
-                      <ActiveNavLink
-                        key={href}
-                        href={href}
-                        aria-label={`Navigate to ${label} page`}
-                        className="relative text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors font-medium py-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-blue-600 dark:after:bg-blue-400 hover:after:w-full after:transition-all after:duration-200"
-                        activeClassName="text-blue-600 dark:text-blue-400 after:!w-full"
-                      >
-                        {label}
-                      </ActiveNavLink>
+                      { href: '/limitations', label: 'Limitations' },
+                      { href: '/methodology', label: 'Methodology' },
+                      { href: '/privacy', label: 'Privacy' },
+                      { href: '/terms', label: 'Terms' },
+                      { href: '/accessibility', label: 'Accessibility' },
+                    ].map((link, i, arr) => (
+                      <span key={link.href} className="flex items-center gap-3">
+                        <Link
+                          href={link.href}
+                          style={{ fontSize: '12px', color: '#007AFF', textDecoration: 'none' }}
+                          className="hover:underline"
+                        >
+                          {link.label}
+                        </Link>
+                        {i < arr.length - 1 && (
+                          <span style={{ color: 'rgba(60,60,67,0.25)', fontSize: '12px' }}>|</span>
+                        )}
+                      </span>
                     ))}
-                  </nav>
-                <MobileNav />
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* Main content */}
-        <main id="main-content" role="main" aria-label="Main content" className="min-h-screen" tabIndex={-1}>
-          <ErrorBoundary>
-            {children}
-          </ErrorBoundary>
-        </main>
-
-          {/* Footer */}
-          <footer role="contentinfo" aria-label="Site footer" className="mt-20 pt-12 pb-12 bg-gradient-to-br from-slate-100/80 to-slate-200/50 dark:from-dark-bg-secondary/80 dark:to-dark-bg-tertiary/50 border-t-2 border-slate-300 dark:border-slate-700 rounded-t-3xl transition-colors duration-300">
-            <div className="container mx-auto px-4 flex flex-col items-center gap-6">
-              {/* Academic Research Badge */}
-              <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg px-6 py-3">
-                <p className="text-sm text-blue-900 dark:text-blue-200 font-semibold text-center">
-                  Academic Research Project • Educational Purposes
-                </p>
-              </div>
-
-              {/* USC Affiliation & Author */}
-              <div className="flex flex-col items-center gap-4">
-                <Link
-                  href="/about"
-                  className="flex items-center gap-4 px-8 py-6 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-full border-2 border-slate-300/60 dark:border-blue-400/30 shadow-md hover:shadow-xl hover:-translate-y-0.5 hover:border-blue-400/80 dark:hover:border-blue-400 transition-all duration-300 no-underline"
-                >
-                  <Image
-                    src="/caleb-usc.jpg"
-                    alt="Caleb Newton at USC"
-                    width={48}
-                    height={48}
-                    className="rounded-full object-cover border-2 border-blue-500 shadow-lg"
-                    style={{ objectPosition: 'center 30%' }}
-                    loading="lazy"
-                  />
-                  <div className="flex flex-col items-start gap-1">
-                    <span className="text-xs text-slate-500 dark:text-dark-text-muted uppercase tracking-wider font-semibold">
-                      Student Researcher
-                    </span>
-                    <span className="text-base text-slate-900 dark:text-dark-text-primary font-bold">
-                      Caleb Newton
-                    </span>
-                    <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">
-                      University of Southern California
-                    </span>
                   </div>
-                </Link>
-                <a
-                  href="https://calebnewton.me"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
-                >
-                  Visit personal website →
-                </a>
-              </div>
-
-              {/* Project Info */}
-              <div className="text-center text-sm text-slate-700 dark:text-dark-text-secondary max-w-2xl">
-                <p className="font-semibold text-slate-900 dark:text-dark-text-primary mb-2">
-                  LA Healthcare Access Mapping
-                </p>
-                <p className="text-xs mb-3">
-                  Independent research analyzing healthcare facility access across Los Angeles County
-                </p>
-                <div className="flex flex-wrap items-center justify-center gap-3 text-xs">
-                  <Link href="/about" className="text-blue-600 dark:text-blue-400 hover:underline">
-                    About
-                  </Link>
-                  <span className="text-gray-400">•</span>
-                  <Link href="/limitations" className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">
-                    Limitations
-                  </Link>
-                  <span className="text-gray-400">•</span>
-                  <Link href="/methodology" className="text-blue-600 dark:text-blue-400 hover:underline">
-                    Methodology
-                  </Link>
-                  <span className="text-gray-400">•</span>
-                  <Link href="/privacy" className="text-blue-600 dark:text-blue-400 hover:underline">
-                    Privacy
-                  </Link>
-                  <span className="text-gray-400">•</span>
-                  <Link href="/terms" className="text-blue-600 dark:text-blue-400 hover:underline">
-                    Terms
-                  </Link>
-                  <span className="text-gray-400">•</span>
-                  <Link href="/accessibility" className="text-blue-600 dark:text-blue-400 hover:underline">
-                    Accessibility
-                  </Link>
                 </div>
-              </div>
 
-              {/* License */}
-              <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
-                <p>
+                {/* License */}
+                <p style={{ fontSize: '11px', color: '#8e8e93', margin: 0 }}>
                   Content licensed under{' '}
                   <a
                     href="https://creativecommons.org/licenses/by/4.0/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 dark:text-blue-400 hover:underline"
+                    style={{ color: '#007AFF', textDecoration: 'none' }}
+                    className="hover:underline"
                   >
                     CC BY 4.0
                   </a>
                 </p>
               </div>
-            </div>
-          </footer>
+            </footer>
 
-          <BackToTop />
+            <BackToTop />
           </WebSocketProvider>
         </ThemeProvider>
       </body>

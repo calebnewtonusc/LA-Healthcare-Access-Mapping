@@ -3,28 +3,40 @@
 @tailwind utilities;
 
 :root {
-  /* Light mode background layers */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --bg-tertiary: #e9ecef;
+  /* Apple system background layers */
+  --bg-primary: #f2f2f7;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #e5e5ea;
 
-  /* Professional color palette */
-  --primary-blue: #2563eb;
-  --primary-purple: #7c3aed;
-  --primary-green: #059669;
-  --primary-red: #dc2626;
+  /* iOS system color palette */
+  --primary-green: #34C759;
+  --primary-blue: #007AFF;
+  --primary-purple: #AF52DE;
+  --primary-red: #FF3B30;
+  --primary-orange: #FF9500;
 
-  /* Text colors */
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --text-muted: #9ca3af;
+  /* Text colors — Apple HIG */
+  --text-primary: #1c1c1e;
+  --text-secondary: #3a3a3c;
+  --text-muted: #8e8e93;
 
-  /* Border colors */
-  --border-light: #e5e7eb;
-  --border-medium: #d1d5db;
+  /* Separator & borders */
+  --border-color: rgba(60, 60, 67, 0.12);
+  --border-opaque: #c6c6c8;
+
+  /* Elevation shadows */
+  --shadow-sm: 0 1px 6px rgba(0, 0, 0, 0.07);
+  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.10);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.13);
+
+  /* Border radii */
+  --radius-card: 16px;
+  --radius-featured: 20px;
+  --radius-pill: 999px;
 }
 
 body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
   color: var(--text-primary);
   background: var(--bg-primary);
   font-variant-numeric: tabular-nums;
@@ -32,15 +44,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Accessibility improvements */
+/* Accessibility: focus ring — iOS blue */
 *:focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid var(--primary-blue);
   outline-offset: 2px;
   border-radius: 4px;
-}
-
-.dark *:focus-visible {
-  outline-color: #00f5ff;
 }
 
 /* Skip to content link for screen readers */
@@ -49,7 +57,7 @@ body {
   left: -9999px;
   z-index: 999;
   padding: 1rem 1.5rem;
-  background-color: #2563eb;
+  background-color: var(--primary-blue);
   color: white;
   text-decoration: none;
   border-radius: 0.5rem;
@@ -72,42 +80,78 @@ body {
   }
 }
 
-/* Custom scrollbar for webkit browsers */
+/* Scrollbar — thin and subdued like macOS */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-blue);
-  border-radius: 5px;
+  background: rgba(60, 60, 67, 0.25);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-purple);
+  background: rgba(60, 60, 67, 0.40);
+  background-clip: content-box;
+  border: 2px solid transparent;
 }
 
 /* Card utility classes */
 @layer components {
   .card {
-    @apply bg-white border border-gray-200 rounded-lg shadow-sm;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-sm);
+    border: none;
   }
 
   .card-hover {
-    @apply card hover:shadow-md hover:border-blue-300 transition-all duration-200;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-sm);
+    border: none;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
 
-  /* Consistent stat number style */
+  .card-hover:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  /* Apple-style stat number */
   .stat-number {
-    @apply text-3xl font-bold tabular-nums;
+    color: var(--primary-green);
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: -0.5px;
+    font-variant-numeric: tabular-nums;
   }
 
-  /* Badge variant */
+  /* Clean pill badge */
   .badge {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  /* Section label — Apple uppercase label style */
+  .section-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
   }
 }
 
@@ -116,9 +160,9 @@ body {
     text-wrap: balance;
   }
 
-  /* Smooth gradient underline for links */
+  /* Apple-style link underline */
   .link-gradient {
-    @apply relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-gradient-to-r after:from-blue-500 after:to-purple-500 hover:after:w-full after:transition-all after:duration-300;
+    @apply relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-gradient-to-r after:from-green-500 after:to-blue-500 hover:after:w-full after:transition-all after:duration-300;
   }
 }
 
@@ -130,18 +174,12 @@ body {
 
 .skeleton-shimmer {
   animation: shimmer 2s infinite linear;
-  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+  background: linear-gradient(90deg, #e5e5ea 25%, #f2f2f7 50%, #e5e5ea 75%);
   background-size: 1000px 100%;
 }
 
-.dark .skeleton-shimmer {
-  background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
-  background-size: 1000px 100%;
-}
-
-/* Print Stylesheet - optimized for printing and PDF generation */
+/* Print Stylesheet — optimized for printing and PDF generation */
 @media print {
-  /* Hide non-essential elements */
   nav,
   header,
   footer,
@@ -157,7 +195,6 @@ body {
     display: none !important;
   }
 
-  /* Expand all collapsible content */
   .accordion-content,
   [aria-hidden="true"] {
     display: block !important;
@@ -166,7 +203,6 @@ body {
     opacity: 1 !important;
   }
 
-  /* Reset colors to black and white for better print quality */
   * {
     color: #000 !important;
     background: #fff !important;
@@ -174,7 +210,6 @@ body {
     text-shadow: none !important;
   }
 
-  /* Preserve borders for tables and cards */
   table,
   .card,
   .border,
@@ -183,7 +218,6 @@ body {
     border: 1px solid #000 !important;
   }
 
-  /* Page layout */
   @page {
     margin: 1.5cm;
     size: letter;
@@ -194,9 +228,9 @@ body {
     line-height: 1.5;
     color: #000 !important;
     background: #fff !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   }
 
-  /* Headings */
   h1 {
     font-size: 24pt;
     font-weight: bold;
@@ -217,7 +251,6 @@ body {
     page-break-after: avoid;
   }
 
-  /* Avoid breaking inside these elements */
   .recommendation-card,
   .metric-card,
   .card,
@@ -230,13 +263,11 @@ body {
     page-break-inside: avoid;
   }
 
-  /* Add page breaks before major sections */
   section,
   article {
     page-break-before: auto;
   }
 
-  /* Tables */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -254,7 +285,6 @@ body {
     background-color: #f0f0f0 !important;
   }
 
-  /* Links - show URLs after link text */
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 9pt;
@@ -262,20 +292,17 @@ body {
     word-wrap: break-word;
   }
 
-  /* Don't show URLs for internal links or skip-to-content */
   a[href^="#"]::after,
   a[href^="/"]::after,
   .skip-to-content::after {
     content: none;
   }
 
-  /* Images */
   img {
     max-width: 100%;
     page-break-inside: avoid;
   }
 
-  /* Code blocks */
   pre,
   code {
     font-family: 'Courier New', monospace;
@@ -286,13 +313,11 @@ body {
     padding: 4pt;
   }
 
-  /* Lists */
   ul,
   ol {
     margin-left: 20pt;
   }
 
-  /* Disclaimer and warning boxes - preserve with border */
   .disclaimer,
   .warning,
   [class*="yellow-"],
@@ -303,7 +328,6 @@ body {
     background-color: #f5f5f5 !important;
   }
 
-  /* Charts - include alt text description */
   [role="img"]::after {
     content: " [Chart: " attr(aria-label) "]";
     display: block;
@@ -312,20 +336,17 @@ body {
     margin-top: 5pt;
   }
 
-  /* Container adjustments */
   .container {
     max-width: 100% !important;
     padding: 0 !important;
   }
 
-  /* Remove gradients */
   [class*="gradient"],
   [class*="backdrop-blur"] {
     background-image: none !important;
     backdrop-filter: none !important;
   }
 
-  /* Print-specific utilities */
   .print-only {
     display: block !important;
   }
@@ -334,7 +355,6 @@ body {
     display: none !important;
   }
 
-  /* Add print date/time */
   body::before {
     content: "Printed: " attr(data-print-date);
     display: block;
@@ -344,7 +364,6 @@ body {
     margin-bottom: 10pt;
   }
 
-  /* Preserve data tables */
   .data-table {
     display: table !important;
   }
@@ -357,7 +376,6 @@ body {
     display: table-row-group;
   }
 
-  /* Page numbering */
   @page {
     @bottom-right {
       content: "Page " counter(page) " of " counter(pages);

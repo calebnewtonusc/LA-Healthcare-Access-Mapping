@@ -9,35 +9,58 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          "'SF Pro Display'",
+          "'SF Pro Text'",
+          "'Helvetica Neue'",
+          'Arial',
+          'sans-serif',
+        ],
+      },
       colors: {
-        // Minimal professional color palette
-        // Light mode backgrounds
-        'bg-primary': '#ffffff',
-        'bg-secondary': '#f9fafb',
-        'bg-tertiary': '#f3f4f6',
+        // Apple iOS/macOS system backgrounds
+        'bg-primary': '#f2f2f7',
+        'bg-secondary': '#ffffff',
+        'bg-tertiary': '#e5e5ea',
 
-        // Dark mode backgrounds - simple gray scale
-        'dark-bg-primary': '#111827',  // Gray-900
-        'dark-bg-secondary': '#1f2937',  // Gray-800
-        'dark-bg-tertiary': '#374151',  // Gray-700
+        // Dark mode backgrounds (keep existing gray scale)
+        'dark-bg-primary': '#111827',
+        'dark-bg-secondary': '#1f2937',
+        'dark-bg-tertiary': '#374151',
 
-        // Single accent color - minimal blue
-        'accent': '#2563eb',  // Blue-600
-        'accent-hover': '#1d4ed8',  // Blue-700
+        // iOS system accent colors
+        'accent': '#34C759',           // iOS green — healthcare primary
+        'accent-hover': '#2db34a',
+        'accent-blue': '#007AFF',      // iOS blue — links/CTAs
+        'accent-purple': '#AF52DE',    // iOS purple
+        'accent-orange': '#FF9500',    // iOS orange — warnings
+        'accent-red': '#FF3B30',       // iOS red — errors
 
-        // Text colors
-        'text-primary': '#111827',
-        'text-secondary': '#6b7280',
-        'text-muted': '#9ca3af',
+        // Text colors — Apple HIG
+        'text-primary': '#1c1c1e',
+        'text-secondary': '#3a3a3c',
+        'text-muted': '#8e8e93',
         'dark-text-primary': '#f9fafb',
         'dark-text-secondary': '#d1d5db',
         'dark-text-muted': '#9ca3af',
 
-        // Legacy neon colors - all map to gray/blue for consistency
-        'neon-cyan': '#2563eb',
-        'neon-purple': '#2563eb',
-        'neon-pink': '#2563eb',
-        'neon-green': '#10b981',
+        // Legacy aliases — mapped to Apple equivalents
+        'neon-cyan': '#007AFF',
+        'neon-purple': '#AF52DE',
+        'neon-pink': '#FF2D55',
+        'neon-green': '#34C759',
+      },
+      borderRadius: {
+        'card': '16px',
+        'featured': '20px',
+      },
+      boxShadow: {
+        'apple-sm': '0 1px 6px rgba(0,0,0,0.07)',
+        'apple-md': '0 4px 24px rgba(0,0,0,0.10)',
+        'apple-lg': '0 8px 40px rgba(0,0,0,0.13)',
       },
     },
   },
