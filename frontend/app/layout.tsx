@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import './globals.css'
 import { MobileNav } from '@/components/mobile-nav'
 import { BackToTop } from '@/components/back-to-top'
@@ -81,6 +80,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href={process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'} />
         <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -137,14 +137,12 @@ export default function RootLayout({
                   }}
                   aria-label="LA Healthcare Access Dashboard - Home"
                 >
-                  <Image
-                    src="/logo.png"
-                    alt="LA Healthcare Access Logo"
-                    width={28}
-                    height={28}
-                    style={{ objectFit: 'contain' }}
-                    priority
-                  />
+                  <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                    <rect width="32" height="32" rx="7" fill="#34C759"/>
+                    <g transform="translate(4,4)" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                    </g>
+                  </svg>
                   <span
                     style={{
                       fontSize: '17px',
